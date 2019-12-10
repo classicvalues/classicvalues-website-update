@@ -350,7 +350,20 @@ class Sidebar {
       Sidebar._sidebarInterface(this, config)
     })
   }
+
+  //add for unit-tests 05.12.2019
+  _setData(element, key, data){
+    Data.setData(element, key, data)
+  }
+
+  //add for unit-tests 05.12.2019
+  _getData(element, key){
+    return Data.getData(element, key)
+  }
+
 }
+
+
 
 /**
  * ------------------------------------------------------------------------

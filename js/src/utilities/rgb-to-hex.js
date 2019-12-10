@@ -8,7 +8,7 @@
 /* eslint-disable no-magic-numbers */
 const rgbToHex = color => {
   if (typeof color === 'undefined') {
-    throw new TypeError('Hex color is not defined')
+    throw new TypeError('RGB color is not defined')
   }
 
   if (color === 'transparent') {

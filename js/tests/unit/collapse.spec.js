@@ -145,7 +145,7 @@ describe('Collapse', () => {
           toggle: false
         }))
 
-      collapseEl2.addEventListener('shown.bs.collapse', () => {
+      collapseEl2.addEventListener('shown.coreui.collapse', () => {
         expect(collapseEl2.classList.contains('show')).toEqual(true)
         expect(collapseEl1.classList.contains('show')).toEqual(false)
         done()
@@ -195,10 +195,10 @@ describe('Collapse', () => {
         toggle: false
       })
 
-      collapseEl.addEventListener('show.bs.collapse', () => {
+      collapseEl.addEventListener('show.coreui.collapse', () => {
         expect(collapseEl.style.height).toEqual('0px')
       })
-      collapseEl.addEventListener('shown.bs.collapse', () => {
+      collapseEl.addEventListener('shown.coreui.collapse', () => {
         expect(collapseEl.classList.contains('show')).toEqual(true)
         expect(collapseEl.style.height).toEqual('')
         done()
@@ -215,10 +215,10 @@ describe('Collapse', () => {
         toggle: false
       })
 
-      collapseEl.addEventListener('show.bs.collapse', () => {
+      collapseEl.addEventListener('show.coreui.collapse', () => {
         expect(collapseEl.style.width).toEqual('0px')
       })
-      collapseEl.addEventListener('shown.bs.collapse', () => {
+      collapseEl.addEventListener('shown.coreui.collapse', () => {
         expect(collapseEl.classList.contains('show')).toEqual(true)
         expect(collapseEl.style.width).toEqual('')
         done()
@@ -243,7 +243,7 @@ describe('Collapse', () => {
         toggle: false
       })
 
-      el1.addEventListener('shown.bs.collapse', () => {
+      el1.addEventListener('shown.coreui.collapse', () => {
         expect(el1.classList.contains('show')).toEqual(true)
         expect(el2.classList.contains('show')).toEqual(true)
         done()
@@ -267,12 +267,12 @@ describe('Collapse', () => {
         }, 10)
       }
 
-      collapseEl.addEventListener('show.bs.collapse', e => {
+      collapseEl.addEventListener('show.coreui.collapse', e => {
         e.preventDefault()
         expectEnd()
       })
 
-      collapseEl.addEventListener('shown.bs.collapse', () => {
+      collapseEl.addEventListener('shown.coreui.collapse', () => {
         throw new Error('should not fire shown event')
       })
 
@@ -320,7 +320,7 @@ describe('Collapse', () => {
         toggle: false
       })
 
-      collapseEl.addEventListener('hidden.bs.collapse', () => {
+      collapseEl.addEventListener('hidden.coreui.collapse', () => {
         expect(collapseEl.classList.contains('show')).toEqual(false)
         expect(collapseEl.style.height).toEqual('')
         done()
@@ -344,12 +344,12 @@ describe('Collapse', () => {
         }, 10)
       }
 
-      collapseEl.addEventListener('hide.bs.collapse', e => {
+      collapseEl.addEventListener('hide.coreui.collapse', e => {
         e.preventDefault()
         expectEnd()
       })
 
-      collapseEl.addEventListener('hidden.bs.collapse', () => {
+      collapseEl.addEventListener('hidden.coreui.collapse', () => {
         throw new Error('should not fire hidden event')
       })
 
@@ -386,7 +386,7 @@ describe('Collapse', () => {
       const collapse1 = fixtureEl.querySelector('#collapse1')
       const collapse2 = fixtureEl.querySelector('#collapse2')
 
-      collapse2.addEventListener('shown.bs.collapse', () => {
+      collapse2.addEventListener('shown.coreui.collapse', () => {
         expect(trigger.getAttribute('aria-expanded')).toEqual('true')
         expect(trigger.classList.contains('collapsed')).toEqual(false)
         expect(collapse1.classList.contains('show')).toEqual(true)
@@ -408,7 +408,7 @@ describe('Collapse', () => {
       const collapse1 = fixtureEl.querySelector('#collapse1')
       const collapse2 = fixtureEl.querySelector('#collapse2')
 
-      collapse2.addEventListener('hidden.bs.collapse', () => {
+      collapse2.addEventListener('hidden.coreui.collapse', () => {
         expect(trigger.getAttribute('aria-expanded')).toEqual('false')
         expect(trigger.classList.contains('collapsed')).toEqual(true)
         expect(collapse1.classList.contains('show')).toEqual(false)
@@ -430,7 +430,7 @@ describe('Collapse', () => {
       const link2 = fixtureEl.querySelector('#link2')
       const collapseTest1 = fixtureEl.querySelector('#test1')
 
-      collapseTest1.addEventListener('shown.bs.collapse', () => {
+      collapseTest1.addEventListener('shown.coreui.collapse', () => {
         expect(link1.getAttribute('aria-expanded')).toEqual('true')
         expect(link2.getAttribute('aria-expanded')).toEqual('true')
         expect(link1.classList.contains('collapsed')).toEqual(false)
@@ -452,7 +452,7 @@ describe('Collapse', () => {
       const link2 = fixtureEl.querySelector('#link2')
       const collapseTest1 = fixtureEl.querySelector('#test1')
 
-      collapseTest1.addEventListener('hidden.bs.collapse', () => {
+      collapseTest1.addEventListener('hidden.coreui.collapse', () => {
         expect(link1.getAttribute('aria-expanded')).toEqual('false')
         expect(link2.getAttribute('aria-expanded')).toEqual('false')
         expect(link1.classList.contains('collapsed')).toEqual(true)
@@ -482,11 +482,11 @@ describe('Collapse', () => {
       const collapseOne = fixtureEl.querySelector('#collapseOne')
       const collapseTwo = fixtureEl.querySelector('#collapseTwo')
 
-      collapseOne.addEventListener('shown.bs.collapse', () => {
+      collapseOne.addEventListener('shown.coreui.collapse', () => {
         expect(collapseOne.classList.contains('show')).toEqual(true)
         expect(collapseTwo.classList.contains('show')).toEqual(false)
 
-        collapseTwo.addEventListener('shown.bs.collapse', () => {
+        collapseTwo.addEventListener('shown.coreui.collapse', () => {
           expect(collapseOne.classList.contains('show')).toEqual(false)
           expect(collapseTwo.classList.contains('show')).toEqual(true)
           done()
@@ -507,7 +507,7 @@ describe('Collapse', () => {
       const target = fixtureEl.querySelector('input')
       const collapseEl = fixtureEl.querySelector('#collapsediv1')
 
-      collapseEl.addEventListener('shown.bs.collapse', () => {
+      collapseEl.addEventListener('shown.coreui.collapse', () => {
         expect(collapseEl.classList.contains('show')).toEqual(true)
         expect(target.checked).toEqual(true)
         done()
@@ -541,7 +541,7 @@ describe('Collapse', () => {
       const collapseOneEl = fixtureEl.querySelector('#collapseOne')
       const collapseTwoEl = fixtureEl.querySelector('#collapseTwo')
 
-      collapseOneEl.addEventListener('shown.bs.collapse', () => {
+      collapseOneEl.addEventListener('shown.coreui.collapse', () => {
         expect(collapseOneEl.classList.contains('show')).toEqual(true)
         expect(triggerEl.classList.contains('collapsed')).toEqual(false)
         expect(triggerEl.getAttribute('aria-expanded')).toEqual('true')
@@ -550,7 +550,7 @@ describe('Collapse', () => {
         expect(triggerTwoEl.classList.contains('collapsed')).toEqual(true)
         expect(triggerTwoEl.getAttribute('aria-expanded')).toEqual('false')
 
-        collapseTwoEl.addEventListener('shown.bs.collapse', () => {
+        collapseTwoEl.addEventListener('shown.coreui.collapse', () => {
           expect(collapseOneEl.classList.contains('show')).toEqual(false)
           expect(triggerEl.classList.contains('collapsed')).toEqual(true)
           expect(triggerEl.getAttribute('aria-expanded')).toEqual('false')
@@ -609,7 +609,7 @@ describe('Collapse', () => {
         done()
       }
 
-      collapseOneOne.addEventListener('shown.bs.collapse', () => {
+      collapseOneOne.addEventListener('shown.coreui.collapse', () => {
         if (collapsedElements.one) {
           firstTest()
         } else {
@@ -617,7 +617,7 @@ describe('Collapse', () => {
         }
       })
 
-      collapseOneTwo.addEventListener('shown.bs.collapse', () => {
+      collapseOneTwo.addEventListener('shown.coreui.collapse', () => {
         if (collapsedElements.one) {
           firstTest()
         } else {
@@ -625,7 +625,7 @@ describe('Collapse', () => {
         }
       })
 
-      collapseTwoOne.addEventListener('shown.bs.collapse', () => {
+      collapseTwoOne.addEventListener('shown.coreui.collapse', () => {
         if (collapsedElements.two) {
           secondTest()
         } else {
@@ -633,7 +633,7 @@ describe('Collapse', () => {
         }
       })
 
-      collapseTwoTwo.addEventListener('shown.bs.collapse', () => {
+      collapseTwoTwo.addEventListener('shown.coreui.collapse', () => {
         if (collapsedElements.two) {
           secondTest()
         } else {
@@ -677,9 +677,9 @@ describe('Collapse', () => {
         expect(collapseTwo.classList.contains('show')).toEqual(false)
         expect(nestedCollapseOne.classList.contains('show')).toEqual(false)
 
-        nestedCollapseOne.addEventListener('shown.bs.collapse', handlerNestedCollapseOne)
+        nestedCollapseOne.addEventListener('shown.coreui.collapse', handlerNestedCollapseOne)
         nestedTrigger.click()
-        collapseOne.removeEventListener('shown.bs.collapse', handlerCollapseOne)
+        collapseOne.removeEventListener('shown.coreui.collapse', handlerCollapseOne)
       }
 
       function handlerNestedCollapseOne() {
@@ -687,7 +687,7 @@ describe('Collapse', () => {
         expect(collapseTwo.classList.contains('show')).toEqual(false)
         expect(nestedCollapseOne.classList.contains('show')).toEqual(true)
 
-        collapseTwo.addEventListener('shown.bs.collapse', () => {
+        collapseTwo.addEventListener('shown.coreui.collapse', () => {
           expect(collapseOne.classList.contains('show')).toEqual(false)
           expect(collapseTwo.classList.contains('show')).toEqual(true)
           expect(nestedCollapseOne.classList.contains('show')).toEqual(true)
@@ -695,10 +695,10 @@ describe('Collapse', () => {
         })
 
         triggerTwo.click()
-        nestedCollapseOne.removeEventListener('shown.bs.collapse', handlerNestedCollapseOne)
+        nestedCollapseOne.removeEventListener('shown.coreui.collapse', handlerNestedCollapseOne)
       }
 
-      collapseOne.addEventListener('shown.bs.collapse', handlerCollapseOne)
+      collapseOne.addEventListener('shown.coreui.collapse', handlerCollapseOne)
       trigger.click()
     })
 
@@ -727,7 +727,7 @@ describe('Collapse', () => {
         expect(trigger3.classList.contains('collapsed')).toEqual(false)
         expect(trigger3.getAttribute('aria-expanded')).toEqual('true')
 
-        target2.addEventListener('hidden.bs.collapse', () => {
+        target2.addEventListener('hidden.coreui.collapse', () => {
           expect(trigger1.classList.contains('collapsed')).toEqual(false)
           expect(trigger1.getAttribute('aria-expanded')).toEqual('true')
 
@@ -737,7 +737,7 @@ describe('Collapse', () => {
           expect(trigger3.classList.contains('collapsed')).toEqual(false)
           expect(trigger3.getAttribute('aria-expanded')).toEqual('true')
 
-          target1.addEventListener('hidden.bs.collapse', () => {
+          target1.addEventListener('hidden.coreui.collapse', () => {
             expect(trigger1.classList.contains('collapsed')).toEqual(true)
             expect(trigger1.getAttribute('aria-expanded')).toEqual('false')
 
@@ -755,7 +755,7 @@ describe('Collapse', () => {
         trigger2.click()
       }
 
-      target2.addEventListener('shown.bs.collapse', target2Shown)
+      target2.addEventListener('shown.coreui.collapse', target2Shown)
       trigger3.click()
     })
   })

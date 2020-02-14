@@ -33,7 +33,7 @@ describe('Tab', () => {
       const profileTriggerEl = fixtureEl.querySelector('#triggerProfile')
       const tab = new Tab(profileTriggerEl)
 
-      profileTriggerEl.addEventListener('shown.bs.tab', () => {
+      profileTriggerEl.addEventListener('shown.coreui.tab', () => {
         expect(fixtureEl.querySelector('#profile').classList.contains('active')).toEqual(true)
         expect(profileTriggerEl.getAttribute('aria-selected')).toEqual('true')
         done()
@@ -54,7 +54,7 @@ describe('Tab', () => {
       const profileTriggerEl = fixtureEl.querySelector('#triggerProfile')
       const tab = new Tab(profileTriggerEl)
 
-      profileTriggerEl.addEventListener('shown.bs.tab', () => {
+      profileTriggerEl.addEventListener('shown.coreui.tab', () => {
         expect(fixtureEl.querySelector('#profile').classList.contains('active')).toEqual(true)
         done()
       })
@@ -74,7 +74,7 @@ describe('Tab', () => {
       const profileTriggerEl = fixtureEl.querySelector('#triggerProfile')
       const tab = new Tab(profileTriggerEl)
 
-      profileTriggerEl.addEventListener('shown.bs.tab', () => {
+      profileTriggerEl.addEventListener('shown.coreui.tab', () => {
         expect(fixtureEl.querySelector('#profile').classList.contains('active')).toEqual(true)
         done()
       })
@@ -94,7 +94,7 @@ describe('Tab', () => {
       const profileTriggerEl = fixtureEl.querySelector('#triggerProfile')
       const tab = new Tab(profileTriggerEl)
 
-      profileTriggerEl.addEventListener('shown.bs.tab', () => {
+      profileTriggerEl.addEventListener('shown.coreui.tab', () => {
         expect(fixtureEl.querySelector('#profile').classList.contains('active')).toEqual(true)
         done()
       })
@@ -114,12 +114,12 @@ describe('Tab', () => {
         }, 30)
       }
 
-      navEl.addEventListener('show.bs.tab', ev => {
+      navEl.addEventListener('show.coreui.tab', ev => {
         ev.preventDefault()
         expectDone()
       })
 
-      navEl.addEventListener('shown.bs.tab', () => {
+      navEl.addEventListener('shown.coreui.tab', () => {
         throw new Error('should not trigger shown event')
       })
 
@@ -141,7 +141,7 @@ describe('Tab', () => {
       const triggerActive = fixtureEl.querySelector('a.active')
       const tab = new Tab(triggerActive)
 
-      triggerActive.addEventListener('shown.bs.tab', () => {
+      triggerActive.addEventListener('shown.coreui.tab', () => {
         throw new Error('should not trigger shown event')
       })
 
@@ -167,7 +167,7 @@ describe('Tab', () => {
       const triggerDisabled = fixtureEl.querySelector('a.disabled')
       const tab = new Tab(triggerDisabled)
 
-      triggerDisabled.addEventListener('shown.bs.tab', () => {
+      triggerDisabled.addEventListener('shown.coreui.tab', () => {
         throw new Error('should not trigger shown event')
       })
 
@@ -193,11 +193,11 @@ describe('Tab', () => {
       const secondTabTrigger = fixtureEl.querySelector('#triggerProfile')
       const secondTab = new Tab(secondTabTrigger)
 
-      secondTabTrigger.addEventListener('show.bs.tab', ev => {
+      secondTabTrigger.addEventListener('show.coreui.tab', ev => {
         expect(ev.relatedTarget.hash).toEqual('#home')
       })
 
-      secondTabTrigger.addEventListener('shown.bs.tab', ev => {
+      secondTabTrigger.addEventListener('shown.coreui.tab', ev => {
         expect(ev.relatedTarget.hash).toEqual('#home')
         expect(secondTabTrigger.getAttribute('aria-selected')).toEqual('true')
         expect(fixtureEl.querySelector('a:not(.active)').getAttribute('aria-selected')).toEqual('false')
@@ -220,16 +220,16 @@ describe('Tab', () => {
       const secondTab = new Tab(triggerList[1])
 
       let hideCalled = false
-      triggerList[0].addEventListener('shown.bs.tab', () => {
+      triggerList[0].addEventListener('shown.coreui.tab', () => {
         secondTab.show()
       })
 
-      triggerList[0].addEventListener('hide.bs.tab', ev => {
+      triggerList[0].addEventListener('hide.coreui.tab', ev => {
         hideCalled = true
         expect(ev.relatedTarget.hash).toEqual('#profile')
       })
 
-      triggerList[0].addEventListener('hidden.bs.tab', ev => {
+      triggerList[0].addEventListener('hidden.coreui.tab', ev => {
         expect(hideCalled).toEqual(true)
         expect(ev.relatedTarget.hash).toEqual('#profile')
         done()
@@ -256,16 +256,16 @@ describe('Tab', () => {
         }, 30)
       }
 
-      triggerList[0].addEventListener('shown.bs.tab', () => {
+      triggerList[0].addEventListener('shown.coreui.tab', () => {
         secondTab.show()
       })
 
-      triggerList[0].addEventListener('hide.bs.tab', ev => {
+      triggerList[0].addEventListener('hide.coreui.tab', ev => {
         ev.preventDefault()
         expectDone()
       })
 
-      triggerList[0].addEventListener('hidden.bs.tab', () => {
+      triggerList[0].addEventListener('hidden.coreui.tab', () => {
         throw new Error('should not trigger hidden')
       })
 
@@ -302,7 +302,7 @@ describe('Tab', () => {
       const btnCloseEl = fixtureEl.querySelector('#btnClose')
       const secondNavTab = new Tab(secondNavEl)
 
-      secondNavEl.addEventListener('shown.bs.tab', () => {
+      secondNavEl.addEventListener('shown.coreui.tab', () => {
         expect(fixtureEl.querySelectorAll('.nav-tab').length).toEqual(2)
         done()
       })
@@ -429,7 +429,7 @@ describe('Tab', () => {
 
       const secondTabTrigger = fixtureEl.querySelector('#triggerProfile')
 
-      secondTabTrigger.addEventListener('shown.bs.tab', () => {
+      secondTabTrigger.addEventListener('shown.coreui.tab', () => {
         expect(secondTabTrigger.classList.contains('active')).toEqual(true)
         expect(fixtureEl.querySelector('#profile').classList.contains('active')).toEqual(true)
         done()
@@ -488,12 +488,12 @@ describe('Tab', () => {
       const tabNested2El = fixtureEl.querySelector('#tabNested2')
       const xTab1El = fixtureEl.querySelector('#x-tab1')
 
-      tabNested2El.addEventListener('shown.bs.tab', () => {
+      tabNested2El.addEventListener('shown.coreui.tab', () => {
         expect(xTab1El.classList.contains('active')).toEqual(true)
         done()
       })
 
-      tab1El.addEventListener('shown.bs.tab', () => {
+      tab1El.addEventListener('shown.coreui.tab', () => {
         expect(xTab1El.classList.contains('active')).toEqual(true)
         tabNested2El.click()
       })
@@ -518,11 +518,11 @@ describe('Tab', () => {
       const tabProfileEl = fixtureEl.querySelector('#profile')
       const tabHomeEl = fixtureEl.querySelector('#home')
 
-      triggerTabProfileEl.addEventListener('shown.bs.tab', () => {
+      triggerTabProfileEl.addEventListener('shown.coreui.tab', () => {
         expect(tabProfileEl.classList.contains('fade')).toEqual(true)
         expect(tabProfileEl.classList.contains('show')).toEqual(true)
 
-        triggerTabHomeEl.addEventListener('shown.bs.tab', () => {
+        triggerTabHomeEl.addEventListener('shown.coreui.tab', () => {
           expect(tabProfileEl.classList.contains('fade')).toEqual(true)
           expect(tabProfileEl.classList.contains('show')).toEqual(false)
 
@@ -556,7 +556,7 @@ describe('Tab', () => {
 
       const secondNavEl = fixtureEl.querySelector('#secondNav')
 
-      secondNavEl.addEventListener('shown.bs.tab', () => {
+      secondNavEl.addEventListener('shown.coreui.tab', () => {
         expect(fixtureEl.querySelectorAll('.show').length).toEqual(0)
         done()
       })
@@ -582,7 +582,7 @@ describe('Tab', () => {
 
       const secondNavEl = fixtureEl.querySelector('#secondNav')
 
-      secondNavEl.addEventListener('shown.bs.tab', () => {
+      secondNavEl.addEventListener('shown.coreui.tab', () => {
         expect(fixtureEl.querySelectorAll('.show').length).toEqual(1)
         done()
       })

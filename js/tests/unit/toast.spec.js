@@ -35,7 +35,7 @@ describe('Toast', () => {
         delay: 1
       })
 
-      toastEl.addEventListener('shown.bs.toast', () => {
+      toastEl.addEventListener('shown.coreui.toast', () => {
         expect(toastEl.classList.contains('show')).toEqual(true)
         done()
       })
@@ -55,7 +55,7 @@ describe('Toast', () => {
       const toastEl = fixtureEl.querySelector('div')
       const toast = new Toast(toastEl)
 
-      toastEl.addEventListener('shown.bs.toast', () => {
+      toastEl.addEventListener('shown.coreui.toast', () => {
         expect(toastEl.classList.contains('show')).toEqual(true)
 
         const button = toastEl.querySelector('.close')
@@ -63,7 +63,7 @@ describe('Toast', () => {
         button.click()
       })
 
-      toastEl.addEventListener('hidden.bs.toast', () => {
+      toastEl.addEventListener('hidden.coreui.toast', () => {
         expect(toastEl.classList.contains('show')).toEqual(false)
         done()
       })
@@ -112,7 +112,7 @@ describe('Toast', () => {
       const toastEl = fixtureEl.querySelector('.toast')
       const toast = new Toast(toastEl)
 
-      toastEl.addEventListener('hidden.bs.toast', () => {
+      toastEl.addEventListener('hidden.coreui.toast', () => {
         expect(toastEl.classList.contains('show')).toEqual(false)
         done()
       })
@@ -132,7 +132,7 @@ describe('Toast', () => {
       const toastEl = fixtureEl.querySelector('.toast')
       const toast = new Toast(toastEl)
 
-      toastEl.addEventListener('shown.bs.toast', () => {
+      toastEl.addEventListener('shown.coreui.toast', () => {
         expect(toastEl.classList.contains('fade')).toEqual(false)
         done()
       })
@@ -159,12 +159,12 @@ describe('Toast', () => {
         }, 20)
       }
 
-      toastEl.addEventListener('show.bs.toast', event => {
+      toastEl.addEventListener('show.coreui.toast', event => {
         event.preventDefault()
         assertDone()
       })
 
-      toastEl.addEventListener('shown.bs.toast', () => {
+      toastEl.addEventListener('shown.coreui.toast', () => {
         throw new Error('shown event should not be triggered if show is prevented')
       })
 
@@ -185,11 +185,11 @@ describe('Toast', () => {
       const toastEl = fixtureEl.querySelector('.toast')
       const toast = new Toast(toastEl)
 
-      toastEl.addEventListener('shown.bs.toast', () => {
+      toastEl.addEventListener('shown.coreui.toast', () => {
         toast.hide()
       })
 
-      toastEl.addEventListener('hidden.bs.toast', () => {
+      toastEl.addEventListener('hidden.coreui.toast', () => {
         expect(toastEl.classList.contains('show')).toEqual(false)
         done()
       })
@@ -229,16 +229,16 @@ describe('Toast', () => {
         }, 20)
       }
 
-      toastEl.addEventListener('shown.bs.toast', () => {
+      toastEl.addEventListener('shown.coreui.toast', () => {
         toast.hide()
       })
 
-      toastEl.addEventListener('hide.bs.toast', event => {
+      toastEl.addEventListener('hide.coreui.toast', event => {
         event.preventDefault()
         assertDone()
       })
 
-      toastEl.addEventListener('hidden.bs.toast', () => {
+      toastEl.addEventListener('hidden.coreui.toast', () => {
         throw new Error('hidden event should not be triggered if hide is prevented')
       })
 
@@ -283,7 +283,7 @@ describe('Toast', () => {
         done()
       }
 
-      toastEl.addEventListener('shown.bs.toast', () => {
+      toastEl.addEventListener('shown.coreui.toast', () => {
         setTimeout(expected, 1)
       })
 

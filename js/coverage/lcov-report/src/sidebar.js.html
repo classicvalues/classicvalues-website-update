@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">60% </span>
+        <span class="strong">60.27% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>87/145</span>
+        <span class='fraction'>88/146</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">50.59% </span>
+        <span class="strong">49.41% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>43/85</span>
+        <span class='fraction'>42/85</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">58.82% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>20/34</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">60% </span>
+        <span class="strong">60.27% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>87/145</span>
+        <span class='fraction'>88/146</span>
       </div>
     </div>
     <p class="quiet">
@@ -442,9 +442,7 @@
 <a name='L394'></a><a href='#L394'>394</a>
 <a name='L395'></a><a href='#L395'>395</a>
 <a name='L396'></a><a href='#L396'>396</a>
-<a name='L397'></a><a href='#L397'>397</a>
-<a name='L398'></a><a href='#L398'>398</a>
-<a name='L399'></a><a href='#L399'>399</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L397'></a><a href='#L397'>397</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -670,24 +668,20 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
@@ -819,10 +813,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -844,13 +840,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
  * --------------------------------------------------------------------------
- * CoreUI (v3.0.0-beta.3): sidebar.js
+ * CoreUI (v3.0.0-beta.4): sidebar.js
  * Licensed under MIT (https://coreui.io/license)
  * --------------------------------------------------------------------------
  */
 &nbsp;
 import {
-  jQuery as $,
+  getjQuery,
   // TRANSITION_END,
   // emulateTransitionEnd,
   // getTransitionDurationFromElement,
@@ -868,7 +864,7 @@ import PerfectScrollbar from 'perfect-scrollbar'
  */
 &nbsp;
 const NAME = 'sidebar'
-const VERSION = '3.0.0-beta.3'
+const VERSION = '3.0.0-beta.4'
 const DATA_KEY = 'coreui.sidebar'
 const EVENT_KEY = `.${DATA_KEY}`
 const DATA_API_KEY = '.data-api'
@@ -1068,24 +1064,20 @@ class Sidebar {
     Array.from(this._element.querySelectorAll(Selector.NAV_LINK)).forEach(element =&gt; {
       let currentUrl
 &nbsp;
-      // eslint-disable-next-line prefer-regex-literals
-      const urlHasParams = new RegExp('\\?.*=')
-      // eslint-disable-next-line prefer-regex-literals
-      const urlHasQueryString = new RegExp('\\?.')
-      // eslint-disable-next-line prefer-regex-literals
-      const urlHasHash = new RegExp('#.')
+      const urlHasParams = /\\?.*=/
+      const urlHasQueryString = /\\?./
+      const urlHasHash = /#./
 &nbsp;
-      <span class="missing-if-branch" title="if path not taken" >I</span>if (urlHasParams.test(String(window.location)) || urlHasQueryString.test(String(window.location))) {
-<span class="cstat-no" title="statement not covered" >        currentUrl = String(window.location).split('?')[0]</span>
-      } else <span class="missing-if-branch" title="if path not taken" >I</span>if (urlHasHash.test(String(window.location))) {
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (urlHasParams.test(String(window.location)) || urlHasQueryString.test(String(window.location))) {
+        currentUrl = String(window.location).split('?')[0]
+      } else <span class="cstat-no" title="statement not covered" >if (urlHasHash.test(String(window.location))) {</span>
 <span class="cstat-no" title="statement not covered" >        currentUrl = String(window.location).split('#')[0]</span>
       } else {
-        currentUrl = String(window.location)
+<span class="cstat-no" title="statement not covered" >        currentUrl = String(window.location)</span>
       }
 &nbsp;
-      // eslint-disable-next-line unicorn/prefer-string-slice
-      <span class="missing-if-branch" title="if path not taken" >I</span>if (currentUrl.substr(currentUrl.length - 1) === '#') {
-<span class="cstat-no" title="statement not covered" >        currentUrl = currentUrl.slice(0, -1)</span>
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (currentUrl.slice(currentUrl.length - 1) === '#') {
+        currentUrl = currentUrl.slice(0, -1)
       }
 &nbsp;
       if (element.href === currentUrl) {
@@ -1189,7 +1181,7 @@ class Sidebar {
     }
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  st</span>atic _jQueryInterface(config) {
+<span class="fstat-no" title="function not covered" >  st</span>atic jQueryInterface(config) {
 <span class="cstat-no" title="statement not covered" >    return this.each(<span class="fstat-no" title="function not covered" >fu</span>nction () {</span>
 <span class="cstat-no" title="statement not covered" >      Sidebar._sidebarInterface(this, config)</span>
     })
@@ -1222,6 +1214,8 @@ EventHandler.on(window, Event.LOAD_DATA_API, () =&gt; {
   })
 })
 &nbsp;
+const $ = getjQuery()
+&nbsp;
 /**
  * ------------------------------------------------------------------------
  * jQuery
@@ -1229,13 +1223,13 @@ EventHandler.on(window, Event.LOAD_DATA_API, () =&gt; {
 * add .asyncLoad to jQuery only if jQuery is present
  */
 &nbsp;
-<span class="missing-if-branch" title="if path not taken" >I</span>if (typeof $ !== 'undefined') {
+<span class="missing-if-branch" title="if path not taken" >I</span>if ($) {
   const JQUERY_NO_CONFLICT = <span class="cstat-no" title="statement not covered" >$.fn[NAME]</span>
-<span class="cstat-no" title="statement not covered" >  $.fn[NAME] = Sidebar._jQueryInterface</span>
+<span class="cstat-no" title="statement not covered" >  $.fn[NAME] = Sidebar.jQueryInterface</span>
 <span class="cstat-no" title="statement not covered" >  $.fn[NAME].Constructor = Sidebar</span>
 <span class="cstat-no" title="statement not covered" >  $.fn[NAME].noConflict = <span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    $.fn[NAME] = JQUERY_NO_CONFLICT</span>
-<span class="cstat-no" title="statement not covered" >    return Sidebar._jQueryInterface</span>
+<span class="cstat-no" title="statement not covered" >    return Sidebar.jQueryInterface</span>
   }
 }
 &nbsp;
@@ -1246,7 +1240,7 @@ export default Sidebar
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Dec 10 2019 13:58:18 GMT+0100 (CET)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Feb 14 2020 15:13:09 GMT+0100 (CET)
 </div>
 </div>
 <script src="../prettify.js"></script>

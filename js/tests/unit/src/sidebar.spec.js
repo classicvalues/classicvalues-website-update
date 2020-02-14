@@ -10,7 +10,7 @@ describe("Test sidebar.js", function() {
     expect(typeof Sidebar).not.toBe('undefined')
   })
   it("Test Sidebar.VERSION function", function() {
-    expect(Sidebar.VERSION).toBe('3.0.0-beta.3')
+    expect(Sidebar.VERSION).toEqual(jasmine.any(String))
   })
   it("Test Sidebar.DefaultType function", function() {
     let expected = {

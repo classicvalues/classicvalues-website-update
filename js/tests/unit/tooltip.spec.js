@@ -42,7 +42,7 @@ describe('Tooltip', () => {
 
   describe('DATA_KEY', () => {
     it('should return plugin data key', () => {
-      expect(Tooltip.DATA_KEY).toEqual('bs.tooltip')
+      expect(Tooltip.DATA_KEY).toEqual('coreui.tooltip')
     })
   })
 
@@ -54,7 +54,7 @@ describe('Tooltip', () => {
 
   describe('EVENT_KEY', () => {
     it('should return plugin event key', () => {
-      expect(Tooltip.EVENT_KEY).toEqual('.bs.tooltip')
+      expect(Tooltip.EVENT_KEY).toEqual('.coreui.tooltip')
     })
   })
 
@@ -100,7 +100,7 @@ describe('Tooltip', () => {
 
       const tooltipInContainerEl = containerEl.querySelector('a')
 
-      tooltipInContainerEl.addEventListener('shown.bs.tooltip', () => {
+      tooltipInContainerEl.addEventListener('shown.coreui.tooltip', () => {
         expect(document.querySelector('.tooltip')).not.toBeNull()
         tooltipContainer.dispose()
         done()
@@ -134,7 +134,7 @@ describe('Tooltip', () => {
 
       tooltip.enable()
 
-      tooltipEl.addEventListener('shown.bs.tooltip', () => {
+      tooltipEl.addEventListener('shown.coreui.tooltip', () => {
         expect(document.querySelector('.tooltip')).toBeDefined()
         done()
       })
@@ -152,7 +152,7 @@ describe('Tooltip', () => {
 
       tooltip.disable()
 
-      tooltipEl.addEventListener('show.bs.tooltip', () => {
+      tooltipEl.addEventListener('show.coreui.tooltip', () => {
         throw new Error('should not show a disabled tooltip')
       })
 
@@ -189,7 +189,7 @@ describe('Tooltip', () => {
 
       tooltip.disable()
 
-      tooltipEl.addEventListener('show.bs.tooltip', () => {
+      tooltipEl.addEventListener('show.coreui.tooltip', () => {
         throw new Error('should not show a disabled tooltip')
       })
 
@@ -207,7 +207,7 @@ describe('Tooltip', () => {
       const tooltipEl = fixtureEl.querySelector('a')
       const tooltip = new Tooltip(tooltipEl)
 
-      tooltipEl.addEventListener('shown.bs.tooltip', () => {
+      tooltipEl.addEventListener('shown.coreui.tooltip', () => {
         expect(document.querySelector('.tooltip')).toBeDefined()
         done()
       })
@@ -225,7 +225,7 @@ describe('Tooltip', () => {
 
       spyOn(tooltip, 'toggle').and.callThrough()
 
-      tooltipEl.addEventListener('shown.bs.tooltip', () => {
+      tooltipEl.addEventListener('shown.coreui.tooltip', () => {
         expect(tooltip.toggle).toHaveBeenCalled()
         done()
       })
@@ -239,11 +239,11 @@ describe('Tooltip', () => {
       const tooltipEl = fixtureEl.querySelector('a')
       const tooltip = new Tooltip(tooltipEl)
 
-      tooltipEl.addEventListener('shown.bs.tooltip', () => {
+      tooltipEl.addEventListener('shown.coreui.tooltip', () => {
         tooltip.toggle()
       })
 
-      tooltipEl.addEventListener('hidden.bs.tooltip', () => {
+      tooltipEl.addEventListener('hidden.coreui.tooltip', () => {
         expect(document.querySelector('.tooltip')).toBeNull()
         done()
       })
@@ -261,11 +261,11 @@ describe('Tooltip', () => {
 
       spyOn(tooltip, 'toggle').and.callThrough()
 
-      tooltipEl.addEventListener('shown.bs.tooltip', () => {
+      tooltipEl.addEventListener('shown.coreui.tooltip', () => {
         tooltipEl.click()
       })
 
-      tooltipEl.addEventListener('hidden.bs.tooltip', () => {
+      tooltipEl.addEventListener('hidden.coreui.tooltip', () => {
         expect(tooltip.toggle).toHaveBeenCalled()
         done()
       })
@@ -294,7 +294,7 @@ describe('Tooltip', () => {
       const tooltipEl = fixtureEl.querySelector('a')
       const tooltip = new Tooltip(tooltipEl)
 
-      tooltipEl.addEventListener('shown.bs.tooltip', () => {
+      tooltipEl.addEventListener('shown.coreui.tooltip', () => {
         expect(document.querySelector('.tooltip')).toBeDefined()
 
         tooltip.dispose()
@@ -314,7 +314,7 @@ describe('Tooltip', () => {
       const tooltipEl = fixtureEl.querySelector('a')
       const tooltip = new Tooltip(tooltipEl)
 
-      tooltipEl.addEventListener('shown.bs.tooltip', () => {
+      tooltipEl.addEventListener('shown.coreui.tooltip', () => {
         const tooltipShown = document.querySelector('.tooltip')
 
         expect(tooltipShown).toBeDefined()
@@ -335,7 +335,7 @@ describe('Tooltip', () => {
 
       spyOn(EventHandler, 'on')
 
-      tooltipEl.addEventListener('shown.bs.tooltip', () => {
+      tooltipEl.addEventListener('shown.coreui.tooltip', () => {
         expect(document.querySelector('.tooltip')).not.toBeNull()
         expect(EventHandler.on).toHaveBeenCalled()
         document.documentElement.ontouchstart = undefined
@@ -353,14 +353,14 @@ describe('Tooltip', () => {
         placement: 'bottom'
       })
 
-      tooltipEl.addEventListener('inserted.bs.tooltip', () => {
-        expect(tooltip.getTipElement().classList.contains('bs-tooltip-bottom')).toEqual(true)
+      tooltipEl.addEventListener('inserted.coreui.tooltip', () => {
+        expect(tooltip.getTipElement().classList.contains('coreui-tooltip-bottom')).toEqual(true)
       })
 
-      tooltipEl.addEventListener('shown.bs.tooltip', () => {
+      tooltipEl.addEventListener('shown.coreui.tooltip', () => {
         const tooltipShown = document.querySelector('.tooltip')
 
-        expect(tooltipShown.classList.contains('bs-tooltip-bottom')).toEqual(true)
+        expect(tooltipShown.classList.contains('coreui-tooltip-bottom')).toEqual(true)
         done()
       })
 
@@ -374,12 +374,12 @@ describe('Tooltip', () => {
       const tooltip = new Tooltip(tooltipEl)
 
       const firstCallback = () => {
-        tooltipEl.removeEventListener('shown.bs.tooltip', firstCallback)
+        tooltipEl.removeEventListener('shown.coreui.tooltip', firstCallback)
         let tooltipShown = document.querySelector('.tooltip')
 
         tooltipShown.parentNode.removeChild(tooltipShown)
 
-        tooltipEl.addEventListener('shown.bs.tooltip', () => {
+        tooltipEl.addEventListener('shown.coreui.tooltip', () => {
           tooltipShown = document.querySelector('.tooltip')
 
           expect(tooltipShown).not.toBeNull()
@@ -389,7 +389,7 @@ describe('Tooltip', () => {
         tooltip.show()
       }
 
-      tooltipEl.addEventListener('shown.bs.tooltip', firstCallback)
+      tooltipEl.addEventListener('shown.coreui.tooltip', firstCallback)
 
       tooltip.show()
     })
@@ -402,7 +402,7 @@ describe('Tooltip', () => {
         container: fixtureEl
       })
 
-      tooltipEl.addEventListener('shown.bs.tooltip', () => {
+      tooltipEl.addEventListener('shown.coreui.tooltip', () => {
         expect(fixtureEl.querySelector('.tooltip')).toBeDefined()
         done()
       })
@@ -421,7 +421,7 @@ describe('Tooltip', () => {
         }
       })
 
-      tooltipEl.addEventListener('shown.bs.tooltip', () => {
+      tooltipEl.addEventListener('shown.coreui.tooltip', () => {
         expect(fixtureEl.querySelector('.tooltip')).toBeDefined()
         done()
       })
@@ -437,7 +437,7 @@ describe('Tooltip', () => {
         container: '#fixture'
       })
 
-      tooltipEl.addEventListener('shown.bs.tooltip', () => {
+      tooltipEl.addEventListener('shown.coreui.tooltip', () => {
         expect(fixtureEl.querySelector('.tooltip')).toBeDefined()
         done()
       })
@@ -454,7 +454,7 @@ describe('Tooltip', () => {
         placement: spy
       })
 
-      tooltipEl.addEventListener('shown.bs.tooltip', () => {
+      tooltipEl.addEventListener('shown.coreui.tooltip', () => {
         expect(document.querySelector('.tooltip')).toBeDefined()
         expect(spy).toHaveBeenCalled()
         done()
@@ -472,7 +472,7 @@ describe('Tooltip', () => {
         offset: spy
       })
 
-      tooltipEl.addEventListener('shown.bs.tooltip', () => {
+      tooltipEl.addEventListener('shown.coreui.tooltip', () => {
         expect(document.querySelector('.tooltip')).toBeDefined()
         expect(spy).toHaveBeenCalled()
         done()
@@ -489,7 +489,7 @@ describe('Tooltip', () => {
         animation: false
       })
 
-      tooltipEl.addEventListener('shown.bs.tooltip', () => {
+      tooltipEl.addEventListener('shown.coreui.tooltip', () => {
         const tip = document.querySelector('.tooltip')
 
         expect(tip).toBeDefined()
@@ -513,7 +513,7 @@ describe('Tooltip', () => {
       }
     })
 
-    it('should not show a tooltip if show.bs.tooltip is prevented', done => {
+    it('should not show a tooltip if show.coreui.tooltip is prevented', done => {
       fixtureEl.innerHTML = '<a href="#" rel="tooltip" title="Another tooltip"/>'
 
       const tooltipEl = fixtureEl.querySelector('a')
@@ -526,12 +526,12 @@ describe('Tooltip', () => {
         }, 10)
       }
 
-      tooltipEl.addEventListener('show.bs.tooltip', ev => {
+      tooltipEl.addEventListener('show.coreui.tooltip', ev => {
         ev.preventDefault()
         expectedDone()
       })
 
-      tooltipEl.addEventListener('shown.bs.tooltip', () => {
+      tooltipEl.addEventListener('shown.coreui.tooltip', () => {
         throw new Error('Tooltip should not be shown')
       })
 
@@ -621,8 +621,8 @@ describe('Tooltip', () => {
       const tooltipEl = fixtureEl.querySelector('a')
       const tooltip = new Tooltip(tooltipEl)
 
-      tooltipEl.addEventListener('shown.bs.tooltip', () => tooltip.hide())
-      tooltipEl.addEventListener('hidden.bs.tooltip', () => {
+      tooltipEl.addEventListener('shown.coreui.tooltip', () => tooltip.hide())
+      tooltipEl.addEventListener('hidden.coreui.tooltip', () => {
         expect(document.querySelector('.tooltip')).toBeNull()
         expect(tooltipEl.getAttribute('aria-describedby')).toBeNull()
         done()
@@ -637,13 +637,13 @@ describe('Tooltip', () => {
       const tooltipEl = fixtureEl.querySelector('a')
       const tooltip = new Tooltip(tooltipEl)
 
-      tooltipEl.addEventListener('shown.bs.tooltip', () => {
+      tooltipEl.addEventListener('shown.coreui.tooltip', () => {
         document.documentElement.ontouchstart = noop
         spyOn(EventHandler, 'off')
         tooltip.hide()
       })
 
-      tooltipEl.addEventListener('hidden.bs.tooltip', () => {
+      tooltipEl.addEventListener('hidden.coreui.tooltip', () => {
         expect(document.querySelector('.tooltip')).toBeNull()
         expect(EventHandler.off).toHaveBeenCalled()
         document.documentElement.ontouchstart = undefined
@@ -661,8 +661,8 @@ describe('Tooltip', () => {
         animation: false
       })
 
-      tooltipEl.addEventListener('shown.bs.tooltip', () => tooltip.hide())
-      tooltipEl.addEventListener('hidden.bs.tooltip', () => {
+      tooltipEl.addEventListener('shown.coreui.tooltip', () => tooltip.hide())
+      tooltipEl.addEventListener('hidden.coreui.tooltip', () => {
         expect(document.querySelector('.tooltip')).toBeNull()
         expect(tooltipEl.getAttribute('aria-describedby')).toBeNull()
         done()
@@ -686,12 +686,12 @@ describe('Tooltip', () => {
         animation: false
       })
 
-      tooltipEl.addEventListener('shown.bs.tooltip', () => tooltip.hide())
-      tooltipEl.addEventListener('hide.bs.tooltip', event => {
+      tooltipEl.addEventListener('shown.coreui.tooltip', () => tooltip.hide())
+      tooltipEl.addEventListener('hide.coreui.tooltip', event => {
         event.preventDefault()
         assertDone()
       })
-      tooltipEl.addEventListener('hidden.bs.tooltip', () => {
+      tooltipEl.addEventListener('hidden.coreui.tooltip', () => {
         throw new Error('should not trigger hidden event')
       })
 
@@ -706,7 +706,7 @@ describe('Tooltip', () => {
       const tooltipEl = fixtureEl.querySelector('a')
       const tooltip = new Tooltip(tooltipEl)
 
-      tooltipEl.addEventListener('shown.bs.tooltip', () => {
+      tooltipEl.addEventListener('shown.coreui.tooltip', () => {
         spyOn(tooltip._popper, 'scheduleUpdate')
 
         tooltip.update()

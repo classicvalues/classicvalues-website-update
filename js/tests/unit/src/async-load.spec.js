@@ -9,7 +9,7 @@ describe("Test async-load.js", function() {
     expect(typeof AsyncLoad).not.toBe('undefined')
   });
   it("Test AsyncLoad.VERSION function", function() {
-    expect(AsyncLoad.VERSION).toBe('3.0.0-beta.3')
+    expect(AsyncLoad.VERSION).toEqual(jasmine.any(String))
   });
   it("Test AsyncLoad.Default function", function() {
     let expected = {

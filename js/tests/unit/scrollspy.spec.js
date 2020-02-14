@@ -567,7 +567,7 @@ describe('ScrollSpy', () => {
       const scrollSpy = new ScrollSpy(divEl)
 
       scrollSpy.dispose()
-      expect(EventHandler.off).toHaveBeenCalledWith(divEl, '.bs.scrollspy')
+      expect(EventHandler.off).toHaveBeenCalledWith(divEl, '.coreui.scrollspy')
     })
   })
 

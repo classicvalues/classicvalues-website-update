@@ -16,8 +16,8 @@ describe('Util', () => {
 
   describe('getUID', () => {
     it('should generate uid', () => {
-      const uid = Util.getUID('bs')
-      const uid2 = Util.getUID('bs')
+      const uid = Util.getUID('coreui')
+      const uid2 = Util.getUID('coreui')
 
       expect(uid).not.toEqual(uid2)
     })

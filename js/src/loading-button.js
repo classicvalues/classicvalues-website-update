@@ -67,10 +67,7 @@ class LoadingButton {
 
   constructor(element, config) {
 
-    // dodaje tylko raz
-    if (Data.getData(element, DATA_KEY)) {
-      // already found
-      delete this;
+    if (Data.getData(element, DATA_KEY)) { // already found
       //this._elementStripe = SelectorEngine.findOne('.c-stripe', element);
       return;
     }

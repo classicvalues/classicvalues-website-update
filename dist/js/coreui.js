@@ -1,5 +1,5 @@
 /*!
-  * CoreUI v3.2.0 (https://coreui.io)
+  * CoreUI v3.2.2 (https://coreui.io)
   * Copyright 2020 creativeLabs Łukasz Holeczek
   * Licensed under MIT (https://coreui.io)
   */
@@ -189,7 +189,7 @@
     }, emulatedDuration);
   };
 
-  var typeCheckConfig = function typeCheckConfig(componentName, config, configTypes) {
+  var typeCheckConfig$1 = function typeCheckConfig(componentName, config, configTypes) {
     Object.keys(configTypes).forEach(function (property) {
       var expectedTypes = configTypes[property];
       var value = config[property];
@@ -488,7 +488,7 @@
 
   function normalizeParams(originalTypeEvent, handler, delegationFn) {
     var delegation = typeof handler === 'string';
-    var originalHandler = delegation ? delegationFn : handler; // allow to get the native events from namespaced events ('click.coreui.button' --> 'click')
+    var originalHandler = delegation ? delegationFn : handler; // allow to get the native events from namespaced events ('click.bs.button' --> 'click')
 
     var typeEvent = originalTypeEvent.replace(stripNameRegex, '');
     var custom = customEvents[typeEvent];
@@ -682,7 +682,7 @@
    */
 
   var NAME = 'asyncLoad';
-  var VERSION = '3.2.0';
+  var VERSION = '3.2.2';
   var DATA_KEY = 'coreui.asyncLoad';
   var EVENT_KEY = "." + DATA_KEY;
   var DATA_API_KEY = '.data-api';
@@ -697,7 +697,7 @@
   var SELECTOR_NAV_LINK = '.c-xhr-link, .c-sidebar-nav-link';
   var SELECTOR_NAV_ITEM = '.c-sidebar-nav-item';
   var SELECTOR_VIEW_SCRIPT = '.view-script';
-  var Default = {
+  var Default$1 = {
     defaultPage: 'main.html',
     errorPage: '404.html',
     subpagesDirectory: 'views/'
@@ -724,7 +724,7 @@
 
     // Private
     _proto._getConfig = function _getConfig(config) {
-      config = _objectSpread2(_objectSpread2({}, Default), config);
+      config = _objectSpread2(_objectSpread2({}, Default$1), config);
       return config;
     };
 
@@ -913,7 +913,7 @@
     }, {
       key: "Default",
       get: function get() {
-        return Default;
+        return Default$1;
       }
     }]);
 
@@ -946,7 +946,7 @@
    */
 
   var NAME$1 = 'alert';
-  var VERSION$1 = '3.2.0';
+  var VERSION$1 = '3.2.2';
   var DATA_KEY$1 = 'coreui.alert';
   var EVENT_KEY$1 = "." + DATA_KEY$1;
   var DATA_API_KEY$1 = '.data-api';
@@ -1190,7 +1190,7 @@
    */
 
   var NAME$2 = 'button';
-  var VERSION$2 = '3.2.0';
+  var VERSION$2 = '3.2.2';
   var DATA_KEY$2 = 'coreui.button';
   var EVENT_KEY$2 = "." + DATA_KEY$2;
   var DATA_API_KEY$2 = '.data-api';
@@ -1383,6 +1383,13 @@
   }
 
   var Manipulator = {
+    createElementFromHTML: function createElementFromHTML(htmlString) {
+      var div = document.createElement('div');
+      div.innerHTML = htmlString.trim(); // Change this to div.childNodes to support multiple top-level nodes
+
+      return div.firstChild;
+    },
+    //
     setDataAttribute: function setDataAttribute(element, key, value) {
       element.setAttribute("data-" + normalizeDataKey(key), value);
     },
@@ -1437,7 +1444,7 @@
    */
 
   var NAME$3 = 'carousel';
-  var VERSION$3 = '3.2.0';
+  var VERSION$3 = '3.2.2';
   var DATA_KEY$3 = 'coreui.carousel';
   var EVENT_KEY$3 = "." + DATA_KEY$3;
   var DATA_API_KEY$3 = '.data-api';
@@ -1446,7 +1453,7 @@
   var TOUCHEVENT_COMPAT_WAIT = 500; // Time for mouse compat events to fire after touch
 
   var SWIPE_THRESHOLD = 40;
-  var Default$1 = {
+  var Default$2 = {
     interval: 5000,
     keyboard: true,
     slide: false,
@@ -1454,7 +1461,7 @@
     wrap: true,
     touch: true
   };
-  var DefaultType = {
+  var DefaultType$1 = {
     interval: '(number|boolean)',
     keyboard: 'boolean',
     slide: '(boolean|string)',
@@ -1623,8 +1630,8 @@
     ;
 
     _proto._getConfig = function _getConfig(config) {
-      config = _objectSpread2(_objectSpread2({}, Default$1), config);
-      typeCheckConfig(NAME$3, config, DefaultType);
+      config = _objectSpread2(_objectSpread2({}, Default$2), config);
+      typeCheckConfig$1(NAME$3, config, DefaultType$1);
       return config;
     };
 
@@ -1917,7 +1924,7 @@
     Carousel.carouselInterface = function carouselInterface(element, config) {
       var data = Data.getData(element, DATA_KEY$3);
 
-      var _config = _objectSpread2(_objectSpread2({}, Default$1), Manipulator.getDataAttributes(element));
+      var _config = _objectSpread2(_objectSpread2({}, Default$2), Manipulator.getDataAttributes(element));
 
       if (typeof config === 'object') {
         _config = _objectSpread2(_objectSpread2({}, _config), config);
@@ -1985,7 +1992,7 @@
     }, {
       key: "Default",
       get: function get() {
-        return Default$1;
+        return Default$2;
       }
     }]);
 
@@ -2034,17 +2041,29 @@
    */
 
   var NAME$4 = 'class-toggler';
-  var VERSION$4 = '3.2.0';
+  var VERSION$4 = '3.2.2';
   var DATA_KEY$4 = 'coreui.class-toggler';
   var EVENT_KEY$4 = "." + DATA_KEY$4;
   var DATA_API_KEY$4 = '.data-api';
-  var Default$2 = {
-    breakpoints: '-sm,-md,-lg,-xl',
-    postfix: '-show',
+  var DefaultType$2 = {
+    addClass: '(null|array|string)',
+    breakpoints: '(null|array|string)',
+    removeClass: '(null|array|string)',
+    responsive: '(null|boolean)',
+    target: '(null|string)',
+    toggleClass: '(null|array|string)'
+  };
+  var Default$3 = {
+    addClass: null,
+    breakpoints: ['', 'sm', 'md', 'lg', 'xl'],
+    removeClass: null,
     responsive: false,
-    target: 'body'
+    target: 'body',
+    toggleClass: null
   };
   var CLASS_NAME_CLASS_TOGGLER = 'c-class-toggler';
+  var EVENT_CLASS_ADDED = 'classadded';
+  var EVENT_CLASS_REMOVED = 'classremoved';
   var EVENT_CLASS_TOGGLE = 'classtoggle';
   var EVENT_CLICK_DATA_API$4 = "click" + EVENT_KEY$4 + DATA_API_KEY$4;
   var SELECTOR_CLASS_TOGGLER = '.c-class-toggler';
@@ -2055,186 +2074,176 @@
    */
 
   var ClassToggler = /*#__PURE__*/function () {
-    function ClassToggler(element) {
+    function ClassToggler(element, config) {
       this._element = element;
+      this._config = this._getConfig(config);
+      Data.setData(element, DATA_KEY$4, this);
     } // Getters
 
 
     var _proto = ClassToggler.prototype;
 
     // Public
-    _proto.toggle = function toggle() {
+    _proto.add = function add() {
       var _this = this;
 
-      this._getElementDataAttributes(this._element).forEach(function (dataAttributes) {
-        var element;
-        var target = dataAttributes.target,
-            toggle = dataAttributes.toggle;
+      var target = this._target();
 
-        if (target === '_parent' || target === 'parent') {
-          element = _this._element.parentNode;
+      var classNames = this._config.addClass.replace(/\s/g, '').split(',');
+
+      classNames.forEach(function (className) {
+        target.classList.add(className);
+
+        _this._customEvent(EVENT_CLASS_ADDED, target, true, className);
+      });
+    };
+
+    _proto.remove = function remove() {
+      var _this2 = this;
+
+      var target = this._target();
+
+      var classNames = this._config.removeClass.replace(/\s/g, '').split(',');
+
+      classNames.forEach(function (className) {
+        if (_this2._config.responsive) {
+          _this2._updateResponsiveClassNames(className).forEach(function (className) {
+            target.classList.remove(className);
+
+            _this2._customEvent(EVENT_CLASS_REMOVED, target, false, className);
+          });
         } else {
-          element = document.querySelector(target);
+          target.classList.remove(className);
+
+          _this2._customEvent(EVENT_CLASS_REMOVED, target, false, className);
         }
+      });
+    };
 
-        toggle.forEach(function (object) {
-          var className = object.className,
-              responsive = object.responsive,
-              postfix = object.postfix;
-          var breakpoints = typeof object.breakpoints === 'undefined' || object.breakpoints === null ? null : _this._arrayFromString(object.breakpoints); // eslint-disable-next-line no-negated-condition
+    _proto.toggle = function toggle() {
+      var _this3 = this;
 
-          if (!responsive) {
-            var add = element.classList.toggle(className);
-            var event = new CustomEvent(EVENT_CLASS_TOGGLE, {
-              detail: {
-                target: target,
-                add: add,
-                className: className
-              }
+      var target = this._target();
+
+      var classNames = this._config.toggleClass.replace(/\s/g, '').split(',');
+
+      if (this._config.responsive) {
+        classNames.forEach(function (className) {
+          var responsiveClassNames = _this3._updateResponsiveClassNames(className);
+
+          if (responsiveClassNames.filter(function (className) {
+            return target.classList.contains(className);
+          }).length) {
+            _this3._updateResponsiveClassNames(className).forEach(function (className) {
+              _this3._config.removeClass = className;
+
+              _this3.remove();
+
+              _this3._customEvent(EVENT_CLASS_TOGGLE, target, false, className);
             });
-            element.dispatchEvent(event);
           } else {
-            var currentBreakpoint;
-            breakpoints.forEach(function (breakpoint) {
-              if (className.includes(breakpoint)) {
-                currentBreakpoint = breakpoint;
-              }
-            });
-            var responsiveClassNames = [];
+            _this3._config.addClass = className;
 
-            if (typeof currentBreakpoint === 'undefined') {
-              responsiveClassNames.push(className);
-            } else {
-              responsiveClassNames.push(className.replace("" + currentBreakpoint + postfix, postfix));
-              breakpoints.splice(0, breakpoints.indexOf(currentBreakpoint) + 1).forEach(function (breakpoint) {
-                responsiveClassNames.push(className.replace("" + currentBreakpoint + postfix, "" + breakpoint + postfix));
-              });
-            }
+            _this3.add();
 
-            var addResponsiveClasses = false;
-            responsiveClassNames.forEach(function (responsiveClassName) {
-              if (element.classList.contains(responsiveClassName)) {
-                addResponsiveClasses = true;
-              }
-            });
-
-            if (addResponsiveClasses) {
-              responsiveClassNames.forEach(function (responsiveClassName) {
-                element.classList.remove(responsiveClassName);
-                var event = new CustomEvent(EVENT_CLASS_TOGGLE, {
-                  detail: {
-                    target: target,
-                    add: false,
-                    className: responsiveClassName
-                  }
-                });
-                element.dispatchEvent(event);
-              });
-            } else {
-              element.classList.add(className);
-
-              var _event = new CustomEvent(EVENT_CLASS_TOGGLE, {
-                detail: {
-                  target: target,
-                  add: true,
-                  className: className
-                }
-              });
-
-              element.dispatchEvent(_event);
-            }
+            _this3._customEvent(EVENT_CLASS_TOGGLE, target, true, className);
           }
         });
-      });
+      } else {
+        classNames.forEach(function (className) {
+          if (target.classList.contains(className)) {
+            _this3._config.removeClass = className;
+
+            _this3.remove();
+
+            _this3._customEvent(EVENT_CLASS_TOGGLE, target, false, className);
+          } else {
+            _this3._config.addClass = className;
+
+            _this3.add();
+
+            _this3._customEvent(EVENT_CLASS_TOGGLE, target, true, className);
+          }
+        });
+      }
+    };
+
+    _proto.class = function _class() {
+      this._config.toggleClass = this._config.class;
+
+      if (this._element.getAttribute('responsive')) {
+        this._config.responsive = this._element.getAttribute('responsive');
+      }
+
+      this.toggle();
     } // Private
     ;
 
-    _proto._arrayFromString = function _arrayFromString(string) {
-      return string.replace(/ /g, '').split(',');
-    };
-
-    _proto._isArray = function _isArray(array) {
-      try {
-        JSON.parse(array.replace(/'/g, '"'));
-        return true;
-      } catch (_unused) {
-        return false;
+    _proto._target = function _target() {
+      if (this._config.target === 'body') {
+        return document.querySelector(this._config.target);
       }
+
+      if (this._config.target === '_parent') {
+        return this._element.parentNode;
+      }
+
+      return document.querySelector(this._config.target);
     };
 
-    _proto._convertToArray = function _convertToArray(array) {
-      return JSON.parse(array.replace(/'/g, '"'));
-    };
-
-    _proto._getDataAttributes = function _getDataAttributes(data, attribute) {
-      var dataAttribute = data[attribute];
-      return this._isArray(dataAttribute) ? this._convertToArray(dataAttribute) : dataAttribute;
-    };
-
-    _proto._getToggleDetails = function _getToggleDetails(classNames, responsive, breakpoints, postfix) {
-      var ToggleDetails = // eslint-disable-next-line default-param-last
-      function ToggleDetails(className, responsive, breakpoints, postfix) {
-        if (responsive === void 0) {
-          responsive = Default$2.responsive;
+    _proto._customEvent = function _customEvent(eventName, target, add, className) {
+      var event = new CustomEvent(eventName, {
+        detail: {
+          target: target,
+          add: add,
+          className: className
         }
-
-        this.className = className;
-        this.responsive = responsive;
-        this.breakpoints = breakpoints;
-        this.postfix = postfix;
-      };
-
-      var toggle = [];
-
-      if (Array.isArray(classNames)) {
-        classNames.forEach(function (className, index) {
-          responsive = Array.isArray(responsive) ? responsive[index] : responsive;
-          breakpoints = responsive ? Array.isArray(breakpoints) ? breakpoints[index] : breakpoints : null;
-          postfix = responsive ? Array.isArray(postfix) ? postfix[index] : postfix : null;
-          toggle.push(new ToggleDetails(className, responsive, breakpoints, postfix));
-        });
-      } else {
-        breakpoints = responsive ? breakpoints : null;
-        postfix = responsive ? postfix : null;
-        toggle.push(new ToggleDetails(classNames, responsive, breakpoints, postfix));
-      }
-
-      return toggle;
+      });
+      target.dispatchEvent(event);
     };
 
-    _proto._ifArray = function _ifArray(array, index) {
-      return Array.isArray(array) ? array[index] : array;
+    _proto._breakpoint = function _breakpoint(className) {
+      var breakpoints = this._config.breakpoints;
+      return breakpoints.filter(function (breakpoint) {
+        return breakpoint.length > 0;
+      }).filter(function (breakpoint) {
+        return className.includes(breakpoint);
+      })[0];
     };
 
-    _proto._getElementDataAttributes = function _getElementDataAttributes(element) {
-      var _this2 = this;
+    _proto._breakpoints = function _breakpoints(className) {
+      var breakpoints = this._config.breakpoints;
+      return breakpoints.slice(0, breakpoints.indexOf(breakpoints.filter(function (breakpoint) {
+        return breakpoint.length > 0;
+      }).filter(function (breakpoint) {
+        return className.includes(breakpoint);
+      })[0]) + 1);
+    };
 
-      var data = element.dataset;
-      var targets = typeof data.target === 'undefined' ? Default$2.target : this._getDataAttributes(data, 'target');
-      var classNames = typeof data.class === 'undefined' ? 'undefined' : this._getDataAttributes(data, 'class');
-      var responsive = typeof data.responsive === 'undefined' ? Default$2.responsive : this._getDataAttributes(data, 'responsive');
-      var breakpoints = typeof data.breakpoints === 'undefined' ? Default$2.breakpoints : this._getDataAttributes(data, 'breakpoints');
-      var postfix = typeof data.postfix === 'undefined' ? Default$2.postfix : this._getDataAttributes(data, 'postfix');
-      var toggle = [];
+    _proto._updateResponsiveClassNames = function _updateResponsiveClassNames(className) {
+      var bp = this._breakpoint(className);
 
-      var TargetDetails = function TargetDetails(target, toggle) {
-        this.target = target;
-        this.toggle = toggle;
-      };
+      return this._breakpoints(className).map(function (breakpoint) {
+        return breakpoint.length > 0 ? className.replace(bp, breakpoint) : className.replace("-" + bp, breakpoint);
+      });
+    };
 
-      if (Array.isArray(targets)) {
-        targets.forEach(function (target, index) {
-          toggle.push(new TargetDetails(target, _this2._getToggleDetails(_this2._ifArray(classNames, index), _this2._ifArray(responsive, index), _this2._ifArray(breakpoints, index), _this2._ifArray(postfix, index))));
-        });
-      } else {
-        toggle.push(new TargetDetails(targets, this._getToggleDetails(classNames, responsive, breakpoints, postfix)));
-      }
+    _proto._includesResponsiveClass = function _includesResponsiveClass(className) {
+      var _this4 = this;
 
-      return toggle;
+      return this._updateResponsiveClassNames(className).filter(function (className) {
+        return _this4._config.target.contains(className);
+      });
     } // Static
     ;
 
-    ClassToggler._classTogglerInterface = function _classTogglerInterface(element, config) {
+    _proto._getConfig = function _getConfig(config) {
+      config = _objectSpread2(_objectSpread2(_objectSpread2({}, this.constructor.Default), Manipulator.getDataAttributes(this._element)), config);
+      typeCheckConfig$1(NAME$4, config, this.constructor.DefaultType);
+      return config;
+    };
+
+    ClassToggler.classTogglerInterface = function classTogglerInterface(element, config) {
       var data = Data.getData(element, DATA_KEY$4);
 
       var _config = typeof config === 'object' && config;
@@ -2254,7 +2263,7 @@
 
     ClassToggler.jQueryInterface = function jQueryInterface(config) {
       return this.each(function () {
-        ClassToggler._classTogglerInterface(this, config);
+        ClassToggler.classTogglerInterface(this, config);
       });
     };
 
@@ -2262,6 +2271,16 @@
       key: "VERSION",
       get: function get() {
         return VERSION$4;
+      }
+    }, {
+      key: "Default",
+      get: function get() {
+        return Default$3;
+      }
+    }, {
+      key: "DefaultType",
+      get: function get() {
+        return DefaultType$2;
       }
     }]);
 
@@ -2276,13 +2295,28 @@
 
   EventHandler.on(document, EVENT_CLICK_DATA_API$4, SELECTOR_CLASS_TOGGLER, function (event) {
     event.preventDefault();
+    event.stopPropagation();
     var toggler = event.target;
 
     if (!toggler.classList.contains(CLASS_NAME_CLASS_TOGGLER)) {
       toggler = toggler.closest(SELECTOR_CLASS_TOGGLER);
     }
 
-    ClassToggler._classTogglerInterface(toggler, 'toggle');
+    if (typeof toggler.dataset.addClass !== 'undefined') {
+      ClassToggler.classTogglerInterface(toggler, 'add');
+    }
+
+    if (typeof toggler.dataset.removeClass !== 'undefined') {
+      ClassToggler.classTogglerInterface(toggler, 'remove');
+    }
+
+    if (typeof toggler.dataset.toggleClass !== 'undefined') {
+      ClassToggler.classTogglerInterface(toggler, 'toggle');
+    }
+
+    if (typeof toggler.dataset.class !== 'undefined') {
+      ClassToggler.classTogglerInterface(toggler, 'class');
+    }
   });
   var $$5 = getjQuery();
   /**
@@ -2310,15 +2344,15 @@
    */
 
   var NAME$5 = 'collapse';
-  var VERSION$5 = '3.2.0';
+  var VERSION$5 = '3.2.2';
   var DATA_KEY$5 = 'coreui.collapse';
   var EVENT_KEY$5 = "." + DATA_KEY$5;
   var DATA_API_KEY$5 = '.data-api';
-  var Default$3 = {
+  var Default$4 = {
     toggle: true,
     parent: ''
   };
-  var DefaultType$1 = {
+  var DefaultType$3 = {
     toggle: 'boolean',
     parent: '(string|element)'
   };
@@ -2549,10 +2583,10 @@
     ;
 
     _proto._getConfig = function _getConfig(config) {
-      config = _objectSpread2(_objectSpread2({}, Default$3), config);
+      config = _objectSpread2(_objectSpread2({}, Default$4), config);
       config.toggle = Boolean(config.toggle); // Coerce string values
 
-      typeCheckConfig(NAME$5, config, DefaultType$1);
+      typeCheckConfig$1(NAME$5, config, DefaultType$3);
       return config;
     };
 
@@ -2607,7 +2641,7 @@
     Collapse.collapseInterface = function collapseInterface(element, config) {
       var data = Data.getData(element, DATA_KEY$5);
 
-      var _config = _objectSpread2(_objectSpread2(_objectSpread2({}, Default$3), Manipulator.getDataAttributes(element)), typeof config === 'object' && config ? config : {});
+      var _config = _objectSpread2(_objectSpread2(_objectSpread2({}, Default$4), Manipulator.getDataAttributes(element)), typeof config === 'object' && config ? config : {});
 
       if (!data && _config.toggle && typeof config === 'string' && /show|hide/.test(config)) {
         _config.toggle = false;
@@ -2644,7 +2678,7 @@
     }, {
       key: "Default",
       get: function get() {
-        return Default$3;
+        return Default$4;
       }
     }]);
 
@@ -2713,7 +2747,7 @@
    */
 
   var NAME$6 = 'dropdown';
-  var VERSION$6 = '3.2.0';
+  var VERSION$6 = '3.2.2';
   var DATA_KEY$6 = 'coreui.dropdown';
   var EVENT_KEY$6 = "." + DATA_KEY$6;
   var DATA_API_KEY$6 = '.data-api';
@@ -2754,7 +2788,7 @@
   var PLACEMENT_BOTTOMEND = 'bottom-end';
   var PLACEMENT_RIGHT = 'right-start';
   var PLACEMENT_LEFT = 'left-start';
-  var Default$4 = {
+  var Default$5 = {
     offset: [0, 0],
     flip: true,
     boundary: 'scrollParent',
@@ -2762,7 +2796,7 @@
     display: 'dynamic',
     popperConfig: null
   };
-  var DefaultType$2 = {
+  var DefaultType$4 = {
     offset: '(array|function)',
     flip: 'boolean',
     boundary: '(string|element)',
@@ -2924,7 +2958,7 @@
       this._inHeader = this._detectHeader();
 
       if (this._popper) {
-        this._popper.scheduleUpdate();
+        this._popper.update();
       }
     } // Private
     ;
@@ -2942,7 +2976,7 @@
 
     _proto._getConfig = function _getConfig(config) {
       config = _objectSpread2(_objectSpread2(_objectSpread2({}, this.constructor.Default), Manipulator.getDataAttributes(this._element)), config);
-      typeCheckConfig(NAME$6, config, this.constructor.DefaultType);
+      typeCheckConfig$1(NAME$6, config, this.constructor.DefaultType);
       return config;
     };
 
@@ -2978,20 +3012,41 @@
 
     _proto._detectHeader = function _detectHeader() {
       return Boolean(this._element.closest("." + CLASS_NAME_HEADER));
-    };
+    } // _getOffset() {
+    //   const offset = {}
+    //   if (typeof this._config.offset === 'function') {
+    //     offset.fn = data => {
+    //       data.offsets = {
+    //         ...data.offsets,
+    //         ...this._config.offset(data.offsets, this._element) || {}
+    //       }
+    //       return data
+    //     }
+    //   } else {
+    //     offset.offset = this._config.offset
+    //   }
+    //   return offset
+    // }
+    ;
 
     _proto._getOffset = function _getOffset() {
       var _this2 = this;
 
-      var offset = {};
+      var offset = [];
 
       if (typeof this._config.offset === 'function') {
-        offset.fn = function (data) {
-          data.offsets = _objectSpread2(_objectSpread2({}, data.offsets), _this2._config.offset(data.offsets, _this2._element) || {});
-          return data;
+        offset = function offset(_ref3) {
+          var placement = _ref3.placement,
+              reference = _ref3.reference,
+              popper = _ref3.popper;
+          return _this2._config.offset({
+            placement: placement,
+            reference: reference,
+            popper: popper
+          });
         };
       } else {
-        offset.offset = this._config.offset;
+        offset = this._config.offset;
       }
 
       return offset;
@@ -3017,7 +3072,8 @@
       }; // Disable Popper.js if we have a static display
 
       if (this._config.display === 'static') {
-        popperConfig.modifiers.applyStyle = {
+        popperConfig.modifiers = {
+          name: 'applyStyles',
           enabled: false
         };
       }
@@ -3091,9 +3147,9 @@
 
 
         if ('ontouchstart' in document.documentElement) {
-          var _ref3;
+          var _ref4;
 
-          (_ref3 = []).concat.apply(_ref3, document.body.children).forEach(function (elem) {
+          (_ref4 = []).concat.apply(_ref4, document.body.children).forEach(function (elem) {
             return EventHandler.off(elem, 'mouseover', null, noop());
           });
         }
@@ -3183,12 +3239,12 @@
     }, {
       key: "Default",
       get: function get() {
-        return Default$4;
+        return Default$5;
       }
     }, {
       key: "DefaultType",
       get: function get() {
-        return DefaultType$2;
+        return DefaultType$4;
       }
     }]);
 
@@ -3241,18 +3297,18 @@
    */
 
   var NAME$7 = 'modal';
-  var VERSION$7 = '3.2.0';
+  var VERSION$7 = '3.2.2';
   var DATA_KEY$7 = 'coreui.modal';
   var EVENT_KEY$7 = "." + DATA_KEY$7;
   var DATA_API_KEY$7 = '.data-api';
   var ESCAPE_KEY$1 = 'Escape';
-  var Default$5 = {
+  var Default$6 = {
     backdrop: true,
     keyboard: true,
     focus: true,
     show: true
   };
-  var DefaultType$3 = {
+  var DefaultType$5 = {
     backdrop: '(boolean|string)',
     keyboard: 'boolean',
     focus: 'boolean',
@@ -3433,8 +3489,8 @@
     ;
 
     _proto._getConfig = function _getConfig(config) {
-      config = _objectSpread2(_objectSpread2({}, Default$5), config);
-      typeCheckConfig(NAME$7, config, DefaultType$3);
+      config = _objectSpread2(_objectSpread2({}, Default$6), config);
+      typeCheckConfig$1(NAME$7, config, DefaultType$5);
       return config;
     };
 
@@ -3455,6 +3511,8 @@
       this._element.removeAttribute('aria-hidden');
 
       this._element.setAttribute('aria-modal', true);
+
+      this._element.setAttribute('role', 'dialog');
 
       this._element.scrollTop = 0;
 
@@ -3542,6 +3600,8 @@
       this._element.setAttribute('aria-hidden', true);
 
       this._element.removeAttribute('aria-modal');
+
+      this._element.removeAttribute('role');
 
       this._isTransitioning = false;
 
@@ -3750,7 +3810,7 @@
       return this.each(function () {
         var data = Data.getData(this, DATA_KEY$7);
 
-        var _config = _objectSpread2(_objectSpread2(_objectSpread2({}, Default$5), Manipulator.getDataAttributes(this)), typeof config === 'object' && config ? config : {});
+        var _config = _objectSpread2(_objectSpread2(_objectSpread2({}, Default$6), Manipulator.getDataAttributes(this)), typeof config === 'object' && config ? config : {});
 
         if (!data) {
           data = new Modal(this, _config);
@@ -3780,7 +3840,7 @@
     }, {
       key: "Default",
       get: function get() {
-        return Default$5;
+        return Default$6;
       }
     }]);
 
@@ -3979,13 +4039,13 @@
    */
 
   var NAME$8 = 'tooltip';
-  var VERSION$8 = '3.2.0';
+  var VERSION$8 = '3.2.2';
   var DATA_KEY$8 = 'coreui.tooltip';
   var EVENT_KEY$8 = "." + DATA_KEY$8;
   var CLASS_PREFIX = 'bs-tooltip';
   var BSCLS_PREFIX_REGEX = new RegExp("(^|\\s)" + CLASS_PREFIX + "\\S+", 'g');
   var DISALLOWED_ATTRIBUTES = ['sanitize', 'whiteList', 'sanitizeFn'];
-  var DefaultType$4 = {
+  var DefaultType$6 = {
     animation: 'boolean',
     template: 'string',
     title: '(string|element|function)',
@@ -3994,7 +4054,7 @@
     html: 'boolean',
     selector: '(string|boolean)',
     placement: '(string|function)',
-    offset: '(number|string|function)',
+    offset: '(array|function)',
     container: '(string|element|boolean)',
     boundary: '(string|element)',
     sanitize: 'boolean',
@@ -4009,7 +4069,7 @@
     BOTTOM: 'bottom',
     LEFT: 'left'
   };
-  var Default$6 = {
+  var Default$7 = {
     animation: true,
     template: '<div class="tooltip" role="tooltip">' + '<div class="tooltip-arrow"></div>' + '<div class="tooltip-inner"></div></div>',
     trigger: 'hover focus',
@@ -4018,7 +4078,7 @@
     html: false,
     selector: false,
     placement: 'top',
-    offset: 0,
+    offset: [0, 0],
     container: false,
     boundary: 'scrollParent',
     sanitize: true,
@@ -4280,7 +4340,7 @@
 
     _proto.update = function update() {
       if (this._popper !== null) {
-        this._popper.scheduleUpdate();
+        this._popper.update();
       }
     } // Protected
     ;
@@ -4385,20 +4445,41 @@
     } // _addAttachmentClass(attachment) {
     //   this.getTipElement().classList.add(`${CLASS_PREFIX}-${attachment}`)
     // }
+    // _getOffset() {
+    //   const offset = {}
+    //   if (typeof this.config.offset === 'function') {
+    //     offset.fn = data => {
+    //       data.offsets = {
+    //         ...data.offsets,
+    //         ...this.config.offset(data.offsets, this.element) || {}
+    //       }
+    //       return data
+    //     }
+    //   } else {
+    //     offset.offset = this.config.offset
+    //   }
+    //   return offset
+    // }
     ;
 
     _proto._getOffset = function _getOffset() {
       var _this4 = this;
 
-      var offset = {};
+      var offset = [];
 
       if (typeof this.config.offset === 'function') {
-        offset.fn = function (data) {
-          data.offsets = _objectSpread2(_objectSpread2({}, data.offsets), _this4.config.offset(data.offsets, _this4.element) || {});
-          return data;
+        offset = function offset(_ref3) {
+          var placement = _ref3.placement,
+              reference = _ref3.reference,
+              popper = _ref3.popper;
+          return _this4.config.offset({
+            placement: placement,
+            reference: reference,
+            popper: popper
+          });
         };
       } else {
-        offset.offset = this.config.offset;
+        offset = this.config.offset;
       }
 
       return offset;
@@ -4572,7 +4653,7 @@
         config.content = config.content.toString();
       }
 
-      typeCheckConfig(NAME$8, config, this.constructor.DefaultType);
+      typeCheckConfig$1(NAME$8, config, this.constructor.DefaultType);
 
       if (config.sanitize) {
         config.template = sanitizeHtml(config.template, config.whiteList, config.sanitizeFn);
@@ -4597,7 +4678,6 @@
 
     _proto._cleanTipClass = function _cleanTipClass() {
       var tip = this.getTipElement();
-      console.log(this.tip);
       var tabClass = tip.getAttribute('class').match(BSCLS_PREFIX_REGEX);
 
       if (tabClass !== null && tabClass.length > 0) {
@@ -4670,7 +4750,7 @@
     }, {
       key: "Default",
       get: function get() {
-        return Default$6;
+        return Default$7;
       }
     }, {
       key: "NAME",
@@ -4695,7 +4775,7 @@
     }, {
       key: "DefaultType",
       get: function get() {
-        return DefaultType$4;
+        return DefaultType$6;
       }
     }]);
 
@@ -4730,20 +4810,20 @@
    */
 
   var NAME$9 = 'popover';
-  var VERSION$9 = '3.2.0';
+  var VERSION$9 = '3.2.2';
   var DATA_KEY$9 = 'coreui.popover';
   var EVENT_KEY$9 = "." + DATA_KEY$9;
   var CLASS_PREFIX$1 = 'bs-popover';
   var BSCLS_PREFIX_REGEX$1 = new RegExp("(^|\\s)" + CLASS_PREFIX$1 + "\\S+", 'g');
 
-  var Default$7 = _objectSpread2(_objectSpread2({}, Tooltip.Default), {}, {
+  var Default$8 = _objectSpread2(_objectSpread2({}, Tooltip.Default), {}, {
     placement: 'right',
     trigger: 'click',
     content: '',
     template: '<div class="popover" role="tooltip">' + '<div class="popover-arrow"></div>' + '<h3 class="popover-header"></h3>' + '<div class="popover-body"></div></div>'
   });
 
-  var DefaultType$5 = _objectSpread2(_objectSpread2({}, Tooltip.DefaultType), {}, {
+  var DefaultType$7 = _objectSpread2(_objectSpread2({}, Tooltip.DefaultType), {}, {
     content: '(string|element|function)'
   });
 
@@ -4859,7 +4939,7 @@
     }, {
       key: "Default",
       get: function get() {
-        return Default$7;
+        return Default$8;
       }
     }, {
       key: "NAME",
@@ -4884,7 +4964,7 @@
     }, {
       key: "DefaultType",
       get: function get() {
-        return DefaultType$5;
+        return DefaultType$7;
       }
     }]);
 
@@ -4918,16 +4998,16 @@
    */
 
   var NAME$a = 'scrollspy';
-  var VERSION$a = '3.2.0';
+  var VERSION$a = '3.2.2';
   var DATA_KEY$a = 'coreui.scrollspy';
   var EVENT_KEY$a = "." + DATA_KEY$a;
   var DATA_API_KEY$8 = '.data-api';
-  var Default$8 = {
+  var Default$9 = {
     offset: 10,
     method: 'auto',
     target: ''
   };
-  var DefaultType$6 = {
+  var DefaultType$8 = {
     offset: 'number',
     method: 'string',
     target: '(string|element)'
@@ -5031,7 +5111,7 @@
     ;
 
     _proto._getConfig = function _getConfig(config) {
-      config = _objectSpread2(_objectSpread2({}, Default$8), typeof config === 'object' && config ? config : {});
+      config = _objectSpread2(_objectSpread2({}, Default$9), typeof config === 'object' && config ? config : {});
 
       if (typeof config.target !== 'string' && isElement(config.target)) {
         var id = config.target.id;
@@ -5044,7 +5124,7 @@
         config.target = "#" + id;
       }
 
-      typeCheckConfig(NAME$a, config, DefaultType$6);
+      typeCheckConfig$1(NAME$a, config, DefaultType$8);
       return config;
     };
 
@@ -5176,7 +5256,7 @@
     }, {
       key: "Default",
       get: function get() {
-        return Default$8;
+        return Default$9;
       }
     }]);
 
@@ -5221,11 +5301,11 @@
    */
 
   var NAME$b = 'sidebar';
-  var VERSION$b = '3.2.0';
+  var VERSION$b = '3.2.2';
   var DATA_KEY$b = 'coreui.sidebar';
   var EVENT_KEY$b = "." + DATA_KEY$b;
   var DATA_API_KEY$9 = '.data-api';
-  var Default$9 = {
+  var Default$a = {
     breakpoints: {
       xs: 'c-sidebar-show',
       sm: 'c-sidebar-sm-show',
@@ -5235,7 +5315,7 @@
     },
     dropdownAccordion: true
   };
-  var DefaultType$7 = {
+  var DefaultType$9 = {
     breakpoints: 'object',
     dropdownAccordion: '(string|boolean)'
   };
@@ -5334,7 +5414,9 @@
         }
       };
 
+      var transitionDuration = getTransitionDurationFromElement(this._element);
       EventHandler.one(this._element, TRANSITION_END, complete);
+      emulateTransitionEnd(this._element, transitionDuration);
     };
 
     _proto.close = function close(breakpoint) {
@@ -5369,7 +5451,9 @@
         }
       };
 
+      var transitionDuration = getTransitionDurationFromElement(this._element);
       EventHandler.one(this._element, TRANSITION_END, complete);
+      emulateTransitionEnd(this._element, transitionDuration);
     };
 
     _proto.toggle = function toggle(breakpoint) {
@@ -5416,7 +5500,7 @@
 
     _proto._getConfig = function _getConfig(config) {
       config = _objectSpread2(_objectSpread2(_objectSpread2({}, this.constructor.Default), Manipulator.getDataAttributes(this._element)), config);
-      typeCheckConfig(NAME$b, config, this.constructor.DefaultType);
+      typeCheckConfig$1(NAME$b, config, this.constructor.DefaultType);
       return config;
     };
 
@@ -5466,13 +5550,13 @@
     };
 
     _proto._firstBreakpointClassName = function _firstBreakpointClassName() {
-      return Object.keys(Default$9.breakpoints).map(function (key) {
-        return Default$9.breakpoints[key];
+      return Object.keys(Default$a.breakpoints).map(function (key) {
+        return Default$a.breakpoints[key];
       })[0];
     };
 
     _proto._getBreakpointClassName = function _getBreakpointClassName(breakpoint) {
-      return Default$9.breakpoints[breakpoint];
+      return Default$a.breakpoints[breakpoint];
     };
 
     _proto._removeBackdrop = function _removeBackdrop() {
@@ -5547,11 +5631,11 @@
       var dataAttributes = toggler.closest(SELECTOR_NAVIGATION_CONTAINER).dataset;
 
       if (typeof dataAttributes.dropdownAccordion !== 'undefined') {
-        Default$9.dropdownAccordion = JSON.parse(dataAttributes.dropdownAccordion);
+        Default$a.dropdownAccordion = JSON.parse(dataAttributes.dropdownAccordion);
       } // TODO: find better solution
 
 
-      if (Default$9.dropdownAccordion === true) {
+      if (Default$a.dropdownAccordion === true) {
         this._getAllSiblings(toggler.parentElement).forEach(function (element) {
           if (element !== toggler.parentNode) {
             if (element.classList.contains(CLASS_NAME_NAV_DROPDOWN)) {
@@ -5669,12 +5753,12 @@
           }
         }
 
-        if (typeof Object.keys(Default$9.breakpoints).find(function (key) {
-          return Default$9.breakpoints[key] === event.detail.className;
+        if (typeof Object.keys(Default$a.breakpoints).find(function (key) {
+          return Default$a.breakpoints[key] === event.detail.className;
         }) !== 'undefined') {
           var className = event.detail.className;
-          var breakpoint = Object.keys(Default$9.breakpoints).find(function (key) {
-            return Default$9.breakpoints[key] === className;
+          var breakpoint = Object.keys(Default$a.breakpoints).find(function (key) {
+            return Default$a.breakpoints[key] === className;
           });
 
           if (event.detail.add) {
@@ -5733,12 +5817,12 @@
     }, {
       key: "Default",
       get: function get() {
-        return Default$9;
+        return Default$a;
       }
     }, {
       key: "DefaultType",
       get: function get() {
-        return DefaultType$7;
+        return DefaultType$9;
       }
     }]);
 
@@ -5782,7 +5866,7 @@
    */
 
   var NAME$c = 'tab';
-  var VERSION$c = '3.2.0';
+  var VERSION$c = '3.2.2';
   var DATA_KEY$c = 'coreui.tab';
   var EVENT_KEY$c = "." + DATA_KEY$c;
   var DATA_API_KEY$a = '.data-api';
@@ -6009,7 +6093,7 @@
    */
 
   var NAME$d = 'toast';
-  var VERSION$d = '3.2.0';
+  var VERSION$d = '3.2.2';
   var DATA_KEY$d = 'coreui.toast';
   var EVENT_KEY$d = "." + DATA_KEY$d;
   var EVENT_CLICK_DISMISS$1 = "click.dismiss" + EVENT_KEY$d;
@@ -6021,12 +6105,12 @@
   var CLASS_NAME_HIDE = 'hide';
   var CLASS_NAME_SHOW$8 = 'show';
   var CLASS_NAME_SHOWING = 'showing';
-  var DefaultType$8 = {
+  var DefaultType$a = {
     animation: 'boolean',
     autohide: 'boolean',
     delay: 'number'
   };
-  var Default$a = {
+  var Default$b = {
     animation: true,
     autohide: true,
     delay: 500
@@ -6141,8 +6225,8 @@
     ;
 
     _proto._getConfig = function _getConfig(config) {
-      config = _objectSpread2(_objectSpread2(_objectSpread2({}, Default$a), Manipulator.getDataAttributes(this._element)), typeof config === 'object' && config ? config : {});
-      typeCheckConfig(NAME$d, config, this.constructor.DefaultType);
+      config = _objectSpread2(_objectSpread2(_objectSpread2({}, Default$b), Manipulator.getDataAttributes(this._element)), typeof config === 'object' && config ? config : {});
+      typeCheckConfig$1(NAME$d, config, this.constructor.DefaultType);
       return config;
     };
 
@@ -6187,12 +6271,12 @@
     }, {
       key: "DefaultType",
       get: function get() {
-        return DefaultType$8;
+        return DefaultType$a;
       }
     }, {
       key: "Default",
       get: function get() {
-        return Default$a;
+        return Default$b;
       }
     }]);
 
@@ -6217,6 +6301,624 @@
     $$e.fn[NAME$d].noConflict = function () {
       $$e.fn[NAME$d] = JQUERY_NO_CONFLICT$d;
       return Toast.jQueryInterface;
+    };
+  }
+
+  /**
+   * ------------------------------------------------------------------------
+   * Constants
+   * ------------------------------------------------------------------------
+   */
+
+  var NAME$e = 'loadingbutton';
+  var VERSION$e = '3.2.2';
+  var DATA_KEY$e = 'coreui.loadingbutton';
+  var EVENT_KEY$e = "." + DATA_KEY$e;
+  var SELECTOR_SPINNER = '[data-spinner="true"]';
+  var EVENT_START = "start" + EVENT_KEY$e;
+  var EVENT_STOP = "stop" + EVENT_KEY$e;
+  var CLASSNAME_LOADING_BUTTON = 'c-loading-button';
+  var Default$c = {
+    loading: false,
+    progress: 100,
+    //
+    waitOnEnd: true,
+    //
+    time: 2.5,
+    //
+    variant: 'left-to-right',
+    stripeColor: 'rgba(0, 0, 0, 0.1)',
+    //
+    showSpinner: false //
+    ///
+    //track: false,
+    //trackInterval: 1,
+
+  };
+  var DefaultType$b = {
+    loading: 'boolean',
+    progress: 'number',
+    waitOnEnd: 'boolean',
+    time: 'number',
+    variant: 'string',
+    stripeColor: 'string',
+    showSpinner: 'boolean'
+  };
+  /**
+   * ------------------------------------------------------------------------
+   * Class Definition
+   * ------------------------------------------------------------------------
+   */
+
+  var LoadingButton = /*#__PURE__*/function () {
+    function LoadingButton(element, config) {
+      // dodaje tylko raz
+      if (Data.getData(element, DATA_KEY$e)) {
+
+        return;
+      }
+
+      this._element = element;
+      this._config = this._getConfig(config);
+
+      if (this._element) {
+        Data.setData(element, DATA_KEY$e, this);
+      }
+
+      this._elementSpinner = SelectorEngine.findOne(SELECTOR_SPINNER, element);
+
+      if (this._elementSpinner) {
+        this._elementSpinner.style.display = 'none';
+      }
+
+      this._elementStripe = this._addStripe(element);
+      if (this._config.loading) this.start();
+    } // Getters
+
+
+    var _proto = LoadingButton.prototype;
+
+    // Public
+    _proto.start = function start(element) {
+      var _this = this;
+
+      var rootElement = this._element;
+
+      if (element) {
+        rootElement = this._getRootElement(element);
+      }
+
+      var customEvent = this._triggerStartEvent(rootElement);
+
+      if (customEvent === null || customEvent.defaultPrevented) {
+        return;
+      }
+
+      setTimeout(function () {
+        _this._animateStripe(_this._elementStripe, _this._elementSpinner);
+
+        setTimeout(function () {
+          if (!_this._config.waitOnEnd) _this.stop();
+        }, _this._config.time * 1000);
+      }, 1);
+    };
+
+    _proto.stop = function stop(element) {
+      var customEvent = this._triggerStopEvent(this._element);
+
+      if (customEvent === null || customEvent.defaultPrevented) {
+        return;
+      }
+
+      this._stopStripe(this._elementStripe, this._elementSpinner);
+    };
+
+    _proto.progress = function progress(element, val) {
+      this._config.progress = val;
+    };
+
+    _proto.dispose = function dispose() {
+      Data.removeData(this._element, DATA_KEY$e);
+      this._element = null;
+    } // Private
+
+    /*
+    const tracking = ()=>{
+      if (!loadingState)
+        return;
+      if (onChange){
+        let realProgress=null;
+        realProgress = onChange('loading', loadingTime);
+        if (realProgress){
+           //recalculate
+          let newTime = loadingTime/realProgress;
+          newTime = newTime*(progress-realProgress);
+          refStripe.current.style.transition = 'left 0s linear';
+          refStripe.current.style.left = (-100+realProgress)+'%';
+           data.trackTimeout2 = setTimeout(()=>{
+            refStripe.current.style.transition = 'left '+newTime+'s linear'
+            refStripe.current.style.left = (-100+progress)+'%';
+             //on end
+            clearTimeout(data.endTimeout);
+            data.endTimeout = setTimeout(()=>{
+              if (onChange)
+                onChange('end');
+              if (progress===100 && waitOnEnd===false){
+                setLoadingState(false);
+              }
+            }, newTime*1000);
+           }, 0);
+         }
+      }
+      loadingTime+=trackInterval;
+      data.trackTimeout = setTimeout(tracking, trackInterval*1000);
+    }
+    */
+    ;
+
+    _proto._getConfig = function _getConfig(config) {
+      config = _objectSpread2(_objectSpread2(_objectSpread2({}, this.constructor.Default), Manipulator.getDataAttributes(this._element)), config);
+      typeCheckConfig$1(NAME$e, config, this.constructor.DefaultType);
+      return config;
+    };
+
+    _proto._getRootElement = function _getRootElement(element) {
+      //getElementFromSelector(element) || - data-target?
+      return element.closest("." + CLASSNAME_LOADING_BUTTON);
+    };
+
+    _proto._triggerStartEvent = function _triggerStartEvent(element) {
+      return EventHandler.trigger(element, EVENT_START);
+    };
+
+    _proto._triggerStopEvent = function _triggerStopEvent(element) {
+      return EventHandler.trigger(element, EVENT_STOP);
+    };
+
+    _proto._addStripe = function _addStripe(element) {
+      var html = '<div class="c-stripe" style="\
+    background-color: ' + this._config.stripeColor + ';\
+    "></div>';
+      var stripe = Manipulator.createElementFromHTML(html);
+
+      this._resetStripe(stripe);
+
+      element.prepend(stripe);
+      return stripe;
+    };
+
+    _proto._resetStripe = function _resetStripe(element) {
+      element.style.transition = 'left 0s linear';
+      element.style.left = '-100%';
+    };
+
+    _proto._stopStripe = function _stopStripe(element, elementSpinner) {
+      this._resetStripe(element);
+
+      if (elementSpinner) elementSpinner.style.display = 'none';
+    };
+
+    _proto._animateStripe = function _animateStripe(element, elementSpinner) {
+      element.style.transition = 'left ' + this._config.time + 's linear';
+      element.style.left = -100 + this._config.progress + '%';
+      if (elementSpinner) elementSpinner.style.display = 'inline-block';
+    } // Static
+    ;
+
+    LoadingButton.jQueryInterface = function jQueryInterface(config, par) {
+      return this.each(function () {
+        var data = Data.getData(this, DATA_KEY$e);
+
+        if (!data) {
+          data = new LoadingButton(this);
+        }
+
+        switch (config) {
+          case 'start':
+          case 'stop':
+            data[config](this);
+            break;
+
+          case 'progress':
+            data[config](this, par);
+            break;
+        }
+      });
+    };
+
+    LoadingButton.getInstance = function getInstance(element) {
+      return Data.getData(element, DATA_KEY$e);
+    };
+
+    _createClass(LoadingButton, null, [{
+      key: "VERSION",
+      get: function get() {
+        return VERSION$e;
+      }
+    }, {
+      key: "Default",
+      get: function get() {
+        return Default$c;
+      }
+    }, {
+      key: "DefaultType",
+      get: function get() {
+        return DefaultType$b;
+      }
+    }]);
+
+    return LoadingButton;
+  }();
+  /**
+   * ------------------------------------------------------------------------
+   * Data Api implementation
+   * ------------------------------------------------------------------------
+   */
+
+
+  var $$f = getjQuery();
+  /**
+   * ------------------------------------------------------------------------
+   * jQuery
+   * ------------------------------------------------------------------------
+   * add .loadingbutton to jQuery only if jQuery is present
+   */
+
+  /* istanbul ignore if */
+
+  if ($$f) {
+    var JQUERY_NO_CONFLICT$e = $$f.fn[NAME$e];
+    $$f.fn[NAME$e] = LoadingButton.jQueryInterface;
+    $$f.fn[NAME$e].Constructor = LoadingButton;
+
+    $$f.fn[NAME$e].noConflict = function () {
+      $$f.fn[NAME$e] = JQUERY_NO_CONFLICT$e;
+      return LoadingButton.jQueryInterface;
+    };
+  }
+
+  /**
+   * ------------------------------------------------------------------------
+   * Constants
+   * ------------------------------------------------------------------------
+   */
+
+  var NAME$f = 'multiselect';
+  var VERSION$f = '3.2.2';
+  var DATA_KEY$f = 'coreui.multiselect';
+  var EVENT_KEY$f = "." + DATA_KEY$f;
+  var SELECTOR_LIST = '[data-list="true"]';
+  var SELECTOR_INPUT$1 = '[data-input="true"]';
+  var SELECTOR_TAGS = '.c-tag-area';
+  var SELECTOR_TAG_DEL = '.c-tag button';
+  var EVENT_OPEN$1 = "open" + EVENT_KEY$f;
+  var EVENT_CLOSE$2 = "close" + EVENT_KEY$f;
+  var EVENT_SEARCH = "search" + EVENT_KEY$f;
+  var EVENT_FOCUS = "focus" + EVENT_KEY$f;
+  var EVENT_BLUR = "blur" + EVENT_KEY$f;
+  var EVENT_CHANGE = "keyup" + EVENT_KEY$f;
+  var EVENT_CLICK$1 = "click" + EVENT_KEY$f;
+  /**
+   * ------------------------------------------------------------------------
+   * Class Definition
+   * ------------------------------------------------------------------------
+   */
+
+  var MultiSelect = /*#__PURE__*/function () {
+    function MultiSelect(element) {
+      this._element = element; //data
+
+      if (this._element) {
+        Data.setData(element, DATA_KEY$f, this);
+      } //selected options
+
+
+      this._options = {}; //list
+
+      this._elementList = SelectorEngine.findOne(SELECTOR_LIST, element);
+
+      if (this._elementList) {
+        this._elementList.style.display = 'none';
+      } //input
+
+
+      this._elementInput = SelectorEngine.findOne(SELECTOR_INPUT$1, element); //tags
+
+      this._elementTags = SelectorEngine.findOne(SELECTOR_TAGS, element); //events
+
+      this._addEventListeners();
+    } // Getters
+
+
+    var _proto = MultiSelect.prototype;
+
+    // Public
+    _proto.open = function open(element) {
+      var rootElement = this._elementList;
+
+      var customEvent = this._triggerOpenEvent(rootElement);
+
+      if (customEvent === null || customEvent.defaultPrevented) {
+        return;
+      }
+
+      this._open(rootElement);
+    };
+
+    _proto.close = function close(element) {
+      var rootElement = this._elementList;
+
+      var customEvent = this._triggerCloseEvent(rootElement);
+
+      if (customEvent === null || customEvent.defaultPrevented) {
+        return;
+      }
+
+      this._close(rootElement);
+    };
+
+    _proto.search = function search(text) {
+      var rootElement = this._elementList;
+
+      var customEvent = this._triggerSearchEvent(rootElement);
+
+      if (customEvent === null || customEvent.defaultPrevented) {
+        return;
+      }
+
+      this._search = text;
+
+      this._updateList(rootElement);
+    };
+
+    _proto.value = function value() {
+      return Object.keys(this._options);
+    } //default
+    ;
+
+    _proto.dispose = function dispose() {
+      Data.removeData(this._element, DATA_KEY$f);
+      this._element = null;
+    } // Private
+    ;
+
+    _proto._getConfig = function _getConfig(config, update) {
+      if (update !== true) config = _objectSpread2(_objectSpread2(_objectSpread2({}, this.constructor.Default), Manipulator.getDataAttributes(this._element)), config);
+      typeCheckConfig(NAME$f, config, this.constructor.DefaultType);
+      return config;
+    } // events
+    ;
+
+    _proto._addEventListeners = function _addEventListeners() {
+      var _this = this;
+
+      EventHandler.on(this._elementInput, EVENT_FOCUS, function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        _this._onSearchFocus(_this._elementInput);
+      });
+      EventHandler.on(this._elementInput, EVENT_BLUR, function (event) {
+        event.preventDefault();
+        event.stopPropagation(); //this._onSearchFocusOut(this._elementInput);
+      });
+      EventHandler.on(this._elementInput, EVENT_CHANGE, function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        _this._onSearchChange(_this._elementInput);
+      });
+      EventHandler.on(this._elementList, EVENT_CLICK$1, function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        _this._onListClick(event.target);
+      });
+    };
+
+    _proto._addTagsEventListeners = function _addTagsEventListeners() {
+      var _this2 = this;
+
+      EventHandler.on(document, EVENT_CLICK$1, SELECTOR_TAG_DEL, function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        _this2._onTagDelClick(event.target);
+      });
+    } //user event triggers
+    ;
+
+    _proto._triggerOpenEvent = function _triggerOpenEvent(element) {
+      return EventHandler.trigger(element, EVENT_OPEN$1);
+    };
+
+    _proto._triggerCloseEvent = function _triggerCloseEvent(element) {
+      return EventHandler.trigger(element, EVENT_CLOSE$2);
+    };
+
+    _proto._triggerSearchEvent = function _triggerSearchEvent(element) {
+      return EventHandler.trigger(element, EVENT_SEARCH);
+    } // actions
+    ;
+
+    _proto._open = function _open(element) {
+      if (element) element.style.display = 'initial';
+    };
+
+    _proto._close = function _close(element) {
+      if (element) element.style.display = 'none';
+    } //list
+    ;
+
+    _proto._onListClick = function _onListClick(element) {
+      var val = element.value || element.textContent;
+
+      if (this._options[val] === undefined) {
+        this._options[val] = element.textContent;
+
+        this._updateTags();
+      }
+    } //search
+    ;
+
+    _proto._onSearchFocus = function _onSearchFocus(element) {
+      this.open();
+    };
+
+    _proto._onSearchFocusOut = function _onSearchFocusOut(element) {
+      this.close();
+    };
+
+    _proto._onSearchChange = function _onSearchChange(element) {
+      this.search(element.value);
+    };
+
+    _proto._updateList = function _updateList(element) {
+      var _this3 = this;
+
+      var nodes = SelectorEngine.children(element, 'li, ul');
+      nodes.map(function (node) {
+        if (node.tagName === 'UL') {
+          _this3._updateList(node);
+
+          return;
+        }
+
+        if (node.tagName !== 'LI') return;
+        if (node.classList.contains('c-label')) return;
+        if (node.textContent.indexOf(_this3._search) === -1) node.style.display = 'none';else node.style.display = 'block';
+      });
+    } // tags
+    ;
+
+    _proto._updateTags = function _updateTags(element) {
+      var tag;
+      this._elementTags.innerHTML = '';
+
+      for (var val in this._options) {
+        tag = Manipulator.createElementFromHTML('\
+      <div class="c-tag">' + this._options[val] + '\
+        <button class="btn btn-default" value="' + val + '">&times;</button>\
+      </div>');
+
+        this._elementTags.append(tag);
+      }
+
+      this._addTagsEventListeners();
+    };
+
+    _proto._onTagDelClick = function _onTagDelClick(element) {
+      var val = element.value;
+
+      if (val !== undefined) {
+        delete this._options[val];
+
+        this._updateTags();
+      }
+    } // Static
+    ;
+
+    MultiSelect.jQueryInterface = function jQueryInterface(config) {
+      return this.each(function () {
+        var data = Data.getData(this, DATA_KEY$f);
+
+        if (!data) {
+          data = new MultiSelect(this);
+        }
+
+        switch (config) {
+          case 'close':
+          case 'open':
+          case 'search':
+          case 'value':
+            data[config](this);
+            break;
+        }
+      });
+    };
+
+    MultiSelect.getInstance = function getInstance(element) {
+      return Data.getData(element, DATA_KEY$f);
+    } // API 2.0 (experimental)
+    // functions available for dom element
+    ;
+
+    _proto.update = function update(config) {
+      // public method
+      this._getConfig(config);
+    };
+
+    MultiSelect.new = function _new(element, config) {
+      var data = Data.getData(element, DATA_KEY$f);
+
+      if (!data) {
+        return new MultiSelect(element, config);
+      }
+
+      return data;
+    };
+
+    MultiSelect.destroy = function destroy(element) {
+      // remove instance connected to element
+      var data = Data.getData(element, DATA_KEY$f);
+
+      if (data) {
+        if (element.parentNode) {
+          element.parentNode.removeChild(element);
+        }
+
+        MultiSelect.destroyInstance(data);
+        Data.removeData(element, DATA_KEY$f);
+        return true;
+      }
+
+      return false;
+    };
+
+    _createClass(MultiSelect, null, [{
+      key: "VERSION",
+      get: function get() {
+        return VERSION$f;
+      }
+    }, {
+      key: "Default",
+      get: function get() {
+        return Default;
+      }
+    }, {
+      key: "DefaultType",
+      get: function get() {
+        return DefaultType;
+      }
+    }]);
+
+    return MultiSelect;
+  }();
+  /**
+   * ------------------------------------------------------------------------
+   * Data Api implementation
+   * ------------------------------------------------------------------------
+   */
+
+
+  var $$g = getjQuery();
+  /**
+   * ------------------------------------------------------------------------
+   * jQuery
+   * ------------------------------------------------------------------------
+   * add .multiselect to jQuery only if jQuery is present
+   */
+
+  /* istanbul ignore if */
+
+  if ($$g) {
+    var JQUERY_NO_CONFLICT$f = $$g.fn[NAME$f];
+    $$g.fn[NAME$f] = MultiSelect.jQueryInterface;
+    $$g.fn[NAME$f].Constructor = MultiSelect;
+
+    $$g.fn[NAME$f].noConflict = function () {
+      $$g.fn[NAME$f] = JQUERY_NO_CONFLICT$f;
+      return MultiSelect.jQueryInterface;
     };
   }
 
@@ -6738,9 +7440,30 @@
     }
   });
 
+  (function () {
+    if (typeof window.CustomEvent === "function" || // In Safari, typeof CustomEvent == 'object' but it otherwise works fine
+    this.CustomEvent.toString().indexOf('CustomEventConstructor') > -1) {
+      return;
+    }
+
+    function CustomEvent(event, params) {
+      params = params || {
+        bubbles: false,
+        cancelable: false,
+        detail: undefined
+      };
+      var evt = document.createEvent('CustomEvent');
+      evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+      return evt;
+    }
+
+    CustomEvent.prototype = window.Event.prototype;
+    window.CustomEvent = CustomEvent;
+  })();
+
   /**
    * --------------------------------------------------------------------------
-   * CoreUI (v3.2.0): index.umd.js
+   * CoreUI (v3.2.2): index.umd.js
    * Licensed under MIT (https://coreui.io/license)
    * --------------------------------------------------------------------------
    */
@@ -6758,7 +7481,9 @@
     Sidebar: Sidebar,
     Tab: Tab,
     Toast: Toast,
-    Tooltip: Tooltip
+    Tooltip: Tooltip,
+    LoadingButton: LoadingButton,
+    MultiSelect: MultiSelect
   };
 
   return index_umd;

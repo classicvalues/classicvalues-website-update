@@ -48,7 +48,7 @@
   },
   "scripts": {
     "bundlesize": "bundlesize",
-    "css": "npm-run-all --parallel css-lint css-compile* --sequential css-prefix* css-minify*",
+    "css": "npm-run-all --parallel css-compile* --sequential css-prefix* css-minify*",
     "css-compile": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 8 scss/coreui.scss dist/css/coreui.css",
     "css-combine-duplicated-selectors": "postcss dist/css/coreui.css --use postcss-combine-duplicated-selectors --output dist/css/coreui.css",
     "css-compile-partials": "node build/scss-partials.js && rimraf css && foreach -g \"scss/partials/*.scss\" -x \"node-sass --include-path scss --output-style expanded --source-map true --source-map-contents true --precision 6 scss/partials/#{name}.scss css/#{name}.css\"",

@@ -27,7 +27,7 @@ const DATA_KEY = 'coreui.loadingbutton'
 const EVENT_KEY = `.${DATA_KEY}`
 const DATA_API_KEY = '.data-api'
 
-const SELECTOR_SPINNER = '[data-spinner="true"]'
+const SELECTOR_SPINNER = '[data-target="loading-button"]'
 
 const EVENT_START = `start${EVENT_KEY}`
 const EVENT_STOP = `stop${EVENT_KEY}`
@@ -35,26 +35,20 @@ const EVENT_STOP = `stop${EVENT_KEY}`
 const CLASSNAME_LOADING_BUTTON = 'c-loading-button'
 
 const Default = {
-  loading: false,
-  progress: 100,//
-  waitOnEnd: true,//
-  time: 2.5,//
-  variant: 'left-to-right',
-  stripeColor: 'rgba(0, 0, 0, 0.1)',//
-  showSpinner: false, //
+  progress: 100, // max progress
+  wait: true, // wait on end
+  time: 2.5, // animation time
+  stripeColor: 'rgba(0, 0, 0, 0.1)', // stripe color
   ///
   //track: false,
-  //trackInterval: 1,
+  //trackInterval: 1
 }
 
 const DefaultType = {
-  loading: 'boolean',
   progress: 'number',
-  waitOnEnd: 'boolean',
+  wait: 'boolean',
   time: 'number',
-  variant: 'string',
-  stripeColor: 'string',
-  showSpinner: 'boolean'
+  stripeColor: 'string'
 }
 
 /**
@@ -68,7 +62,7 @@ class LoadingButton {
   constructor(element, config) {
 
     if (Data.getData(element, DATA_KEY)) { // already found
-      //this._elementStripe = SelectorEngine.findOne('.c-stripe', element);
+      console.warn('Instance already exist.');
       return;
     }
 
@@ -85,9 +79,6 @@ class LoadingButton {
     }
 
     this._elementStripe = this._addStripe(element);
-
-    if (this._config.loading)
-      this.start();
 
   }
 
@@ -109,6 +100,17 @@ class LoadingButton {
 
   // Public
 
+  update(config) { // public method
+    this._getConfig(config);
+  }
+
+  dispose() {
+    Data.removeData(this._element, DATA_KEY)
+    this._element = null
+  }
+
+  //
+
   start(element) {
     let rootElement = this._element
     if (element) {
@@ -121,7 +123,7 @@ class LoadingButton {
     setTimeout(()=>{
       this._animateStripe(this._elementStripe, this._elementSpinner);
       setTimeout(()=>{
-        if (!this._config.waitOnEnd)
+        if (!this._config.wait)
           this.stop();
       }, this._config.time*1000);
     }, 1);
@@ -133,15 +135,6 @@ class LoadingButton {
       return;
     }
     this._stopStripe(this._elementStripe, this._elementSpinner);
-  }
-
-  progress(element, val) {
-    this._config.progress = val;
-  }
-
-  dispose() {
-    Data.removeData(this._element, DATA_KEY)
-    this._element = null
   }
 
 
@@ -217,7 +210,7 @@ class LoadingButton {
   _addStripe(element) {
     const html = '<div class="c-stripe" style="\
     background-color: '+this._config.stripeColor+';\
-    "></div>';
+    " aria-hidden="true"></div>';
     const stripe = Manipulator.createElementFromHTML(html);
     this._resetStripe(stripe);
     element.prepend(stripe);
@@ -254,12 +247,13 @@ class LoadingButton {
       }
 
       switch (config){
+        case 'update':
+        data[config](this, par)
+        break;
+        case 'dispose':
         case 'start':
         case 'stop':
         data[config](this)
-        break;
-        case 'progress':
-        data[config](this, par)
         break;
       }
     })

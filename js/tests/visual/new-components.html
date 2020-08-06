@@ -8,13 +8,41 @@
   </head>
   <body style="margin:50px">
 
+    <h1>CoreUI</h1>
+
+
+    <div class="alert alert-primary" role="alert">This is a primary alert—check it out!</div>
+
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" id="alert1"><strong>Holy guacamole!</strong> You should check in on some of those fields below.
+      <button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+
+    <div class="alert alert-warning alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> You should check in on some of those fields below.
+      <button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+
+    <hr>
+
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Dropdown button
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+      </div>
+    </div>
+
+    <hr>
+    <br>
     <h1>New Components</h1>
     <br>
     <h1>loading-button</h1>
 
     <button class="btn btn-default c-loading-button" data-time="1" id="lb1">
       loading button 1 with spinner, data-time attribute
-      <div class="spinner-grow spinner-grow-sm" data-spinner="true"></div>
+      <div class="spinner-grow spinner-grow-sm" data-target="loading-button"></div>
     </button>
 
     <button class="btn btn-default c-loading-button" data-time="0.5" data-stripe-color="rgba(255, 0, 0, 0.2)" id="lb2">
@@ -27,20 +55,13 @@
 
     <div class="c-select" id="multi1">
 
-      <div class='c-tag-area'>
-
-      </div>
+      <div class='c-tag-area'></div>
 
       <div class='c-select-search'>
-        <input
-          type="text"
-          data-input="true"
-        />
+        <input type="text" />
       </div>
 
-      <ul
-        data-list="true"
-      >
+      <ul data-list>
         <li value="1">an option 1</li>
         <li>a long long option 2</li>
         <li value="3">option 3</li>
@@ -59,6 +80,8 @@
       </ul>
 
     </div>
+
+    <hr>
 
     <button class='btn btn-default' onclick='alertValue()'>Get value</button>
 

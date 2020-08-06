@@ -99,27 +99,45 @@ value
 -
 
 Komponent loading-button
-metody: start, stop
-data-: time
-data-api: -
-własne data- atrybuty:
-generated content: stripe
-/
+
+Methods: update, dispose,
+start - start animation
+stop - stop animation
+
+Data- par:
+progress: 100, // max progress
+wait: true, // wait on end
+time: 2.5, // animation time
+stripeColor: 'rgba(0, 0, 0, 0.1)', // stripe color
+
+Data-api: -
+
+Own data- attributes:
+data-target="loading-button" - loading spinner
+
+Generated content: stripe
+
 Description:
-interface:
-time (ms)
-waitOnEnd
-onChange
-data:
-loadingState - component in loading state?
+-
 
 Komponent multi-select
-metody: open, close, search
-data-:
-data-api: -
-własne data- atrybuty:
-generated content: -
-/
+
+Methods: update, dispose,
+open - open list
+close - close list
+search - change search
+value - get value
+
+Data- par:
+selected: [] - initialy selected
+
+Data-api: -
+
+Own data- attributes:
+data-list - main list
+
+Generated content: -
+
 Description:
 -
 

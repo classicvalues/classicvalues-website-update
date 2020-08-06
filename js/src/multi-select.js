@@ -8,6 +8,7 @@
 import {
   getjQuery,
   getElementFromSelector,
+  typeCheckConfig
 } from './util/index'
 import Data from './dom/data'
 import EventHandler from './dom/event-handler'
@@ -26,8 +27,8 @@ const DATA_KEY = 'coreui.multiselect'
 const EVENT_KEY = `.${DATA_KEY}`
 const DATA_API_KEY = '.data-api'
 
-const SELECTOR_LIST = '[data-list="true"]'
-const SELECTOR_INPUT = '[data-input="true"]'
+const SELECTOR_LIST = '[data-list]'
+const SELECTOR_INPUT = 'input'
 const SELECTOR_TAGS = '.c-tag-area'
 const SELECTOR_TAG_DEL = '.c-tag button'
 
@@ -39,8 +40,20 @@ const EVENT_BLUR = `blur${EVENT_KEY}`
 const EVENT_CHANGE = `keyup${EVENT_KEY}`
 const EVENT_CLICK = `click${EVENT_KEY}`
 
-const CLASSNAME_MULTI_SELECT = 'c-select'
+const TAG_LIST = 'UL'
+const TAG_ITEM = 'LI'
 
+const CLASSNAME_MULTI_SELECT = 'c-select'
+const CLASSNAME_TAG = 'c-tag'
+const CLASSNAME_LABEL = 'c-label'
+
+const Default = {
+  selected: []
+}
+
+const DefaultType = {
+  selected: 'array'
+}
 
 /**
  * ------------------------------------------------------------------------
@@ -49,22 +62,32 @@ const CLASSNAME_MULTI_SELECT = 'c-select'
  */
 
 class MultiSelect {
-  constructor(element) {
+  constructor(element, config) {
+
+    if (Data.getData(element, DATA_KEY)) { // already found
+      console.warn('Instance already exist.');
+      return;
+    }
+
     this._element = element
+    this._options = {}
+    this._config = this._getConfig(config)
 
     //data
     if (this._element) {
       Data.setData(element, DATA_KEY, this)
     }
 
-    //selected options
-    this._options = {};
-
     //list
     this._elementList = SelectorEngine.findOne(SELECTOR_LIST, element);
     if (this._elementList) {
       this._elementList.style.display = 'none';
     }
+    //set init values
+    this._getNames();
+    this._config.selected.map(val=>{
+      this._options[val] = this._names[val];
+    });
 
     //input
     this._elementInput = SelectorEngine.findOne(SELECTOR_INPUT, element);
@@ -93,6 +116,17 @@ class MultiSelect {
 
 
   // Public
+
+  update(config) { // public method
+    this._getConfig(config);
+  }
+
+  dispose() {
+    Data.removeData(this._element, DATA_KEY)
+    this._element = null
+  }
+
+  //
 
   open(element) {
     let rootElement = this._elementList
@@ -132,13 +166,6 @@ class MultiSelect {
 
   value() {
     return Object.keys(this._options);
-  }
-
-  //default
-
-  dispose() {
-    Data.removeData(this._element, DATA_KEY)
-    this._element = null
   }
 
 
@@ -223,6 +250,8 @@ class MultiSelect {
   //list
 
   _onListClick(element) {
+    if (element.tagName!==TAG_ITEM || element.classList.contains(CLASSNAME_LABEL))
+      return;
     const val = element.value || element.textContent;
     if (this._options[val]===undefined) {
       this._options[val] = element.textContent;
@@ -241,19 +270,20 @@ class MultiSelect {
   }
 
   _onSearchChange(element) {
-    this.search(element.value);
+    if (element)
+      this.search(element.value);
   }
 
   _updateList(element) {
-    const nodes = SelectorEngine.children(element, 'li, ul');
+    if (!element)
+      return;
+    const nodes = SelectorEngine.children(element, TAG_LIST+','+TAG_ITEM);
     nodes.map((node)=>{
-      if (node.tagName==='UL') {
+      if (node.tagName===TAG_LIST) {
         this._updateList(node);
         return;
       }
-      if (node.tagName!=='LI')
-        return;
-      if (node.classList.contains('c-label'))
+      if (node.tagName!==TAG_ITEM || node.classList.contains(CLASSNAME_LABEL))
         return;
       if (node.textContent.indexOf(this._search)===-1)
         node.style.display='none';
@@ -262,14 +292,31 @@ class MultiSelect {
     })
   }
 
+  _getNames(element) {
+    if (!element)
+      return;
+    const nodes = SelectorEngine.children(element, TAG_LIST+','+TAG_ITEM);
+    nodes.map((node)=>{
+      if (node.tagName===TAG_LIST) {
+        this._getNames(node);
+        return;
+      }
+      if (node.tagName!==TAG_ITEM || node.classList.contains(CLASSNAME_LABEL))
+        return;
+      this._names[node.value || node.textContent] = node.textContent;
+    })
+  }
+
   // tags
 
   _updateTags(element) {
+    if (!this._elementTags)
+      return;
     let tag;
     this._elementTags.innerHTML = '';
     for (let val in this._options) {
       tag = Manipulator.createElementFromHTML('\
-      <div class="c-tag">'+this._options[val]+'\
+      <div class="'+CLASSNAME_TAG+'">'+this._options[val]+'\
         <button class="btn btn-default" value="'+val+'">&times;</button>\
       </div>');
       this._elementTags.append(tag);
@@ -278,6 +325,8 @@ class MultiSelect {
   }
 
   _onTagDelClick(element) {
+    if (!element)
+      return;
     const val = element.value;
     if (val!==undefined) {
       delete this._options[val];
@@ -296,8 +345,12 @@ class MultiSelect {
       }
 
       switch (config){
-        case 'close':
+        case 'update':
+        data[config](this, par)
+        break;
+        case 'dispose':
         case 'open':
+        case 'close':
         case 'search':
         case 'value':
         data[config](this)
@@ -315,10 +368,6 @@ class MultiSelect {
   // API 2.0 (experimental)
 
   // functions available for dom element
-
-  update(config) { // public method
-    this._getConfig(config);
-  }
 
   static new(element, config) {
     let data = Data.getData(element, DATA_KEY)

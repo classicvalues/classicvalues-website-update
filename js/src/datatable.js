@@ -1,67 +1,16 @@
 /**
  * --------------------------------------------------------------------------
- * CoreUI (v3.2.2): datatable.js
+ * CoreUI (v3.?): datatable.js
  * Licensed under MIT (https://coreui.io/license)
  * --------------------------------------------------------------------------
  */
 
-/*
-
-Description:
-
-events
-start
-
-methods
-start
-
-interface:
-time (ms)
-waitOnEnd
-onChange
-data:
-loadingState - component in loading state
-generated content:
-before -
-<div className="c-stripe" style="transition: 'left 0s linear'; left: '-100%'; backgroundColor: stripeColor ? stripeColor : 'rgba(0,0,0,0.1)'">
-
-manipulator
-setDataAttribute - dodaje atrybut
-removeDataAttribute
-getDataAttribute - zwraca atrybut
-getDataAttributes - zwraca atrybuty
-offset - zwraca offset
-position
-toggleClass
-
-js
-classlist .add, .remove .containts
-
-selector-engine
-matches
-find
-findOne
-children
-parents
-prev
-next
-
-
-spr
-
-loadingbutton
-wkleic track
-
-*/
-
-
 import {
   getjQuery,
-  TRANSITION_END,
-  emulateTransitionEnd,
   getElementFromSelector,
-  getTransitionDurationFromElement,
-  typeCheckConfig
+  typeCheckConfig,
+  findRep,
+  objStr
 } from './util/index'
 import Data from './dom/data'
 import EventHandler from './dom/event-handler'
@@ -74,47 +23,78 @@ import SelectorEngine from './dom/selector-engine'
  * ------------------------------------------------------------------------
  */
 
-const NAME = 'loadingbutton'
+const NAME = 'datatable'
 const VERSION = '3.2.2'
-const DATA_KEY = 'coreui.loadingbutton'
+const DATA_KEY = 'coreui.datatable'
 const EVENT_KEY = `.${DATA_KEY}`
 const DATA_API_KEY = '.data-api'
 
-const SELECTOR_SPINNER = '[data-spinner="true"]' //m
-const SELECTOR_DISMISS = '[data-dismiss="alert"]'
+// zmienne
+const SELECTOR_COMPONENT = '[coreui-datatable]'
 
-const EVENT_START = `start${EVENT_KEY}` //m
-const EVENT_STOP = `stop${EVENT_KEY}` //m
-const EVENT_CLOSE = `close${EVENT_KEY}`
-const EVENT_CLOSED = `closed${EVENT_KEY}`
-const EVENT_CLICK_DATA_API = `click${EVENT_KEY}${DATA_API_KEY}`
+const SELECTOR_LIST = '[data-list]'
+const SELECTOR_INPUT = 'input'
+const SELECTOR_TAGS = '.c-tag-area'
+const SELECTOR_TAG_DEL = '.c-tag button'
 
-const CLASSNAME_LOADING_BUTTON = 'c-loading-button' //m
-const CLASSNAME_FADE = 'fade'
-const CLASSNAME_SHOW = 'show'
+const EVENT_OPEN = `open${EVENT_KEY}`//u
+const EVENT_CLOSE = `close${EVENT_KEY}`//u
+const EVENT_SEARCH = `search${EVENT_KEY}`//u
+const EVENT_FOCUS = `focus${EVENT_KEY}`//u
+const EVENT_BLUR = `blur${EVENT_KEY}`//u
+const EVENT_CHANGE = `keyup${EVENT_KEY}`//u
+const EVENT_CLICK = `click${EVENT_KEY}`//u
 
-const Default = {
-  loading: false,
-  progress: 100,//
-  waitOnEnd: true,//
-  time: 2.5,//
-  variant: 'left-to-right',
-  stripeColor: 'rgba(0, 0, 0, 0.1)',//
-  showSpinner: false, //
-  ///
-  //track: false,
-  //trackInterval: 1,
-}
+//?
+const TAG_LIST = 'UL'//u
+const TAG_ITEM = 'LI'//u
+
+const CLASSNAME_MULTI_SELECT = 'c-datatable'
+const CLASSNAME_TAG = 'c-tag'
+const CLASSNAME_LABEL = 'c-label'
+
+//jquery
+const EVENT_LOAD_DATA_API = `load${EVENT_KEY}${DATA_API_KEY}`//?
 
 const DefaultType = {
+  items: 'array',
+  fields: 'array',
+  itemsPerPage: 'number',
+  activePage: 'number',
+  pagination: ['boolean', 'object'],
+  addTableClasses: ['string', 'array', 'object'],
+  responsive: 'boolean',
+  size: 'string',
+  dark: 'boolean',
+  striped: 'boolean',
+  fixed: 'boolean',
+  hover: 'boolean',
+  border: 'boolean',
+  outlined: 'boolean',
+  itemsPerPageSelect: ['boolean', 'object'],
+  sorter: ['boolean', 'object'],
+  tableFilter: ['boolean', 'object'],
+  columnFilter: ['boolean', 'object'],
+  sorterValue: 'object',
+  tableFilterValue: 'string',
+  columnFilterValue: 'object',
+  header: 'boolean',
+  footer: 'boolean',
   loading: 'boolean',
-  progress: 'number',
-  waitOnEnd: 'boolean',
-  time: 'number',
-  variant: 'string',
-  stripeColor: 'string',
-  showSpinner: 'boolean'
+  clickableRows: 'boolean',
+  noItemsView: 'object',
+  cleaner: 'boolean'
 }
+
+const Default = {
+  itemsPerPage: 10,
+  responsive: true,
+  sorterValue: () => { return {} },
+  header: true,
+  columnFilterSlot: [],
+  columnHeaderSlot: []
+}
+
 
 /**
  * ------------------------------------------------------------------------
@@ -122,39 +102,126 @@ const DefaultType = {
  * ------------------------------------------------------------------------
  */
 
-class LoadingButton {
-
+class Datatable {
   constructor(element, config) {
-    this._element = element
-    this._config = this._getConfig(config)
 
-    // zapisuje obiekt wewnatrz elementu dom
-    if (this._element) {
+    //alert('template');
+
+    /*
+
+    Dropdown
+
+    this._element = element
+    this._popper = null
+    this._config = this._getConfig(config)
+    this._menu = this._getMenuElement()
+    this._inNavbar = this._detectNavbar()
+    this._inHeader = this._detectHeader()
+
+    this._addEventListeners()
+    Data.setData(element, DATA_KEY, this)
+
+    */
+
+    //check if exist
+
+    if (Data.getData(element, DATA_KEY)) { // already found
+      console.warn('Instance already exist.');
+      return;
+    }
+
+    this._element = element
+
+    this._options = {} //?
+
+    //saving props
+
+    this._config = this._getConfig(config);
+    console.log('config', this._config);
+
+    for (let key in this._config)
+      this['_'+key] = this._config[key];
+
+
+    this._props = {...this._config};
+
+    //data
+    //zapisanie elementu do data
+    //if (this._element)
+    {
       Data.setData(element, DATA_KEY, this)
     }
 
-    // dodaje tylko raz
     /*
-    if (Data.getData(element, DATA_KEY)) {
-      // already found
-      //this._elementStripe = SelectorEngine.findOne('.c-stripe', element);
-      return;
-    }
+    SelectorEngine.findOne -
+    SelectorEngine.children -
     */
 
-    this._elementSpinner = SelectorEngine.findOne(SELECTOR_SPINNER, element);
-    if (this._elementSpinner) {
-      this._elementSpinner.style.display = 'none';
+
+    // render
+
+    // template
+    /*
+    this._template = `
+
+    `
+    */
+
+    //data
+
+    let data = (()=>{
+    return {
+      tableFilterState: this._tableFilterValue,
+      columnFilterState: {},
+      sorterState: {
+        column: null,
+        asc: true
+      },
+      page: this._activePage || 1,
+      perPageItems: this._itemsPerPage,
+      passedItems: this._items || []
+    }
+    })()
+    for (let key in data)
+      this['_'+key] = data[key];
+
+    // first render
+
+    this._render();
+
+
+    return;
+
+    /*
+
+    //list
+    this._elementList = SelectorEngine.findOne(SELECTOR_LIST, element);
+    if (this._elementList) {
+      this._elementList.style.display = 'none';
     }
 
-    this._elementStripe = this._addStripe(element);
+
+    //set init values ?
+    this._getNames();
+
+    this._config.selected.map(val=>{
+      this._options[val] = this._names[val];
+    });
+
+    //input
+    this._elementInput = SelectorEngine.findOne(SELECTOR_INPUT, element);
+
+    //tags
+    this._elementTags = SelectorEngine.findOne(SELECTOR_TAGS, element);
+
+    */
 
   }
 
 
-  // Getters
+  // Getters ?
 
-  static get VERSION() { // zwraca wersje
+  static get VERSION() {
     return VERSION
   }
 
@@ -166,183 +233,1495 @@ class LoadingButton {
     return DefaultType
   }
 
+  // Private
 
-  // Public - metody publiczne
+  _render(){
 
-  start(element) { // uruchamia loading
-
-    let rootElement = this._element
-    if (element) {
-      rootElement = this._getRootElement(element) // po podaniu dom szuka najbliższego
+    const htmlRep = (code, tPar)=>{
+      let start = 0;
+      let max = 100;
+      let n = 0;
+      while(true){
+        let run = findRep(code, start);
+        if (run===null) break;
+        let replaceCode = '';
+        if (run[0][0]===':')
+          replaceCode = tPar[run[0].substr(1)];
+        else if(run[0][0]==='/')
+          replaceCode = '{'+run[0].substr(1)+'}';
+        else
+          replaceCode = replace[run[0]](tPar);
+        if (replaceCode===undefined) replaceCode = '';
+        code = code.substr(0, run[1]) + replaceCode + code.substr(run[2]+1);
+        n++;
+        if (n==max) break;
+        start = run[1]+replaceCode.length;
+      }
+      return code;
     }
 
-    const customEvent = this._triggerStartEvent(rootElement)
+    //
 
-    if (customEvent === null || customEvent.defaultPrevented) {
-      return
+    // template, this.template
+
+    /*
+    this.a = 6;
+    this.a1 = 8;
+    this.b = 4;
+    this.tablica = [1,4,5];
+    this.columnFilterState = [];
+    */
+
+    this._global = {
+      icons:{
+        cilFilterX:1
+      }
     }
+
+    //***
+
+    let replace = {};
+    if (this._itemsPerPage!==this._old_itemsPerPage) ( (val)=> {
+      this._perPageItems = val
+    })(this._itemsPerPage);
+	this._old_itemsPerPage = this._itemsPerPage;
+
+	if (this._sorterValue!==this._old_sorterValue) ( (val)=> {
+        const asc = val.asc === false ? false : true
+        this._sorterState = Object.assign({}, { asc, column: val.column })
+      })(this._sorterValue);
+	this._old_sorterValue = this._sorterValue;
+
+	if (this._tableFilterValue!==this._old_tableFilterValue) ( (val)=> {
+      this._tableFilterState = val
+    })(this._tableFilterValue);
+	this._old_tableFilterValue = this._tableFilterValue;
+
+	if (this._columnFilterValue!==this._old_columnFilterValue) ( (val)=> {
+        this._columnFilterState = Object.assign({}, val)
+      })(this._columnFilterValue);
+	this._old_columnFilterValue = this._columnFilterValue;
+
+	if (this._items!==this._old_items) ( (val, oldVal)=> {
+      if (val && oldVal && this._objectsAreIdentical(val, oldVal)) {
+        return
+      }
+      this._passedItems = val || []
+    })(this._items);
+	this._old_items = this._items;
+
+	if (this._totalPages!==this._old_totalPages) ( (val)=> {
+        this._emitEvent('pages-change', val)
+      })(this._totalPages);
+	this._old_totalPages = this._totalPages;
+
+	if (this._computedPage!==this._old_computedPage) ( (val)=> {
+      this._emitEvent('page-change', val)
+    })(this._computedPage);
+	this._old_computedPage = this._computedPage;
+
+	if (this._sortedItems!==this._old_sortedItems) ( (val, oldVal)=> {
+        if (val && oldVal && this._objectsAreIdentical(val, oldVal)) {
+          return
+        }
+        this._emitEvent('filtered-items-change', val)
+      })(this._sortedItems);
+	this._old_sortedItems = this._sortedItems;
+
+
+    this._generatedColumnNames = ( ()=> {
+      return Object.keys(this._passedItems[0] || {}).filter(el => el.charAt(0) !== '_')
+    })();
+
+	this._rawColumnNames = ( ()=> {
+      if (this._fields) {
+        return this._fields.map(el => el.key || el)
+      }
+      return this._generatedColumnNames
+    })();
+
+	this._columnFiltered = ( ()=> {
+      let items = this._passedItems
+      if (this._columnFilter && this._columnFilter.external) {
+        return items
+      }
+      Object.entries(this._columnFilterState).forEach(([key, value]) => {
+        const columnFilter = String(value).toLowerCase()
+        if (columnFilter && this._rawColumnNames.includes(key)) {
+          items = items.filter(item => {
+            return String(item[key]).toLowerCase().includes(columnFilter)
+          })
+        }
+      })
+      return items
+    })();
+
+	this._itemsDataColumns = ( ()=> {
+      return this._rawColumnNames.filter(name => {
+        return this._generatedColumnNames.includes(name)
+      })
+    })();
+
+	this._tableFiltered = ( ()=> {
+      let items = this._columnFiltered
+      if (!this._tableFilterState || (this._tableFilter && this._tableFilter.external)) {
+        return items
+      }
+      const filter = this._tableFilterState.toLowerCase()
+      const hasFilter = (item) => String(item).toLowerCase().includes(filter)
+      items = items.filter(item => {
+        return this._itemsDataColumns.filter(key => hasFilter(item[key])).length
+      })
+      return items
+    })();
+
+	this._sortedItems = ( ()=> {
+      const col = this._sorterState.column
+      if (!col || !this._rawColumnNames.includes(col) || this._sorter.external) {
+        return this._tableFiltered
+      }
+      //if values in column are to be sorted by numeric value they all have to be type number
+      const flip = this._sorterState.asc ? 1 : -1
+      return this._tableFiltered.slice().sort((item, item2) => {
+        const value  = item[col]
+        const value2 = item2[col]
+        const a = typeof value === 'number' ? value : String(value).toLowerCase()
+        const b = typeof value2 === 'number' ? value2 : String(value2).toLowerCase()
+        return a > b ? 1 * flip : b > a ? -1 * flip : 0
+      })
+    })();
+
+	this._firstItemIndex = ( ()=> {
+      return (this._computedPage - 1) * this._perPageItems || 0
+    })();
+
+	this._paginatedItems = ( ()=> {
+      return this._sortedItems.slice(
+        this._firstItemIndex,
+        this._firstItemIndex + this._perPageItems
+      )
+    })();
+
+	this._currentItems = ( ()=> {
+      return this._computedPage ? this._paginatedItems : this._sortedItems
+    })();
+
+	this._totalPages = ( ()=> {
+      return Math.ceil((this._sortedItems.length)/ this._perPageItems) || 1
+    })();
+
+	this._computedPage = ( ()=> {
+      return this._pagination ? this._page : this._activePage
+    })();
+
+	this._columnNames = ( ()=> {
+      if (this._fields) {
+        return this._fields.map(f => {
+          return f.label !== undefined ? f.label : this._pretifyName(f.key || f)
+        })
+      }
+      return this._rawColumnNames.map(el => this._pretifyName(el))
+    })();
+
+	this._tableClasses = ( ()=> {
+      return [
+        'table',
+        this._addTableClasses,
+        {
+          [`table-${this._size}`]: this._size,
+          'table-dark': this._dark,
+          'table-striped': this._striped,
+          'table-fixed': this._fixed,
+          'table-hover': this._hover,
+          'table-bordered': this._border,
+          'border': this._outlined
+        }
+      ]
+    })();
+
+	this._sortingIconStyles = ( ()=> {
+      return {'position-relative pr-4' : this._sorter }
+    })();
+
+	this._colspan = ( ()=> {
+      return this._rawColumnNames.length
+    })();
+
+	this._tableFilterData = ( ()=> {
+      return {
+        label: this._tableFilter.label || 'Filter:',
+        placeholder: this._tableFilter.placeholder || 'type string...'
+      }
+    })();
+
+	this._paginationSelect = ( ()=> {
+      return {
+        label: this._itemsPerPageSelect.label || 'Items per page:',
+        values: this._itemsPerPageSelect.values || [5, 10, 20, 50]
+      }
+    })();
+
+	this._noItemsText = ( ()=> {
+      const customValues = this._noItemsView || {}
+      if (this._passedItems.length) {
+        return customValues.noResults || 'No filtering results'
+      }
+      return customValues.noItems || 'No items'
+    })();
+
+	this._isFiltered = ( ()=> {
+      return this._tableFilterState ||
+             Object.values(this._columnFilterState).join('') ||
+             this._sorterState.column
+    })();
+
+	this._cleanerProps = ( ()=> {
+      return {
+        content: this._global.icons.cilFilterX,
+        class: `ml-2 ${this._isFiltered ? 'text-danger' : 'transparent'}`,
+        role: this._isFiltered ? 'button' : null,
+        tabindex: this._isFiltered ? 0 : null,
+      }
+    })();
+
+	this._haveFilterOption = ( ()=> {
+      return this._tableFilter || this._cleaner || this._$scopedSlots.cleaner
+    })();
+
+
+
+  replace['exp-1'] =
+          (par)=>{return htmlRep(objStr(this._tableFilterData.label), par)};
+
+   replace['exp-2'] =
+          (par)=>{return htmlRep(objStr(this._tableFilterData.placeholder), par)};
+
+   replace['eve-1'] =
+          (par)=>{
+            eventN++;
+            handlers[eventN] = {
+              eventType: 'input',
+              f: (event)=>{
+                event.preventDefault();
+                event.stopPropagation();
+                this._tableFilterChange(event.target.value, 'input');
+              }
+            }
+            return 'coreui-event="'+eventN+'"';
+          };
+
+    replace['eve-2'] =
+            (par)=>{
+              eventN++;
+              handlers[eventN] = {
+                eventType: 'change',
+                f: (event)=>{
+                  event.preventDefault();
+                  event.stopPropagation();
+                  this._tableFilterChange(event.target.value, 'change');
+                }
+              }
+              return 'coreui-event="'+eventN+'"';
+            };
+
+    replace['exp-3'] =
+            (par)=>{return htmlRep(objStr(this._tableFilterState), par)};
+
+    //filter part
+    replace['filter-1'] =
+            (par)=>{
+              if (this._tableFilter) return htmlRep(`
+              <label class="mr-2">{exp-1}</label>
+              <input
+                class="form-control"
+                type="text"
+                placeholder="{exp-2}"
+                {eve-1}
+                {eve-2}
+                value="{exp-3}"
+                aria-label="table filter input"
+              >
+            `, par)
+              else return ''
+            };
+
+     replace['com-1'] =
+              (par)=>{return ''};
+
+     replace['val-1'] =
+            (par)=>{
+              if (this._cleaner && typeof this._cleaner === 'function') return htmlRep(objStr(this._cleaner({clean:this._clean, isFiltered:this._isFiltered})), par);
+              else if (this._cleaner) return htmlRep(objStr(this._cleaner), par);
+              else return htmlRep(`
+                {com-1}
+            `, par);
+            };
+
+    //cleaner
+     replace['cleaner-1'] =
+            (par)=>{
+              if (this._cleaner) return htmlRep(`
+            {val-1}
+            `, par)
+              else return ''
+            };
+
+     replace['filter-option-1'] =
+            (par)=>{
+              if (this._haveFilterOption) return htmlRep(`
+          <div
+            class="col-sm-6 form-inline p-0"
+          >
+            {filter-1}
+            {cleaner-1}
+
+          </div>
+          `, par)
+              else return ''
+            };
+
+    replace['exp-4'] =
+            (par)=>{return htmlRep(objStr(!this._haveFilterOption ? 'offset-sm-6' : ''), par)};
+
+     replace['exp-5'] =
+            (par)=>{return htmlRep(objStr(this._paginationSelect.label), par)};
+
+     replace['eve-3'] =
+            (par)=>{
+              eventN++;
+              handlers[eventN] = {
+                eventType: 'change',
+                f: (event)=>{
+                  event.preventDefault();
+                  event.stopPropagation();
+                  this._paginationChange(event);
+                }
+              }
+              return 'coreui-event="'+eventN+'"';
+            };
+
+     replace['exp-6'] =
+            (par)=>{return htmlRep(objStr(this._perPageItems), par)};
+
+     replace['tymcz-1'] =
+            (par)=>{
+              let code = '';
+              for (let idx in this._paginationSelect.values){
+                let value = this._paginationSelect.values[idx];
+                par['key'] = idx;
+                par['number'] = value;
+                code+=htmlRep(`
+                <option
+                  val="{:number}"
+                  key="{:key}"
+                >
+                  {:number}
+                </option>
+                `, par);
+              }
+              return code;
+            };
+
+    replace['items-select-1'] =
+            (par)=>{
+              if (this._itemsPerPageSelect) return htmlRep(`
+          <div
+            class="col-sm-6 p-0 {exp-4}"
+          >
+            <div class="form-inline justify-content-sm-end">
+              <label class="mr-2">{exp-5}</label>
+              <select
+                class="form-control"
+                {eve-3}
+                aria-label="changes number of visible items"
+              >
+                <option value="" selected disabled hidden>
+                  {exp-6}
+                </option>
+                {tymcz-1}
+              </select>
+            </div>
+          </div>
+          `, par)
+              else return ''
+            };
+
+    //search options
+     replace['options-1'] =
+            (par)=>{
+              if (this._itemsPerPageSelect || this._haveFilterOption) return htmlRep(`
+        <div
+          class="row my-2 mx-0"
+        >
+          {filter-option-1}
+
+          {items-select-1}
+        </div>
+        `, par)
+              else return ''
+            };
+
+     replace['over-table-1'] =
+            (par)=>{return htmlRep(objStr(this._overTableSlot), par)};
+
+     replace['exp-7'] =
+            (par)=>{return htmlRep(objStr(this._responsive ? 'table-responsive' : ''), par)};
+
+     replace['exp-8'] =
+            (par)=>{return htmlRep(objStr(this._tableClasses), par)};
+
+     replace['header-top-1'] =
+            (par)=>{return htmlRep(objStr(this._theadTopSlot), par)};
+
+     replace['eve-4'] =
+            (par)=>{
+              eventN++;
+              handlers[eventN] = {
+                eventType: 'click',
+                f: (event)=>{
+                  event.preventDefault();
+                  event.stopPropagation();
+                  this._changeSort(this._rawColumnNames[par["index"]], par["index"]);
+                }
+              }
+              return 'coreui-event="'+eventN+'"';
+            };
+
+     replace['exp-9'] =
+            (par)=>{return htmlRep(objStr(this._headerClass(par["index"])), par)};
+
+     replace['exp-10'] =
+            (par)=>{return htmlRep(objStr(this._sortingIconStyles), par)};
+
+    replace['exp-11'] =
+            (par)=>{return htmlRep(objStr(this._headerStyles(par["index"])), par)};
+
+    replace['val-2'] =
+            (par)=>{
+              if (this._columnHeaderSlot[this._rawColumnNames[par["index"]]] && typeof this._columnHeaderSlot[this._rawColumnNames[par["index"]]] === 'function') return htmlRep(objStr(this._columnHeaderSlot[this._rawColumnNames[par["index"]]]()), par);
+              else if (this._columnHeaderSlot[this._rawColumnNames[par["index"]]]) return htmlRep(objStr(this._columnHeaderSlot[this._rawColumnNames[par["index"]]]), par);
+              else return htmlRep(`
+                      <div>{:name}</div>
+                    `, par);
+            };
+
+     replace['com-2'] =
+              (par)=>{return ''};
+
+    replace['val-3'] =
+            (par)=>{
+              if (this._sortingIcon && typeof this._sortingIcon === 'function') return htmlRep(objStr(this._sortingIcon({state:getIconState(par["index"]), classes:this._iconClasses(par["index"])})), par);
+              else if (this._sortingIcon) return htmlRep(objStr(this._sortingIcon), par);
+              else return htmlRep(`
+                      {com-2}
+                    `, par);
+            };
+
+    replace['sortable-1'] =
+            (par)=>{
+              if (this._isSortable(par["index"])) return htmlRep(`
+                    {val-3}
+                    `, par)
+              else return ''
+            };
+
+     replace['table-header-1'] =
+            (par)=>{
+              let code = '';
+              for (let idx in this._columnNames){
+                let value = this._columnNames[idx];
+                par['index'] = idx;
+                par['name'] = value;
+                code+=htmlRep(`
+                  <th
+                    {eve-4}
+                    class="{exp-9} {exp-10}"
+                    style="{exp-11}"
+                    key="{:index}"
+                  >
+                    {val-2}
+                    {sortable-1}
+                  </th>
+                `, par);
+              }
+              return code;
+            };
+
+     replace['header-1'] =
+            (par)=>{
+              if (this._header) return htmlRep(`
+              <tr>
+                {table-header-1}
+              </tr>
+              `, par)
+              else return ''
+            };
+
+    replace['exp-12'] =
+            (par)=>{return htmlRep(objStr(this._headerClass(par["index"])), par)};
+
+     replace['eve-5'] =
+            (par)=>{
+              eventN++;
+              handlers[eventN] = {
+                eventType: 'input',
+                f: (event)=>{
+                  event.preventDefault();
+                  event.stopPropagation();
+                  this._columnFilterEvent(colName, event.target.value, 'input');
+                }
+              }
+              return 'coreui-event="'+eventN+'"';
+            };
+
+    replace['eve-6'] =
+            (par)=>{
+              eventN++;
+              handlers[eventN] = {
+                eventType: 'change',
+                f: (event)=>{
+                  event.preventDefault();
+                  event.stopPropagation();
+                  this._columnFilterEvent(colName, event.target.value, 'change');
+                }
+              }
+              return 'coreui-event="'+eventN+'"';
+            };
+
+     replace['exp-13'] =
+            (par)=>{return htmlRep(objStr(this._columnFilterState[par["colName"]]), par)};
+
+     replace['fields-1'] =
+            (par)=>{
+              if (!this._fields || this._fields[par["index"]].filter!==false) return htmlRep(`
+                      <input
+                        class="form-control form-control-sm"
+                        {eve-5}
+                        {eve-6}
+                        value="{exp-13}"
+                        aria-label="column name: '{:colName}' filter input"
+                      />
+                      `, par)
+              else return ''
+            };
+
+     replace['val-4'] =
+            (par)=>{
+              if (this._columnFilterSlot[this._rawColumnNames[par["index"]]] && typeof this._columnFilterSlot[this._rawColumnNames[par["index"]]] === 'function') return htmlRep(objStr(this._columnFilterSlot[this._rawColumnNames[par["index"]]]()), par);
+              else if (this._columnFilterSlot[this._rawColumnNames[par["index"]]]) return htmlRep(objStr(this._columnFilterSlot[this._rawColumnNames[par["index"]]]), par);
+              else return htmlRep(`
+                      {fields-1}
+                    `, par);
+            };
+
+     replace['tymcz2-1'] =
+            (par)=>{
+              let code = '';
+              for (let idx in this._rawColumnNames){
+                let value = this._rawColumnNames[idx];
+                par['index'] = idx;
+                par['colName'] = value;
+                code+=htmlRep(`
+                  <th class="{exp-12}" key="{:index}">
+                    {val-4}
+                  </th>
+                `, par);
+              }
+              return code;
+            };
+
+     replace['column-filter-1'] =
+            (par)=>{
+              if (this._columnFilter) return htmlRep(`
+              <tr class="table-sm">
+                {tymcz2-1}
+              </tr>
+              `, par)
+              else return ''
+            };
+
+    replace['exp-14'] =
+            (par)=>{return htmlRep(objStr(this._clickableRows ? 'cursor:pointer;': null), par)};
+
+    replace['eve-7'] =
+            (par)=>{
+              eventN++;
+              handlers[eventN] = {
+                eventType: 'click',
+                f: (event)=>{
+                  event.preventDefault();
+                  event.stopPropagation();
+                  this._rowClicked(par["item"], par["itemIndex"] + this._firstItemIndex, event);
+                }
+              }
+              return 'coreui-event="'+eventN+'"';
+            };
+
+     replace['exp-15'] =
+            (par)=>{return htmlRep(objStr(par["item"]._classes), par)};
+
+     replace['exp-16'] =
+            (par)=>{return htmlRep(objStr(this._clickableRows ? 0 : null), par)};
+
+     replace['val-5'] =
+            (par)=>{
+              if (this._colName && typeof this._colName === 'function') return htmlRep(objStr(this._colName({item:par["item"], index:par["itemIndex"]+this._firstItemIndex})), par);
+              else if (this._colName) return htmlRep(objStr(this._colName), par);
+              else return htmlRep(`
+                    `, par);
+            };
+
+     replace['exp-17'] =
+            (par)=>{return htmlRep(objStr(this._cellClass(par["item"], par["colName"], par["index"])), par)};
+
+     replace['exp-18'] =
+            (par)=>{return htmlRep(objStr(String(par["item"][par["colName"]])), par)};
+
+    replace['scoped-1'] =
+            (par)=>{
+              if (this._scopedSlots[par["colName"]]) return htmlRep(`
+                    {val-5}
+                    `, par)
+              else return htmlRep(`
+                    <td
+                      class="{exp-17}"
+                      key="{:index}"
+                    >
+                      {exp-18}
+                    </td>
+                    `, par)
+            };
+
+     replace['tymcz3-1'] =
+            (par)=>{
+              let code = '';
+              for (let idx in this._rawColumnNames){
+                let value = this._rawColumnNames[idx];
+                par['index'] = idx;
+                par['colName'] = value;
+                code+=htmlRep(`
+                    {scoped-1}
+                  `, par);
+              }
+              return code;
+            };
+
+     replace['eve-8'] =
+            (par)=>{
+              eventN++;
+              handlers[eventN] = {
+                eventType: 'click',
+                f: (event)=>{
+                  event.preventDefault();
+                  event.stopPropagation();
+                  this._rowClicked(par["item"], par["itemIndex"] + this._firstItemIndex, event, true);
+                }
+              }
+              return 'coreui-event="'+eventN+'"';
+            };
+
+     replace['exp-19'] =
+            (par)=>{return htmlRep(objStr(colspan), par)};
+
+     replace['val-6'] =
+            (par)=>{
+              if (this._scopedSlots['details'] && typeof this._scopedSlots['details'] === 'function') return htmlRep(objStr(this._scopedSlots['details']({item:par["item"], index:par["itemIndex"]+this._firstItemIndex})), par);
+              else if (this._scopedSlots['details']) return htmlRep(objStr(this._scopedSlots['details']), par);
+              else return htmlRep(`
+                    `, par);
+            };
+
+    replace['details-1'] =
+            (par)=>{
+              if (this._scopedSlots.details) return htmlRep(`
+                <tr
+                  {eve-8}
+                  class="p-0"
+                  style="border:none !important"
+                  key="details{:itemIndex}"
+                >
+                  <td
+                    colspan="{exp-19}"
+                    class="p-0"
+                    style="border:none !important"
+                  >
+                    {val-6}
+                  </td>
+                </tr>
+                `, par)
+              else return ''
+            };
+
+    replace['table-1'] =
+            (par)=>{
+              let code = '';
+              for (let idx in this._currentItems){
+                let value = this._currentItems[idx];
+                par['itemIndex'] = idx;
+                par['item'] = value;
+                code+=htmlRep(`
+                <tr
+                  {eve-7}
+                  class="{exp-15}"
+                  tabindex="{exp-16}"
+                  key="{:itemIndex}"
+                >
+                  {tymcz3-1}
+                </tr>
+                {details-1}
+              `, par);
+              }
+              return code;
+            };
+
+     replace['exp-20'] =
+            (par)=>{return htmlRep(objStr(this._colspan), par)};
+
+     replace['exp-21'] =
+            (par)=>{return htmlRep(objStr(this._noItemsText), par)};
+
+     replace['com-3'] =
+              (par)=>{return ''};
+
+     replace['val-7'] =
+            (par)=>{
+              if (this._noItemsViewSlot && typeof this._noItemsViewSlot === 'function') return htmlRep(objStr(this._noItemsViewSlot()), par);
+              else if (this._noItemsViewSlot) return htmlRep(objStr(this._noItemsViewSlot), par);
+              else return htmlRep(`
+                    <div class="text-center my-5">
+                      <h2>
+                        {exp-21}
+                        {com-3}
+                      </h2>
+                    </div>
+                  `, par);
+            };
+
+     replace['no-items-1'] =
+            (par)=>{
+              if (!this._currentItems.length) return htmlRep(`
+              <tr>
+                <td colspan={exp-20}>
+                  {val-7}
+                </td>
+              </tr>
+              `, par)
+              else return ''
+            };
+
+     replace['eve-9'] =
+            (par)=>{
+              eventN++;
+              handlers[eventN] = {
+                eventType: 'click',
+                f: (event)=>{
+                  event.preventDefault();
+                  event.stopPropagation();
+                  this._changeSort(this._rawColumnNames[par["index"]], par["index"]);
+                }
+              }
+              return 'coreui-event="'+eventN+'"';
+            };
+
+     replace['exp-22'] =
+            (par)=>{return htmlRep(objStr(this._headerClass(par["index"])), par)};
+
+    replace['exp-23'] =
+            (par)=>{return htmlRep(objStr(this._sortingIconStyles), par)};
+
+    replace['exp-24'] =
+            (par)=>{return htmlRep(objStr(this._headerStyles(par["index"])), par)};
+
+    replace['val-8'] =
+            (par)=>{
+              if (this._columnHeaderSlot[this._rawColumnNames[par["index"]]] && typeof this._columnHeaderSlot[this._rawColumnNames[par["index"]]] === 'function') return htmlRep(objStr(this._columnHeaderSlot[this._rawColumnNames[par["index"]]]()), par);
+              else if (this._columnHeaderSlot[this._rawColumnNames[par["index"]]]) return htmlRep(objStr(this._columnHeaderSlot[this._rawColumnNames[par["index"]]]), par);
+              else return htmlRep(`
+                      <div>{:name}</div>
+                    `, par);
+            };
+
+    replace['com-4'] =
+              (par)=>{return ''};
+
+     replace['val-9'] =
+            (par)=>{
+              if (this._sortingIconSlot && typeof this._sortingIconSlot === 'function') return htmlRep(objStr(this._sortingIconSlot({state: this._getIconState(par["index"])})), par);
+              else if (this._sortingIconSlot) return htmlRep(objStr(this._sortingIconSlot), par);
+              else return htmlRep(`
+                      {com-4}
+                    `, par);
+            };
+
+     replace['sortable-down-1'] =
+            (par)=>{
+              if (this._isSortable(par["index"])) return htmlRep(`
+                    {val-9}
+                    `, par)
+              else return ''
+            };
+
+     replace['footer-row-1'] =
+            (par)=>{
+              let code = '';
+              for (let idx in this._columnNames){
+                let value = this._columnNames[idx];
+                par['index'] = idx;
+                par['name'] = value;
+                code+=htmlRep(`
+                  <th
+                    {eve-9}
+                    class="{exp-22} {exp-23}"
+                    style="{exp-24}"
+                    key="{:index}"
+                  >
+                    {val-8}
+                    {sortable-down-1}
+                  </th>
+                `, par);
+              }
+              return code;
+            };
+
+    //footer part
+     replace['footer-1'] =
+            (par)=>{
+              if (this._footer && this._currentItems.length>0) return htmlRep(`
+            <tfoot coreui-part="foot">
+              <tr>
+                {footer-row-1}
+              </tr>
+            </tfoot>
+            `, par)
+              else return ''
+            };
+
+     replace['val-10'] =
+            (par)=>{
+              if (this._footerSlot && typeof this._footerSlot === 'function') return htmlRep(objStr(this._footerSlot({itemsAmount: this._currentItems.length})), par);
+              else if (this._footerSlot) return htmlRep(objStr(this._footerSlot), par);
+              else return htmlRep(`
+            `, par);
+            };
+
+     replace['exp-25'] =
+            (par)=>{return htmlRep(objStr(this._captionSlot), par)};
+
+    replace['val-11'] =
+            (par)=>{
+              if (this._loading && typeof this._loading === 'function') return htmlRep(objStr(this._loading()), par);
+              else if (this._loading) return htmlRep(objStr(this._loading), par);
+              else return htmlRep(``, par);
+            };
+
+    replace['loading-1'] =
+            (par)=>{
+              if (this._loading) return htmlRep(`
+          {val-11}
+          `, par)
+              else return ''
+            };
+
+    replace['exp-26'] =
+            (par)=>{return htmlRep(objStr(this._underTableSlot), par)};
+
+     replace['com-5'] =
+            (par)=>{
+              compN++;
+              comps[compN] = {
+                compType: 'Pagination',
+                props:      {
+                  style: !(this._totalPages > 1) ? 'style="display:none"' : '',
+                  activePage: this._page,
+                  pages: this._totalPages,
+                  paginationProps: typeof this._pagination === 'object' ? this._paginationProps : ''
+                }
+              }
+              return '<div coreui-comp="'+compN+'"></div>'
+            };
+
+     replace['pagination-1'] =
+            (par)=>{
+              if (this._pagination) return htmlRep(`
+        {com-5}
+        `, par)
+              else return ''
+            };
+
+        this._template = `
+          <div>
+            {options-1}
+            {over-table-1}
+            <div class="position-relative {exp-7}">
+              <table class="{exp-8}">
+                <thead coreui-part="head">
+                  {header-top-1}
+                  {header-1}
+                  {column-filter-1}
+                </thead>
+                <tbody
+                  style={exp-14}
+                  class="position-relative"
+                  coreui-part="body"
+                >
+                  {table-1}
+                  {no-items-1}
+                </tbody>
+                {footer-1}
+                {val-10}
+                {exp-25}
+              </table>
+              {loading-1}
+            </div>
+            {exp-26}
+            {pagination-1}
+          </div>
+        `;
+
+
+    // build
+
+    let handlers = {};
+    let comps = {};
+    let eventN = 0;
+    let compN = 0;
+
+    let code = htmlRep(this._template, {});
+    //console.log('code:');
+    //console.log(code);
+
+    //insert code
+    this._element.innerHTML = code;
+
+    // render code part
+    function renderPart(code, part){
+      if (code!==this._code[part]){ //let m = md5(code)!==this._code['part']
+        let el = SelectorEngine.findOne('[coreui-part="'+part+'"]', this._element);
+        el.innerHTML = code;
+        _this.code[part] = code;
+      }
+    }
+    /*
+    code = build(this._template, {});
+    renderPart('head', code);
+    code = build(this._template, {});
+    renderPart('body', code);
+    code = build(this._template, {});
+    renderPart('foot', code);
+    */
+
+
+    let el;
+
+    //events
+    for (let id in handlers){
+      el = SelectorEngine.findOne('[coreui-event="'+id+'"]', this._element);
+      EventHandler.on(el, handlers[id].eventType+EVENT_KEY, handlers[id].f);
+    }
+
+    return;
+
+
+    //components
+    for (let id in comps){
+      el = SelectorEngine.findOne('[coreui-comp="'+id+'"]', this._element);
+      console.log('comp', el);
+      // init
+      let component = new coreui[comps[id].compType](tableElement, comps[id].props);
+    }
+
+    return;
+
+
+    //
+
+/*
+    el = SelectorEngine.findOne('coreui-event="1"', this._element);
+    eventType = 'input'+EVENT_KEY;
+    EventHandler.on(el, eventType, event => {
+    event.preventDefault();
+    event.stopPropagation();
+    this._tableFilterChange(event.target.value, 'input');
+    })
+
+    this._addEvent('input', function(event){
+      //this._tableFilterChange(event.target.value, 'input');
+      //this._columnFilterEvent(colName, event.target.value, 'input');
+    });
+
+
+    el = SelectorEngine.findOne('coreui-event="2"', this._element);
+    eventType = 'change'+EVENT_KEY;
+    EventHandler.on(el, eventType, event => {
+    event.preventDefault();
+    event.stopPropagation();
+    $tableFilterChange(event.target.value, 'change');
+    })
+
+    el = SelectorEngine.findOne('coreui-event="3"', this._element);
+    eventType = 'change'+EVENT_KEY;
+    EventHandler.on(el, eventType, event => {
+    event.preventDefault();
+    event.stopPropagation();
+    $paginationChange(event);
+    })
+
+    el = SelectorEngine.findOne('coreui-event="4"', this._element);
+    eventType = 'click'+EVENT_KEY;
+    EventHandler.on(el, eventType, event => {
+    event.preventDefault();
+    event.stopPropagation();
+    //$changeSort(rawColumnNames[{:index}], {:index});
+    })
+
+    el = SelectorEngine.findOne('coreui-event="5"', this._element);
+    eventType = 'input'+EVENT_KEY;
+    EventHandler.on(el, eventType, event => {
+    event.preventDefault();
+    event.stopPropagation();
+    $columnFilterEvent(colName, event.target.value, 'input');
+    })
+
+    el = SelectorEngine.findOne('coreui-event="6"', this._element);
+    eventType = 'change'+EVENT_KEY;
+    EventHandler.on(el, eventType, event => {
+    event.preventDefault();
+    event.stopPropagation();
+    $columnFilterEvent(colName, event.target.value, 'change');
+    })
+
+    el = SelectorEngine.findOne('coreui-event="7"', this._element);
+    eventType = 'click'+EVENT_KEY;
+    EventHandler.on(el, eventType, event => {
+    event.preventDefault();
+    event.stopPropagation();
+    //$rowClicked({:item}, {:itemIndex} + $firstItemIndex, event);
+    })
+
+    el = SelectorEngine.findOne('coreui-event="8"', this._element);
+    eventType = 'click'+EVENT_KEY;
+    EventHandler.on(el, eventType, event => {
+    event.preventDefault();
+    event.stopPropagation();
+    //$rowClicked({:item}, {:itemIndex} + $firstItemIndex, event, true);
+    })
+
+    el = SelectorEngine.findOne('coreui-event="9"', this._element);
+    eventType = 'click'+EVENT_KEY;
+    EventHandler.on(el, eventType, event => {
+    event.preventDefault();
+    event.stopPropagation();
+    //$changeSort(rawColumnNames[{:index}], {:index});
+    })
+    */
+
+    //
 
     setTimeout(()=>{
-      this._animateStripe(this._elementStripe, this._elementSpinner);
-
-      setTimeout(()=>{
-        if (!this._config.waitOnEnd)
-          ;//this.stop();
-      }, this._config.time*1000);
-
+      this._rendered();
     }, 1);
 
   }
 
-  stop(element) { // stop loading
-
-    const customEvent = this._triggerStopEvent(this._element)
-
-    if (customEvent === null || customEvent.defaultPrevented) {
-      return
-    }
-
-    this._stopStripe(this._elementStripe, this._elementSpinner);
-
-  }
-
-  //
-
-  dispose() { // usuwa siebie z elementu dom
-    Data.removeData(this._element, DATA_KEY)
-    this._element = null
+  _rendered(){ // run after content is rendered
   }
 
 
-  // Private - prywatne
+  // methods
 
-  _getConfig(config) {
-    config = {
-      ...this.constructor.Default,
-      ...Manipulator.getDataAttributes(this._element),
-      ...config
+  _changeSort (column, index) {
+      if (!this._isSortable(index)) {
+        return
+      }
+      //if column changed or sort was descending change asc to true
+      const state = this._sorterState
+      const columnRepeated = state.column === column
+      if (!this._sorter || !this._sorter.resetable) {
+        state.column = column
+      } else {
+        state.column = columnRepeated && state.asc === false ? null : column
+      }
+      state.asc = !(columnRepeated && state.asc)
+      this._emitEvent('update:sorter-value', this._sorterState)
     }
+  _columnFilterEvent (colName, value, type) {
+        const isLazy = this._columnFilter && this._columnFilter.lazy === true
+        if (isLazy && type === 'input' || !isLazy && type === 'change') {
+          return
+        }
+        this._$set(this._columnFilterState, colName, value)
+        this._emitEvent('update:column-filter-value', this._columnFilterState)
+      }
+  _tableFilterChange (value, type) {
+        const isLazy = this._tableFilter && this._tableFilter.lazy === true
+        if (isLazy && type === 'input' || !isLazy && type === 'change') {
+          return
+        }
+        this._tableFilterState = value
+        this._emitEvent('update:table-filter-value', this._tableFilterState)
+      }
+  _pretifyName (name) {
+        return name.replace(/[-_.]/g, ' ')
+          .replace(/ +/g, ' ')
+          .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+          .split(' ')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ')
+      }
+  _cellClass (item, colName, index) {
+        let classes = []
+        if (item._cellClasses && item._cellClasses[colName]) {
+          classes.push(item._cellClasses[colName])
+        }
+        if (this._fields && this._fields[index]._classes) {
+          classes.push(this._fields[index]._classes)
+        }
+        return classes
+      }
+  _isSortable (index) {
+        return this._sorter &&
+               (!this._fields || this._fields[index].sorter !== false) &&
+               this._itemsDataColumns.includes(this._rawColumnNames[index])
+      }
+  _headerClass (index) {
+        const fields = this._fields
+        return fields && fields[index]._classes ? fields[index]._classes : ''
+      }
+  _headerStyles (index) {
+        let style = 'vertical-align:middle;overflow:hidden;'
+        if (this._isSortable(index)) {
+          style += `cursor:pointer;`
+        }
+        if (this._fields && this._fields[index] && this._fields[index]._style) {
+          style += this._fields[index]._style
+        }
+        return style
+      }
+  _rowClicked (item, index, e, detailsClick = false) {
+        this._emitEvent(
+          'row-clicked', item, index, this._getClickedColumnName(e, detailsClick), e
+        )
+      }
+  _getClickedColumnName (e, detailsClick) {
+        if (detailsClick) {
+          return 'details'
+        } else {
+          const children = Array.from(e.target.closest('tr').children)
+          const clickedCell = children.filter(child => child.contains(e.target))[0]
+          return this._rawColumnNames[children.indexOf(clickedCell)]
+        }
+      }
+  _getIconState (index) {
+        const direction = this._sorterState.asc ? 'asc' : 'desc'
+        return this._rawColumnNames[index] === this._sorterState.column ? direction : 0
+      }
+  _iconClasses (index) {
+        const state = this._getIconState(index)
+        return [
+          'icon-transition position-absolute arrow-position',
+          {
+            'transparent': !state,
+            'rotate-icon': state === 'desc'
+          }
+        ]
+      }
+  _paginationChange (e) {
+        this._emitEvent('pagination-change', Number(e.target.value))
+        if (this._itemsPerPageSelect.external) {
+          return
+        }
+        this._perPageItems = Number(e.target.value)
+      }
+  _objectsAreIdentical (obj1, obj2) {
+        return obj1.length === obj2.length &&
+               JSON.stringify(obj1) === JSON.stringify(obj2)
+      }
+  _clean() {
+        this._tableFilterState = ""
+        this._columnFilterState = {}
+        this._sorterState = { column: "", asc: true }
+      }
 
+
+  // events
+
+  _next(f){
+    setTimeout(f,1);
+  }
+
+  /*
+  _addEvent (eventType, f){
+    let el = SelectorEngine.findOne('coreui-event="1"', this._element);
+    eventType += EVENT_KEY;
+    EventHandler.on(el, eventType, f);
+  }
+  */
+
+  _emitEvent(type, value) { //c
+    switch(type){
+      default:
+      this._render();
+      break;
+    }
+    type += EVENT_KEY;
+    return EventHandler.trigger(document, type, value);
+  }
+
+
+  // config
+
+  _getConfig(config, update) {
+    if (update !== true)
+      config = {
+        ...this.constructor.Default,
+        ...Manipulator.getDataAttributes(this._element),
+        ...config
+      }
+
+    /*
     typeCheckConfig(
       NAME,
       config,
       this.constructor.DefaultType
     )
+    */
 
     return config
   }
 
-  _getRootElement(element) { // zwraca glowny dom
-    //getElementFromSelector(element) || - data-target?
-    return element.closest(`.${CLASSNAME_LOADING_BUTTON}`)
+
+  // actions
+
+  _open(element) {
+    if (element)
+      element.style.display = 'initial';
   }
 
-  _triggerStartEvent(element) {
-    return EventHandler.trigger(element, EVENT_START)
+  _close(element) {
+    if (element)
+      element.style.display = 'none';
   }
 
-  _triggerStopEvent(element) {
-    return EventHandler.trigger(element, EVENT_STOP)
+  //list
+
+  _onListClick(element) {
+    if (element.tagName!==TAG_ITEM || element.classList.contains(CLASSNAME_LABEL))
+      return;
+    const val = element.value || element.textContent;
+    if (this._options[val]===undefined) {
+      this._options[val] = element.textContent;
+      this._updateTags();
+    }
   }
 
-  _addStripe(element) {
-    const html = '<div class="c-stripe" style="\
-    background-color: '+this._config.stripeColor+';\
-    "></div>';
-    const stripe = Manipulator.createElementFromHTML(html);
-    this._resetStripe(stripe);
-    element.prepend(stripe);
-    return stripe;
+  //search
+
+  _onSearchFocus(element) {
+    this.open();
   }
 
-  _resetStripe(element) {
-    element.style.transition = 'left 0s linear';
-    element.style.left = '-100%';
+  _onSearchFocusOut(element) {
+    this.close();
   }
 
-  _stopStripe(element, elementSpinner) {
-    this._resetStripe(element);
-    if (elementSpinner)
-      elementSpinner.style.display = 'none';
+  _onSearchChange(element) {
+    if (element)
+      this.search(element.value);
   }
 
-  _animateStripe(element, elementSpinner) {
-    element.style.transition = 'left '+this._config.time+'s linear';
-    element.style.left = (-100+this._config.progress)+'%';
-    if (elementSpinner)
-      elementSpinner.style.display = 'initial';
+  _updateList(element) {
+    if (!element)
+      return;
+    const nodes = SelectorEngine.children(element, TAG_LIST+','+TAG_ITEM);
+    nodes.map((node)=>{
+      if (node.tagName===TAG_LIST) {
+        this._updateList(node);
+        return;
+      }
+      if (node.tagName!==TAG_ITEM || node.classList.contains(CLASSNAME_LABEL))
+        return;
+      if (node.textContent.indexOf(this._search)===-1)
+        node.style.display='none';
+      else
+        node.style.display='block';
+    })
   }
 
-  /*
-  _triggerCloseEvent(element) {
-    return EventHandler.trigger(element, EVENT_CLOSE)
+  _getNames(element) {
+    if (!element)
+      return;
+    const nodes = SelectorEngine.children(element, TAG_LIST+','+TAG_ITEM);
+    nodes.map((node)=>{
+      if (node.tagName===TAG_LIST) {
+        this._getNames(node);
+        return;
+      }
+      if (node.tagName!==TAG_ITEM || node.classList.contains(CLASSNAME_LABEL))
+        return;
+      this._names[node.value || node.textContent] = node.textContent;
+    })
   }
-  */
 
-  /*
-  _removeElement(element) {
-    element.classList.remove(CLASSNAME_SHOW)
+  // tags
 
-    if (!element.classList.contains(CLASSNAME_FADE)) {
-      this._destroyElement(element)
+  _updateTags(element) {
+    if (!this._elementTags)
+      return;
+    let tag;
+    this._elementTags.innerHTML = '';
+    for (let val in this._options) {
+      tag = Manipulator.createElementFromHTML('\
+      <div class="'+CLASSNAME_TAG+'">'+this._options[val]+'\
+        <button class="btn btn-default" value="'+val+'">&times;</button>\
+      </div>');
+      this._elementTags.append(tag);
+    }
+    this._addTagsEventListeners();
+  }
+
+  _onTagDelClick(element) {
+    if (!element)
+      return;
+    const val = element.value;
+    if (val!==undefined) {
+      delete this._options[val];
+      this._updateTags();
+    }
+  }
+
+
+  // Public
+
+  open(element) {
+    let rootElement = this._elementList
+
+    const customEvent = this._triggerOpenEvent(rootElement);
+
+    if (customEvent === null || customEvent.defaultPrevented) {
       return
     }
 
-    const transitionDuration = getTransitionDurationFromElement(element)
-
-    EventHandler
-      .one(element, TRANSITION_END, () => this._destroyElement(element))
-    emulateTransitionEnd(element, transitionDuration)
+    this._open(rootElement)
   }
-  */
 
-  _destroyElement(element) {
-    if (element.parentNode) {
-      element.parentNode.removeChild(element)
+  close(element) {
+    let rootElement = this._elementList
+
+    const customEvent = this._triggerCloseEvent(rootElement);
+
+    if (customEvent === null || customEvent.defaultPrevented) {
+      return
     }
 
-    EventHandler.trigger(element, EVENT_CLOSED)
+    this._close(rootElement)
+  }
+
+  search(text) {
+    let rootElement = this._elementList
+    const customEvent = this._triggerSearchEvent(rootElement);
+
+    if (customEvent === null || customEvent.defaultPrevented) {
+      return
+    }
+
+    this._search = text;
+    this._updateList(rootElement)
+  }
+
+  value() {
+    return Object.keys(this._options);
   }
 
 
   // Static
+  /*
+  po uzyciu jquery
+  stworzenie nowego obiektu
+  zapisanie obirktu do data
+  */
 
   static jQueryInterface(config) {
     return this.each(function () {
+
       let data = Data.getData(this, DATA_KEY)
 
       if (!data) {
-        data = new LoadingButton(this)
+        data = new Datatable(this)
       }
 
-      if (config === 'start') {
+      switch (config){
+        case 'update':
+        data[config](this, par)
+        break;
+        case 'dispose':
+        case 'open':
+        case 'close':
+        case 'search':
+        case 'value':
         data[config](this)
+        break;
       }
+
     })
   }
 
-  static handleDismiss(alertInstance) {
-    return function (event) {
-      if (event) {
-        event.preventDefault()
-      }
-
-      alertInstance.close(this)
-    }
-  }
-
-  static getInstance(element) { // zwraca dom obj.
+  static getInstance(element) {
     return Data.getData(element, DATA_KEY)
   }
+
+
+  // API 2.0 (experimental)
+
+  // functions available for dom element
+
+  update(config) { // public method
+    this._getConfig(config);
+    this._render();
+  }
+
+  dispose() {
+    Data.removeData(this._element, DATA_KEY)
+    this._element = null
+  }
+
+  static new(element, config) {
+    let data = Data.getData(element, DATA_KEY)
+    if (!data) {
+      return new Datatable(element, config);
+    }
+    return data;
+  }
+
+  static destroy(element) { // remove instance connected to element
+    let data = Data.getData(element, DATA_KEY)
+    if (data) {
+      if (element.parentNode) {
+        element.parentNode.removeChild(element)
+      }
+      Datatable.destroyInstance(data);
+      Data.removeData(element, DATA_KEY);
+      return true;
+    }
+    return false;
+  }
+
 }
+
 
 /**
  * ------------------------------------------------------------------------
  * Data Api implementation
  * ------------------------------------------------------------------------
  */
-//EventHandler
-//  .on(document, EVENT_CLICK_DATA_API, SELECTOR_DISMISS, LoadingButton.handleDismiss(new LoadingButton()))
+
+//stworzenie dla kazdego elementu odpowiedniej klasy SELECTOR_COMPONENT
+
+ EventHandler.on(window, EVENT_LOAD_DATA_API, () => {
+   // eslint-disable-next-line unicorn/prefer-spread
+   /*Array.from(document.querySelectorAll(SELECTOR_COMPONENT)).forEach(element => {
+     Sidebar._sidebarInterface(element)
+   })*/
+ })
 
 const $ = getjQuery()
 
@@ -350,18 +1729,18 @@ const $ = getjQuery()
  * ------------------------------------------------------------------------
  * jQuery
  * ------------------------------------------------------------------------
- * add .alert to jQuery only if jQuery is present
+ * add .datatable to jQuery only if jQuery is present
  */
 
 /* istanbul ignore if */
 if ($) {
   const JQUERY_NO_CONFLICT = $.fn[NAME]
-  $.fn[NAME] = LoadingButton.jQueryInterface
-  $.fn[NAME].Constructor = LoadingButton
+  $.fn[NAME] = Datatable.jQueryInterface
+  $.fn[NAME].Constructor = Datatable
   $.fn[NAME].noConflict = () => {
     $.fn[NAME] = JQUERY_NO_CONFLICT
-    return LoadingButton.jQueryInterface
+    return Datatable.jQueryInterface
   }
 }
 
-export default LoadingButton
+export default Datatable

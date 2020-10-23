@@ -21,6 +21,8 @@ import Toast from './src/toast'
 import Tooltip from './src/tooltip'
 import LoadingButton from './src/loading-button'
 import MultiSelect from './src/multi-select'
+import Datatable from './src/datatable'
+import Pagination from './src/pagination'
 
 export {
   AsyncLoad,
@@ -38,5 +40,7 @@ export {
   Toast,
   Tooltip,
   LoadingButton,
-  MultiSelect
+  MultiSelect,
+  Datatable,
+  Pagination
 }

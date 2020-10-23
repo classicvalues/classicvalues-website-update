@@ -181,6 +181,52 @@ const getjQuery = () => {
   return null
 }
 
+const objStr = (obj, type='ifobj')=>{
+  if (typeof obj!=='object')
+    return obj!==undefined ? String(obj) : '';
+  let r = '';
+  for (let key in obj){
+    switch (type){
+    case 'ifobj':
+      if (typeof obj[key]==='object')
+        for (let key2 in obj[key])
+          r += obj[key][key2] ? key2+' ' : '';
+      else
+        if (Array.isArray(obj))
+          r += obj[key] ? String(obj[key])+' ' : '';
+        else
+          r += obj[key] ? key+' ' : '';
+    break;
+    default:
+      r += obj[key] ? key+' ' : '';
+    }
+  }
+  return r;
+}
+
+const findRep = (c, b)=>{
+  b = c.indexOf('{', b);
+  if (b === -1) return null;
+  let l = b+1;
+  let next = 0;
+  let e = -1;
+  while (true){
+    if (c[l]=='{') next++;
+    else if (c[l]=='}'){
+      if (next==0){
+        e = l;
+        break;
+      }
+      else next--;
+    }
+    l++;
+    if (l===c.length) break;
+  }
+  if (e === -1) return null;
+  c = c.substr(b+1, e-b-1);
+  return [c, b, e];
+}
+
 export {
   getjQuery,
   TRANSITION_END,
@@ -195,5 +241,7 @@ export {
   isVisible,
   findShadowRoot,
   noop,
-  reflow
+  reflow,
+  objStr,
+  findRep
 }

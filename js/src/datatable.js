@@ -163,7 +163,6 @@ class Datatable {
     // template
     /*
     this._template = `
-
     `
     */
 
@@ -184,6 +183,7 @@ class Datatable {
     })()
     for (let key in data)
       this['_'+key] = data[key];
+
 
     // first render
 
@@ -1219,15 +1219,14 @@ class Datatable {
       EventHandler.on(el, handlers[id].eventType+EVENT_KEY, handlers[id].f);
     }
 
-    return;
+    //return;
 
 
     //components
     for (let id in comps){
       el = SelectorEngine.findOne('[coreui-comp="'+id+'"]', this._element);
-      console.log('comp', el);
       // init
-      let component = new coreui[comps[id].compType](tableElement, comps[id].props);
+      let component = new coreui[comps[id].compType](el, comps[id].props);
     }
 
     return;
@@ -1344,6 +1343,7 @@ class Datatable {
       state.asc = !(columnRepeated && state.asc)
       this._emitEvent('update:sorter-value', this._sorterState)
     }
+
   _columnFilterEvent (colName, value, type) {
         const isLazy = this._columnFilter && this._columnFilter.lazy === true
         if (isLazy && type === 'input' || !isLazy && type === 'change') {
@@ -1352,6 +1352,7 @@ class Datatable {
         this._$set(this._columnFilterState, colName, value)
         this._emitEvent('update:column-filter-value', this._columnFilterState)
       }
+
   _tableFilterChange (value, type) {
         const isLazy = this._tableFilter && this._tableFilter.lazy === true
         if (isLazy && type === 'input' || !isLazy && type === 'change') {
@@ -1360,6 +1361,7 @@ class Datatable {
         this._tableFilterState = value
         this._emitEvent('update:table-filter-value', this._tableFilterState)
       }
+
   _pretifyName (name) {
         return name.replace(/[-_.]/g, ' ')
           .replace(/ +/g, ' ')
@@ -1368,6 +1370,7 @@ class Datatable {
           .map(word => word.charAt(0).toUpperCase() + word.slice(1))
           .join(' ')
       }
+
   _cellClass (item, colName, index) {
         let classes = []
         if (item._cellClasses && item._cellClasses[colName]) {
@@ -1378,15 +1381,18 @@ class Datatable {
         }
         return classes
       }
+
   _isSortable (index) {
         return this._sorter &&
                (!this._fields || this._fields[index].sorter !== false) &&
                this._itemsDataColumns.includes(this._rawColumnNames[index])
       }
+
   _headerClass (index) {
         const fields = this._fields
         return fields && fields[index]._classes ? fields[index]._classes : ''
       }
+
   _headerStyles (index) {
         let style = 'vertical-align:middle;overflow:hidden;'
         if (this._isSortable(index)) {
@@ -1397,11 +1403,13 @@ class Datatable {
         }
         return style
       }
+
   _rowClicked (item, index, e, detailsClick = false) {
         this._emitEvent(
           'row-clicked', item, index, this._getClickedColumnName(e, detailsClick), e
         )
       }
+
   _getClickedColumnName (e, detailsClick) {
         if (detailsClick) {
           return 'details'
@@ -1411,10 +1419,12 @@ class Datatable {
           return this._rawColumnNames[children.indexOf(clickedCell)]
         }
       }
+
   _getIconState (index) {
         const direction = this._sorterState.asc ? 'asc' : 'desc'
         return this._rawColumnNames[index] === this._sorterState.column ? direction : 0
       }
+
   _iconClasses (index) {
         const state = this._getIconState(index)
         return [
@@ -1425,6 +1435,7 @@ class Datatable {
           }
         ]
       }
+
   _paginationChange (e) {
         this._emitEvent('pagination-change', Number(e.target.value))
         if (this._itemsPerPageSelect.external) {
@@ -1432,10 +1443,12 @@ class Datatable {
         }
         this._perPageItems = Number(e.target.value)
       }
+
   _objectsAreIdentical (obj1, obj2) {
         return obj1.length === obj2.length &&
                JSON.stringify(obj1) === JSON.stringify(obj2)
       }
+
   _clean() {
         this._tableFilterState = ""
         this._columnFilterState = {}
@@ -1490,143 +1503,7 @@ class Datatable {
   }
 
 
-  // actions
-
-  _open(element) {
-    if (element)
-      element.style.display = 'initial';
-  }
-
-  _close(element) {
-    if (element)
-      element.style.display = 'none';
-  }
-
-  //list
-
-  _onListClick(element) {
-    if (element.tagName!==TAG_ITEM || element.classList.contains(CLASSNAME_LABEL))
-      return;
-    const val = element.value || element.textContent;
-    if (this._options[val]===undefined) {
-      this._options[val] = element.textContent;
-      this._updateTags();
-    }
-  }
-
-  //search
-
-  _onSearchFocus(element) {
-    this.open();
-  }
-
-  _onSearchFocusOut(element) {
-    this.close();
-  }
-
-  _onSearchChange(element) {
-    if (element)
-      this.search(element.value);
-  }
-
-  _updateList(element) {
-    if (!element)
-      return;
-    const nodes = SelectorEngine.children(element, TAG_LIST+','+TAG_ITEM);
-    nodes.map((node)=>{
-      if (node.tagName===TAG_LIST) {
-        this._updateList(node);
-        return;
-      }
-      if (node.tagName!==TAG_ITEM || node.classList.contains(CLASSNAME_LABEL))
-        return;
-      if (node.textContent.indexOf(this._search)===-1)
-        node.style.display='none';
-      else
-        node.style.display='block';
-    })
-  }
-
-  _getNames(element) {
-    if (!element)
-      return;
-    const nodes = SelectorEngine.children(element, TAG_LIST+','+TAG_ITEM);
-    nodes.map((node)=>{
-      if (node.tagName===TAG_LIST) {
-        this._getNames(node);
-        return;
-      }
-      if (node.tagName!==TAG_ITEM || node.classList.contains(CLASSNAME_LABEL))
-        return;
-      this._names[node.value || node.textContent] = node.textContent;
-    })
-  }
-
-  // tags
-
-  _updateTags(element) {
-    if (!this._elementTags)
-      return;
-    let tag;
-    this._elementTags.innerHTML = '';
-    for (let val in this._options) {
-      tag = Manipulator.createElementFromHTML('\
-      <div class="'+CLASSNAME_TAG+'">'+this._options[val]+'\
-        <button class="btn btn-default" value="'+val+'">&times;</button>\
-      </div>');
-      this._elementTags.append(tag);
-    }
-    this._addTagsEventListeners();
-  }
-
-  _onTagDelClick(element) {
-    if (!element)
-      return;
-    const val = element.value;
-    if (val!==undefined) {
-      delete this._options[val];
-      this._updateTags();
-    }
-  }
-
-
   // Public
-
-  open(element) {
-    let rootElement = this._elementList
-
-    const customEvent = this._triggerOpenEvent(rootElement);
-
-    if (customEvent === null || customEvent.defaultPrevented) {
-      return
-    }
-
-    this._open(rootElement)
-  }
-
-  close(element) {
-    let rootElement = this._elementList
-
-    const customEvent = this._triggerCloseEvent(rootElement);
-
-    if (customEvent === null || customEvent.defaultPrevented) {
-      return
-    }
-
-    this._close(rootElement)
-  }
-
-  search(text) {
-    let rootElement = this._elementList
-    const customEvent = this._triggerSearchEvent(rootElement);
-
-    if (customEvent === null || customEvent.defaultPrevented) {
-      return
-    }
-
-    this._search = text;
-    this._updateList(rootElement)
-  }
 
   value() {
     return Object.keys(this._options);
@@ -1634,11 +1511,6 @@ class Datatable {
 
 
   // Static
-  /*
-  po uzyciu jquery
-  stworzenie nowego obiektu
-  zapisanie obirktu do data
-  */
 
   static jQueryInterface(config) {
     return this.each(function () {

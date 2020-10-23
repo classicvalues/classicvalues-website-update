@@ -144,7 +144,6 @@ class Pagination {
     // template
     /*
     this._template = `
-
     `
     */
 
@@ -156,6 +155,7 @@ class Pagination {
     })()
     for (let key in data)
       this['_'+key] = data[key];
+
 
     // first render
 
@@ -236,19 +236,6 @@ class Pagination {
 
     // template, this.template
 
-    /*
-    this.a = 6;
-    this.a1 = 8;
-    this.b = 4;
-    this.tablica = [1,4,5];
-    this.columnFilterState = [];
-
-    this._global = {
-      icons:{
-        cilFilterX:1
-      }
-    }
-    */
 
     //***
 
@@ -756,143 +743,7 @@ class Pagination {
   }
 
 
-  // actions
-
-  _open(element) {
-    if (element)
-      element.style.display = 'initial';
-  }
-
-  _close(element) {
-    if (element)
-      element.style.display = 'none';
-  }
-
-  //list
-
-  _onListClick(element) {
-    if (element.tagName!==TAG_ITEM || element.classList.contains(CLASSNAME_LABEL))
-      return;
-    const val = element.value || element.textContent;
-    if (this._options[val]===undefined) {
-      this._options[val] = element.textContent;
-      this._updateTags();
-    }
-  }
-
-  //search
-
-  _onSearchFocus(element) {
-    this.open();
-  }
-
-  _onSearchFocusOut(element) {
-    this.close();
-  }
-
-  _onSearchChange(element) {
-    if (element)
-      this.search(element.value);
-  }
-
-  _updateList(element) {
-    if (!element)
-      return;
-    const nodes = SelectorEngine.children(element, TAG_LIST+','+TAG_ITEM);
-    nodes.map((node)=>{
-      if (node.tagName===TAG_LIST) {
-        this._updateList(node);
-        return;
-      }
-      if (node.tagName!==TAG_ITEM || node.classList.contains(CLASSNAME_LABEL))
-        return;
-      if (node.textContent.indexOf(this._search)===-1)
-        node.style.display='none';
-      else
-        node.style.display='block';
-    })
-  }
-
-  _getNames(element) {
-    if (!element)
-      return;
-    const nodes = SelectorEngine.children(element, TAG_LIST+','+TAG_ITEM);
-    nodes.map((node)=>{
-      if (node.tagName===TAG_LIST) {
-        this._getNames(node);
-        return;
-      }
-      if (node.tagName!==TAG_ITEM || node.classList.contains(CLASSNAME_LABEL))
-        return;
-      this._names[node.value || node.textContent] = node.textContent;
-    })
-  }
-
-  // tags
-
-  _updateTags(element) {
-    if (!this._elementTags)
-      return;
-    let tag;
-    this._elementTags.innerHTML = '';
-    for (let val in this._options) {
-      tag = Manipulator.createElementFromHTML('\
-      <div class="'+CLASSNAME_TAG+'">'+this._options[val]+'\
-        <button class="btn btn-default" value="'+val+'">&times;</button>\
-      </div>');
-      this._elementTags.append(tag);
-    }
-    this._addTagsEventListeners();
-  }
-
-  _onTagDelClick(element) {
-    if (!element)
-      return;
-    const val = element.value;
-    if (val!==undefined) {
-      delete this._options[val];
-      this._updateTags();
-    }
-  }
-
-
   // Public
-
-  open(element) {
-    let rootElement = this._elementList
-
-    const customEvent = this._triggerOpenEvent(rootElement);
-
-    if (customEvent === null || customEvent.defaultPrevented) {
-      return
-    }
-
-    this._open(rootElement)
-  }
-
-  close(element) {
-    let rootElement = this._elementList
-
-    const customEvent = this._triggerCloseEvent(rootElement);
-
-    if (customEvent === null || customEvent.defaultPrevented) {
-      return
-    }
-
-    this._close(rootElement)
-  }
-
-  search(text) {
-    let rootElement = this._elementList
-    const customEvent = this._triggerSearchEvent(rootElement);
-
-    if (customEvent === null || customEvent.defaultPrevented) {
-      return
-    }
-
-    this._search = text;
-    this._updateList(rootElement)
-  }
 
   value() {
     return Object.keys(this._options);
@@ -900,11 +751,6 @@ class Pagination {
 
 
   // Static
-  /*
-  po uzyciu jquery
-  stworzenie nowego obiektu
-  zapisanie obirktu do data
-  */
 
   static jQueryInterface(config) {
     return this.each(function () {

@@ -105,8 +105,6 @@ const Default = {
 class Datatable {
   constructor(element, config) {
 
-    //alert('template');
-
     /*
 
     Dropdown
@@ -152,19 +150,6 @@ class Datatable {
       Data.setData(element, DATA_KEY, this)
     }
 
-    /*
-    SelectorEngine.findOne -
-    SelectorEngine.children -
-    */
-
-
-    // render
-
-    // template
-    /*
-    this._template = `
-    `
-    */
 
     //data
 
@@ -183,6 +168,12 @@ class Datatable {
     })()
     for (let key in data)
       this['_'+key] = data[key];
+
+
+    // init
+
+    this._templates = [];
+    this._codes = [];
 
 
     // first render
@@ -1178,6 +1169,44 @@ class Datatable {
           </div>
         `;
 
+        this._template = `
+          <div>
+            {options-1}
+            {over-table-1}
+            <div class="position-relative {exp-7}">
+              <table class="{exp-8}">
+                <thead coreui-part="head">
+                </thead>
+                <tbody
+                  style={exp-14}
+                  class="position-relative"
+                  coreui-part="body"
+                >
+                </tbody>
+                {footer-1}
+                {val-10}
+                {exp-25}
+              </table>
+              {loading-1}
+            </div>
+            {exp-26}
+            {pagination-1}
+          </div>
+        `;
+
+    // parts
+
+    this._templates['head'] = `
+      {header-top-1}
+      {header-1}
+      {column-filter-1}
+    `;
+
+    this._templates['body'] = `
+      {table-1}
+      {no-items-1}
+    `;
+
 
     // build
 
@@ -1190,46 +1219,66 @@ class Datatable {
     //console.log('code:');
     //console.log(code);
 
-    //insert code
-    this._element.innerHTML = code;
-
-    // render code part
-    function renderPart(code, part){
-      if (code!==this._code[part]){ //let m = md5(code)!==this._code['part']
-        let el = SelectorEngine.findOne('[coreui-part="'+part+'"]', this._element);
-        el.innerHTML = code;
-        _this.code[part] = code;
-      }
-    }
-    /*
-    code = build(this._template, {});
-    renderPart('head', code);
-    code = build(this._template, {});
-    renderPart('body', code);
-    code = build(this._template, {});
-    renderPart('foot', code);
-    */
-
-
     let el;
 
-    //events
-    for (let id in handlers){
-      el = SelectorEngine.findOne('[coreui-event="'+id+'"]', this._element);
-      EventHandler.on(el, handlers[id].eventType+EVENT_KEY, handlers[id].f);
+    // render code part
+    const renderPart = (part, code)=>{
+      if (code!==this._codes[part]){ //let m = md5(code)!==this._code['part']
+        el = SelectorEngine.findOne('[coreui-part="'+part+'"]', this._element);
+        el.innerHTML = code;
+        this._codes[part] = code;
+
+        //events
+        for (let id in handlers){
+          el = SelectorEngine.findOne('[coreui-event="'+id+'"]', this._element);
+          EventHandler.on(el, handlers[id].eventType+EVENT_KEY, handlers[id].f);
+        }
+
+        //components
+        for (let id in comps){
+          el = SelectorEngine.findOne('[coreui-comp="'+id+'"]', this._element);
+          // init
+          let component = new coreui[comps[id].compType](el, comps[id].props);
+        }
+
+      }
     }
 
-    //return;
+    if (code!==this._codes['main']){
+      //insert main code
+      this._element.innerHTML = code;
+      this._codes = [];
+      this._codes['main'] = code;
 
+      //events
+      for (let id in handlers){
+        el = SelectorEngine.findOne('[coreui-event="'+id+'"]', this._element);
+        EventHandler.on(el, handlers[id].eventType+EVENT_KEY, handlers[id].f);
+      }
 
-    //components
-    for (let id in comps){
-      el = SelectorEngine.findOne('[coreui-comp="'+id+'"]', this._element);
-      // init
-      let component = new coreui[comps[id].compType](el, comps[id].props);
+      //components
+      for (let id in comps){
+        el = SelectorEngine.findOne('[coreui-comp="'+id+'"]', this._element);
+        // init
+        let component = new coreui[comps[id].compType](el, comps[id].props);
+      }
     }
 
-    return;
+    // render sub-parts
+
+    handlers = {};
+    comps = {};
+    eventN = 0;
+    compN = 0;
+    code = htmlRep(this._templates['head'], {});
+    renderPart('head', code);
+
+    handlers = {};
+    comps = {};
+    eventN = 0;
+    compN = 0;
+    code = htmlRep(this._templates['body'], {});
+    renderPart('body', code);
 
 
     //

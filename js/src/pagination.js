@@ -675,52 +675,6 @@ class Pagination {
   }
 
 
-  _addEventListeners() {
-    EventHandler.on(this._elementInput, EVENT_FOCUS, event => {
-      event.preventDefault();
-      event.stopPropagation();
-      this._onSearchFocus(this._elementInput);
-    })
-    EventHandler.on(this._elementInput, EVENT_BLUR, event => {
-      event.preventDefault();
-      event.stopPropagation();
-      //this._onSearchFocusOut(this._elementInput);
-    })
-    EventHandler.on(this._elementInput, EVENT_CHANGE, event => {
-      event.preventDefault();
-      event.stopPropagation();
-      this._onSearchChange(this._elementInput);
-    })
-    EventHandler.on(this._elementList, EVENT_CLICK, event => {
-      event.preventDefault();
-      event.stopPropagation();
-      this._onListClick(event.target);
-    })
-  }
-
-  _addTagsEventListeners() {
-    EventHandler.on(document, EVENT_CLICK, SELECTOR_TAG_DEL, event => {
-      event.preventDefault();
-      event.stopPropagation();
-      this._onTagDelClick(event.target);
-    })
-  }
-
-  //user event triggers
-
-  _triggerOpenEvent(element) {
-    return EventHandler.trigger(element, EVENT_OPEN)
-  }
-
-  _triggerCloseEvent(element) {
-    return EventHandler.trigger(element, EVENT_CLOSE)
-  }
-
-  _triggerSearchEvent(element) {
-    return EventHandler.trigger(element, EVENT_SEARCH)
-  }
-
-
   // config
 
   _getConfig(config, update) {

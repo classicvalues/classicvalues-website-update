@@ -157,6 +157,9 @@ class Pagination {
       this['_'+key] = data[key];
 
 
+    this._codes = [];
+
+
     // first render
 
     this._render();
@@ -615,6 +618,30 @@ class Pagination {
     //console.log('code:');
     //console.log(code);
 
+    let el;
+
+    if (code!==this._codes['main']){
+      //insert main code
+      this._element.innerHTML = code;
+      this._codes = [];
+      this._codes['main'] = code;
+
+      //events
+      for (let id in handlers){
+        el = SelectorEngine.findOne('[coreui-event="'+id+'"]', this._element);
+        EventHandler.on(el, handlers[id].eventType+EVENT_KEY, handlers[id].f);
+      }
+
+      //components
+      for (let id in comps){
+        el = SelectorEngine.findOne('[coreui-comp="'+id+'"]', this._element);
+        // init
+        let component = new coreui[comps[id].compType](el, comps[id].props);
+      }
+    }
+
+    /*
+
     //insert code
     this._element.innerHTML = code;
 
@@ -625,6 +652,8 @@ class Pagination {
       el = SelectorEngine.findOne('[coreui-event="'+id+'"]', this._element);
       EventHandler.on(el, handlers[id].eventType+EVENT_KEY, handlers[id].f);
     }
+
+    */
 
     setTimeout(()=>{
       this._rendered();
@@ -666,9 +695,10 @@ class Pagination {
   }
 
   _emitEvent(type, value, element=document) { //c
+    console.log('emit', type, value);
     switch(type){
       case 'update:activePage':
-      this._render();
+      //this._render();
       break;
     }
     return EventHandler.trigger(element, type, value);
@@ -740,7 +770,11 @@ class Pagination {
 
   // functions available for dom element
 
-  update(config) { // public method
+  render() {
+    this._render();
+  }
+
+  update(config) {
     this._getConfig(config);
     this._render();
   }
@@ -784,9 +818,9 @@ class Pagination {
 
  EventHandler.on(window, EVENT_LOAD_DATA_API, () => {
    // eslint-disable-next-line unicorn/prefer-spread
-   /*Array.from(document.querySelectorAll(SELECTOR_COMPONENT)).forEach(element => {
-     Sidebar._sidebarInterface(element)
-   })*/
+   Array.from(document.querySelectorAll(SELECTOR_COMPONENT)).forEach(element => {
+     //Pagination.jQueryInterface(element)
+   })
  })
 
 const $ = getjQuery()

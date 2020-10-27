@@ -30,7 +30,7 @@ const EVENT_KEY = `.${DATA_KEY}`
 const DATA_API_KEY = '.data-api'
 
 // zmienne
-const SELECTOR_COMPONENT = '[coreui-datatable]'
+const SELECTOR_COMPONENT = '[data-coreui="datatable"]'
 
 const SELECTOR_LIST = '[data-list]'
 const SELECTOR_INPUT = 'input'
@@ -136,12 +136,6 @@ class Datatable {
 
     this._config = this._getConfig(config);
     console.log('config', this._config);
-
-    for (let key in this._config)
-      this['_'+key] = this._config[key];
-
-
-    this._props = {...this._config};
 
     //data
     //zapisanie elementu do data
@@ -1084,7 +1078,8 @@ class Datatable {
             pages: this._totalPages,
             paginationProps: typeof this._pagination === 'object' ? this._paginationProps : '',
             onChange: (n)=>{
-              alert(n);
+              this._page = n;
+              this._render();
             }
           }
 
@@ -1480,10 +1475,6 @@ class Datatable {
   }
 
 
-
-
-
-
   // config
 
   _getConfig(config, update) {
@@ -1493,6 +1484,9 @@ class Datatable {
         ...Manipulator.getDataAttributes(this._element),
         ...config
       }
+
+    for (let key in config)
+      this['_'+key] = config[key];
 
     /*
     typeCheckConfig(

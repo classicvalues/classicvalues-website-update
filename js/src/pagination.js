@@ -30,7 +30,7 @@ const EVENT_KEY = `.${DATA_KEY}`
 const DATA_API_KEY = '.data-api'
 
 // zmienne
-const SELECTOR_COMPONENT = '[coreui-pagination]'
+const SELECTOR_COMPONENT = '[data-coreui="pagination"]'
 
 const SELECTOR_LIST = '[data-list]'
 const SELECTOR_INPUT = 'input'
@@ -119,9 +119,6 @@ class Pagination {
 
     this._config = this._getConfig(config);
     console.log('config', this._config);
-
-
-    this._props = {...this._config};
 
     //data
     //zapisanie elementu do data

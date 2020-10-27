@@ -120,9 +120,6 @@ class Pagination {
     this._config = this._getConfig(config);
     console.log('config', this._config);
 
-    for (let key in this._config)
-      this['_'+key] = this._config[key];
-
 
     this._props = {...this._config};
 
@@ -239,373 +236,357 @@ class Pagination {
 
     // template, this.template
 
+    //alert('pagination render');
+
 
     //***
 
-        let replace = {};
-        if (this._pages!==this._old_pages) ( (val)=> {
-            if (val && val < this._activePage) {
-              this._emitEvent('update:activePage', val, true)
-            }
-          })(this._pages);
-    	this._old_pages = this._pages;
+    let replace = {};
+    this._backArrowsClasses = ( ()=> {
+        return ['page-item', { 'disabled': this._activePage === 1 }]
+    })();
+
+  this._nextArrowsClasses = ( ()=> {
+      return ['page-item', { 'disabled': this._activePage === this._pages }]
+    })();
+
+  this._computedClasses = ( ()=> {
+      const sizeClass = this._size ? `pagination-${this._size}` : ''
+      return `pagination ${sizeClass} justify-content-${this._align}`
+    })();
+
+  this._showDots = ( ()=> {
+      return this._dots && this._limit > 4 && this._limit < this._pages
+    })();
+
+  this._maxPrevItems = ( ()=> {
+      return Math.floor((this._limit - 1) / 2)
+    })();
+
+  this._maxNextItems = ( ()=> {
+      return Math.ceil((this._limit - 1) / 2)
+    })();
+
+  this._beforeDots = ( ()=> {
+      return this._showDots && this._activePage > this._maxPrevItems + 1
+    })();
+
+  this._afterDots = ( ()=> {
+      return this._showDots && this._activePage < this._pages - this._maxNextItems
+    })();
+
+  this._computedLimit = ( ()=> {
+      return this._limit - this._afterDots - this._beforeDots
+    })();
+
+  this._range = ( ()=> {
+      return this._activePage + this._maxNextItems
+    })();
+
+  this._lastItem = ( ()=> {
+      return this._range >= this._pages ? this._pages : this._range - this._afterDots
+    })();
+
+  this._itemsAmount = ( ()=> {
+      return this._pages < this._computedLimit ? this._pages : this._computedLimit
+    })();
+
+  this._items = ( ()=> {
+      if (this._activePage - this._maxPrevItems <= 1 ) {
+        return Array.from({ length: this._itemsAmount }, (v, i) => i + 1 )
+      } else {
+        return Array.from({length: this._itemsAmount}, (v, i) => {
+          return this._lastItem - i
+        }).reverse()
+      }
+    })();
 
 
-        this._backArrowsClasses = ( ()=> {
-            return ['page-item', { 'disabled': this._activePage === 1 }]
-        })();
-
-    	this._nextArrowsClasses = ( ()=> {
-          return ['page-item', { 'disabled': this._activePage === this._pages }]
-        })();
-
-    	this._computedClasses = ( ()=> {
-          const sizeClass = this._size ? `pagination-${this._size}` : ''
-          return `pagination ${sizeClass} justify-content-${this._align}`
-        })();
-
-    	this._showDots = ( ()=> {
-          return this._dots && this._limit > 4 && this._limit < this._pages
-        })();
-
-    	this._maxPrevItems = ( ()=> {
-          return Math.floor((this._limit - 1) / 2)
-        })();
-
-    	this._maxNextItems = ( ()=> {
-          return Math.ceil((this._limit - 1) / 2)
-        })();
-
-    	this._beforeDots = ( ()=> {
-          return this._showDots && this._activePage > this._maxPrevItems + 1
-        })();
-
-    	this._afterDots = ( ()=> {
-          return this._showDots && this._activePage < this._pages - this._maxNextItems
-        })();
-
-    	this._computedLimit = ( ()=> {
-          return this._limit - this._afterDots - this._beforeDots
-        })();
-
-    	this._range = ( ()=> {
-          return this._activePage + this._maxNextItems
-        })();
-
-    	this._lastItem = ( ()=> {
-          return this._range >= this._pages ? this._pages : this._range - this._afterDots
-        })();
-
-    	this._itemsAmount = ( ()=> {
-          return this._pages < this._computedLimit ? this._pages : this._computedLimit
-        })();
-
-    	this._items = ( ()=> {
-          if (this._activePage - this._maxPrevItems <= 1 ) {
-            return Array.from({ length: this._itemsAmount }, (v, i) => i + 1 )
-          } else {
-            return Array.from({length: this._itemsAmount}, (v, i) => {
-              return this._lastItem - i
-            }).reverse()
-          }
-        })();
+    if (this._pages!==this._old_pages) ( (val)=> {
+        if (val && val < this._activePage) {
+          this._emitEvent('update:activePage', val, true)
+        }
+      })(this._pages);
+  this._old_pages = this._pages;
 
 
 
-    replace['exp-1'] =
-            (par)=>{return htmlRep(objStr(this._computedClasses), par)};
+  replace['exp'] =
+      (par)=>{return htmlRep(objStr(this._computedClasses), par)};
 
-    replace['exp-2'] =
-            (par)=>{return htmlRep(objStr(this._backArrowsClasses), par)};
+  replace['exp-2'] =
+      (par)=>{return htmlRep(objStr(this._backArrowsClasses), par)};
 
-     replace['eve-1'] =
-            (par)=>{
-              eventN++;
-              handlers[eventN] = {
-                eventType: 'click',
-                f: (event)=>{
-                  event.preventDefault();
-                  event.stopPropagation();
-                  this._setPage(1);
-                }
-              }
-              return 'coreui-event="'+eventN+'"';
-            };
+  replace['eve'] =
+      (par)=>{
+        eventN++;
+        handlers[eventN] = {
+          eventType: 'click',
+          f: (event)=>this._onEveEvent(event, par)
+        }
+        return 'coreui-event="'+eventN+'"';
+      };
 
-     replace['exp-3'] =
-            (par)=>{return htmlRep(objStr(this._activePage === 1), par)};
+  replace['exp-3'] =
+      (par)=>{return htmlRep(objStr(this._activePage === 1), par)};
 
-     replace['exp-4'] =
-            (par)=>{return htmlRep(objStr(this._activePage === 1), par)};
+  replace['exp-4'] =
+      (par)=>{return htmlRep(objStr(this._activePage === 1), par)};
 
-    replace['first-button-1'] =
-            (par)=>{
-              if (this._firstButton && typeof this._firstButton === 'function') return htmlRep(objStr(this._firstButton()), par);
-              else if (this._firstButton) return htmlRep(objStr(this._firstButton), par);
-              else return htmlRep(`
-              &laquo;
-              `, par);
-            };
+  replace['first-button'] =
+      (par)=>{
+        if (this._firstButton && typeof this._firstButton === 'function') return htmlRep(objStr(this._firstButton()), par);
+        else if (this._firstButton) return htmlRep(objStr(this._firstButton), par);
+        else return htmlRep(`
+        &laquo;
+        `, par);
+      };
 
-     replace['double-arrows-1'] =
-            (par)=>{
-              if (this._doubleArrows) return htmlRep(`
-          <li class="{exp-2}">
-            <a
-              href="#self"
-              class="page-link"
-              {eve-1}
-              disabled="{exp-3}"
-              aria-label="Go to first page"
-              aria-disabled="{exp-4}"
-            >
-              {first-button-1}
-            </a>
-          </li>
-          `, par)
-              else return ''
-            };
+  replace['double-arrows'] =
+      (par)=>{
+        if (this._doubleArrows) return htmlRep(`
+    <li class="{exp-2}">
+      <a
+        href="#self"
+        class="page-link"
+        {eve}
+        disabled="{exp-3}"
+        aria-label="Go to first page"
+        aria-disabled="{exp-4}"
+      >
+        {first-button}
+      </a>
+    </li>
+    `, par);
+        return ''
+      };
 
-     replace['exp-5'] =
-            (par)=>{return htmlRep(objStr(this._backArrowsClasses), par)};
+  replace['exp-5'] =
+      (par)=>{return htmlRep(objStr(this._backArrowsClasses), par)};
 
-     replace['eve-2'] =
-            (par)=>{
-              eventN++;
-              handlers[eventN] = {
-                eventType: 'click',
-                f: (event)=>{
-                  event.preventDefault();
-                  event.stopPropagation();
-                  this._setPage(this._activePage - 1);
-                }
-              }
-              return 'coreui-event="'+eventN+'"';
-            };
+  replace['eve-2'] =
+      (par)=>{
+        eventN++;
+        handlers[eventN] = {
+          eventType: 'click',
+          f: (event)=>this._onEve2Event(event, par)
+        }
+        return 'coreui-event="'+eventN+'"';
+      };
 
-     replace['exp-6'] =
-            (par)=>{return htmlRep(objStr(this._activePage === 1), par)};
+  replace['exp-6'] =
+      (par)=>{return htmlRep(objStr(this._activePage === 1), par)};
 
-     replace['exp-7'] =
-            (par)=>{return htmlRep(objStr(this._activePage === 1), par)};
+  replace['exp-7'] =
+      (par)=>{return htmlRep(objStr(this._activePage === 1), par)};
 
-     replace['previous-button-1'] =
-            (par)=>{
-              if (this._previousButton && typeof this._previousButton === 'function') return htmlRep(objStr(this._previousButton()), par);
-              else if (this._previousButton) return htmlRep(objStr(this._previousButton), par);
-              else return htmlRep(`
-              &lsaquo;
-              `, par);
-            };
+  replace['previous-button'] =
+      (par)=>{
+        if (this._previousButton && typeof this._previousButton === 'function') return htmlRep(objStr(this._previousButton()), par);
+        else if (this._previousButton) return htmlRep(objStr(this._previousButton), par);
+        else return htmlRep(`
+        &lsaquo;
+        `, par);
+      };
 
-     replace['arrows-1'] =
-            (par)=>{
-              if (this._arrows) return htmlRep(`
-          <li class="{exp-5}">
-            <a
-              href="#self"
-              class="page-link"
-              {eve-2}
-              disabled="{exp-6}"
-              aria-label="Go to previous page"
-              aria-disabled="{exp-7}"
-            >
-              {previous-button-1}
-            </a>
-          </li>
-          `, par)
-              else return ''
-            };
+  replace['arrows'] =
+      (par)=>{
+        if (this._arrows) return htmlRep(`
+    <li class="{exp-5}">
+      <a
+        href="#self"
+        class="page-link"
+        {eve-2}
+        disabled="{exp-6}"
+        aria-label="Go to previous page"
+        aria-disabled="{exp-7}"
+      >
+        {previous-button}
+      </a>
+    </li>
+    `, par);
+        return ''
+      };
 
-    replace['before-dots-1'] =
-            (par)=>{
-              if (this._beforeDots) return htmlRep(`
-          <li
-            role="separator"
-            class="page-item disabled"
-          >
-            <span class="page-link">…</span>
-          </li>
-          `, par)
-              else return ''
-            };
+  replace['before-dots'] =
+      (par)=>{
+        if (this._beforeDots) return htmlRep(`
+    <li
+      role="separator"
+      class="page-item disabled"
+    >
+      <span class="page-link">…</span>
+    </li>
+    `, par);
+        return ''
+      };
 
-    replace['exp-8'] =
-            (par)=>{return htmlRep(objStr([{'active': this._activePage === par["item"] }, 'page-item']), par)};
+  replace['exp-8'] =
+      (par)=>{return htmlRep(objStr([{'active': this._activePage === par["item"] }, 'page-item']), par)};
 
-     replace['eve-3'] =
-            (par)=>{
-              eventN++;
-              handlers[eventN] = {
-                eventType: 'click',
-                f: (event)=>{
-                  event.preventDefault();
-                  event.stopPropagation();
-                  this._setPage(par["item"], event);
-                }
-              }
-              return 'coreui-event="'+eventN+'"';
-            };
+  replace['eve-3'] =
+      (par)=>{
+        eventN++;
+        handlers[eventN] = {
+          eventType: 'click',
+          f: (event)=>this._onEve3Event(event, par)
+        }
+        return 'coreui-event="'+eventN+'"';
+      };
 
-     replace['exp-9'] =
-            (par)=>{return htmlRep(objStr(this._activePage === par["item"] ? `Current page par["item"]` : `Go to page par["item"]`), par)};
+  replace['exp-9'] =
+      (par)=>{return htmlRep(objStr(this._activePage === par["item"] ? `Current page par["item"]` : `Go to page par["item"]`), par)};
 
-     replace['items-1'] =
-            (par)=>{
-              let code = '';
-              for (let idx in this._items){
-                let value = this._items[idx];
-                par['key'] = idx;
-                par['item'] = value;
-                code+=htmlRep(`
-          <li
-            key="{:item}"
-            class="{exp-8}"
-          >
-            <a
-              href="#self"
-              class="page-link c-page-link-number"
-              {eve-3}
-              aria-label="{exp-9}"
-            >
-              {:item}
-            </a>
-          </li>
-          `, par);
-              }
-              return code;
-            };
+  replace['items'] =
+      (par)=>{
+        let code = '';
+        for (let idx in this._items){
+          par['key'] = idx;
+          par['item'] = this._items[idx];
+          code+=htmlRep(`
+    <li
+      key="{:item}"
+      class="{exp-8}"
+    >
+      <a
+        href="#self"
+        class="page-link c-page-link-number"
+        {eve-3}
+        aria-label="{exp-9}"
+      >
+        {:item}
+      </a>
+    </li>
+    `, {...par});
+        }
+        return code;
+      };
 
-     replace['after-dots-1'] =
-            (par)=>{
-              if (this._afterDots) return htmlRep(`
-          <li
-            role="separator"
-            class="page-item disabled"
-          >
-            <span class="page-link">…</span>
-          </li>
-          `, par)
-              else return ''
-            };
+  replace['after-dots'] =
+      (par)=>{
+        if (this._afterDots) return htmlRep(`
+    <li
+      role="separator"
+      class="page-item disabled"
+    >
+      <span class="page-link">…</span>
+    </li>
+    `, par);
+        return ''
+      };
 
-     replace['exp-10'] =
-            (par)=>{return htmlRep(objStr(this._nextArrowsClasses), par)};
+  replace['exp-10'] =
+      (par)=>{return htmlRep(objStr(this._nextArrowsClasses), par)};
 
-    replace['eve-4'] =
-            (par)=>{
-              eventN++;
-              handlers[eventN] = {
-                eventType: 'click',
-                f: (event)=>{
-                  event.preventDefault();
-                  event.stopPropagation();
-                  this._setPage(this._activePage + 1);
-                }
-              }
-              return 'coreui-event="'+eventN+'"';
-            };
+  replace['eve-4'] =
+      (par)=>{
+        eventN++;
+        handlers[eventN] = {
+          eventType: 'click',
+          f: (event)=>this._onEve4Event(event, par)
+        }
+        return 'coreui-event="'+eventN+'"';
+      };
 
-     replace['exp-11'] =
-            (par)=>{return htmlRep(objStr(this._activePage === this._pages), par)};
+  replace['exp-11'] =
+      (par)=>{return htmlRep(objStr(this._activePage === this._pages), par)};
 
-     replace['exp-12'] =
-            (par)=>{return htmlRep(objStr(this._activePage === this._pages), par)};
+  replace['exp-12'] =
+      (par)=>{return htmlRep(objStr(this._activePage === this._pages), par)};
 
-    replace['next-button-1'] =
-            (par)=>{
-              if (this._nextButton && typeof this._nextButton === 'function') return htmlRep(objStr(this._nextButton()), par);
-              else if (this._nextButton) return htmlRep(objStr(this._nextButton), par);
-              else return htmlRep(`
-              &rsaquo;
-              `, par);
-            };
+  replace['next-button'] =
+      (par)=>{
+        if (this._nextButton && typeof this._nextButton === 'function') return htmlRep(objStr(this._nextButton()), par);
+        else if (this._nextButton) return htmlRep(objStr(this._nextButton), par);
+        else return htmlRep(`
+        &rsaquo;
+        `, par);
+      };
 
-     replace['arrows-2-1'] =
-            (par)=>{
-              if (this._arrows) return htmlRep(`
-          <li
-            class="{exp-10}"
-          >
-            <a
-              href="#self"
-              class="page-link"
-              {eve-4}
-              disabled="{exp-11}"
-              aria-label="Go to next page"
-              aria-disabled="{exp-12}"
-            >
-              {next-button-1}
-            </a>
-          </li>
-          `, par)
-              else return ''
-            };
+  replace['arrows-2'] =
+      (par)=>{
+        if (this._arrows) return htmlRep(`
+    <li
+      class="{exp-10}"
+    >
+      <a
+        href="#self"
+        class="page-link"
+        {eve-4}
+        disabled="{exp-11}"
+        aria-label="Go to next page"
+        aria-disabled="{exp-12}"
+      >
+        {next-button}
+      </a>
+    </li>
+    `, par);
+        return ''
+      };
 
-     replace['exp-13'] =
-            (par)=>{return htmlRep(objStr(this._nextArrowsClasses), par)};
+  replace['exp-13'] =
+      (par)=>{return htmlRep(objStr(this._nextArrowsClasses), par)};
 
-     replace['eve-5'] =
-            (par)=>{
-              eventN++;
-              handlers[eventN] = {
-                eventType: 'click',
-                f: (event)=>{
-                  event.preventDefault();
-                  event.stopPropagation();
-                  return (event)=>this._setPage(this._pages);
-                }
-              }
-              return 'coreui-event="'+eventN+'"';
-            };
+  replace['eve-5'] =
+      (par)=>{
+        eventN++;
+        handlers[eventN] = {
+          eventType: 'click',
+          f: (event)=>this._onEve5Event(event, par)
+        }
+        return 'coreui-event="'+eventN+'"';
+      };
 
-     replace['exp-14'] =
-            (par)=>{return htmlRep(objStr(this._activePage === this._pages), par)};
+  replace['exp-14'] =
+      (par)=>{return htmlRep(objStr(this._activePage === this._pages), par)};
 
-    replace['exp-15'] =
-            (par)=>{return htmlRep(objStr(this._activePage === this._pages), par)};
+  replace['exp-15'] =
+      (par)=>{return htmlRep(objStr(this._activePage === this._pages), par)};
 
-     replace['last-button-1'] =
-            (par)=>{
-              if (this._lastButton && typeof this._lastButton === 'function') return htmlRep(objStr(this._lastButton()), par);
-              else if (this._lastButton) return htmlRep(objStr(this._lastButton), par);
-              else return htmlRep(`
-              &raquo;
-              `, par);
-            };
+  replace['last-button'] =
+      (par)=>{
+        if (this._lastButton && typeof this._lastButton === 'function') return htmlRep(objStr(this._lastButton()), par);
+        else if (this._lastButton) return htmlRep(objStr(this._lastButton), par);
+        else return htmlRep(`
+        &raquo;
+        `, par);
+      };
 
-    replace['double-arrows-2-1'] =
-            (par)=>{
-              if (this._doubleArrows) return htmlRep(`
-          <li class="{exp-13}">
-            <a
-              href="#self"
-              class="page-link"
-              {eve-5}
-              disabled="{exp-14}"
-              aria-label="Go to last page"
-              aria-disabled="{exp-15}"
-            >
-              {last-button-1}
-            </a>
-          </li>
-          `, par)
-              else return ''
-            };
+  replace['double-arrows-2'] =
+      (par)=>{
+        if (this._doubleArrows) return htmlRep(`
+    <li class="{exp-13}">
+      <a
+        href="#self"
+        class="page-link"
+        {eve-5}
+        disabled="{exp-14}"
+        aria-label="Go to last page"
+        aria-disabled="{exp-15}"
+      >
+        {last-button}
+      </a>
+    </li>
+    `, par);
+        return ''
+      };
+
+
 
     this._template = `
       <nav aria-label="pagination">
-        <ul class="{exp-1}">
-          {double-arrows-1}
-          {arrows-1}
-          {before-dots-1}
-          {items-1}
-          {after-dots-1}
-          {arrows-2-1}
-          {double-arrows-2-1}
+        <ul class="{exp}">
+          {double-arrows}
+          {arrows}
+          {before-dots}
+          {items}
+          {after-dots}
+          {arrows-2}
+          {double-arrows-2}
         </ul>
       </nav>
     `;
+
 
     // build
 
@@ -674,6 +655,9 @@ class Pagination {
     if (e) {
       this._changeFocus(e)
     }
+    if (this._onChange)
+      this._onChange(number);
+    this._render();
   }
 
   _changeFocus(e) {
@@ -704,6 +688,38 @@ class Pagination {
     return EventHandler.trigger(element, type, value);
   }
 
+  _onEveEvent(event, par) {
+  	this._setPage(1);
+  	event.preventDefault();
+  	event.stopPropagation();
+  }
+
+  _onEve2Event(event, par) {
+  	this._setPage(this._activePage - 1);
+  	event.preventDefault();
+  	event.stopPropagation();
+  }
+
+  _onEve3Event(event, par) {
+  	this._setPage(par["item"], event);
+  	event.preventDefault();
+  	event.stopPropagation();
+  }
+
+  _onEve4Event(event, par) {
+  	this._setPage(this._activePage + 1);
+  	event.preventDefault();
+  	event.stopPropagation();
+  }
+
+  _onEve5Event(event, par) {
+  	return (event)=>this._setPage(this._pages);
+  	event.preventDefault();
+  	event.stopPropagation();
+  }
+
+
+
 
   // config
 
@@ -714,6 +730,9 @@ class Pagination {
         ...Manipulator.getDataAttributes(this._element),
         ...config
       }
+
+    for (let key in config)
+      this['_'+key] = config[key];
 
     /*
     typeCheckConfig(

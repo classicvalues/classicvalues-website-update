@@ -139,7 +139,7 @@ class Datatable {
 
     //data
     //zapisanie elementu do data
-    //if (this._element)
+    if (this._element)
     {
       Data.setData(element, DATA_KEY, this)
     }
@@ -265,835 +265,856 @@ class Datatable {
 
     //***
 
-        let replace = {};
-        this._generatedColumnNames = ( ()=> {
-          return Object.keys(this._passedItems[0] || {}).filter(el => el.charAt(0) !== '_')
-        })();
+    let replace = {};
+    this._generatedColumnNames = ( ()=> {
+      return Object.keys(this._passedItems[0] || {}).filter(el => el.charAt(0) !== '_')
+    })();
 
-    	this._rawColumnNames = ( ()=> {
-          if (this._fields) {
-            return this._fields.map(el => el.key || el)
-          }
-          return this._generatedColumnNames
-        })();
+    this._rawColumnNames = ( ()=> {
+      if (this._fields) {
+        return this._fields.map(el => el.key || el)
+      }
+      return this._generatedColumnNames
+    })();
 
-    	this._columnFiltered = ( ()=> {
-          let items = this._passedItems
-          if (this._columnFilter && this._columnFilter.external) {
-            return items
-          }
-          Object.entries(this._columnFilterState).forEach(([key, value]) => {
-            const columnFilter = String(value).toLowerCase()
-            if (columnFilter && this._rawColumnNames.includes(key)) {
-              items = items.filter(item => {
-                return String(item[key]).toLowerCase().includes(columnFilter)
-              })
-            }
-          })
-          return items
-        })();
-
-    	this._itemsDataColumns = ( ()=> {
-          return this._rawColumnNames.filter(name => {
-            return this._generatedColumnNames.includes(name)
-          })
-        })();
-
-    	this._tableFiltered = ( ()=> {
-          let items = this._columnFiltered
-          if (!this._tableFilterState || (this._tableFilter && this._tableFilter.external)) {
-            return items
-          }
-          const filter = this._tableFilterState.toLowerCase()
-          const hasFilter = (item) => String(item).toLowerCase().includes(filter)
+    this._columnFiltered = ( ()=> {
+      let items = this._passedItems
+      if (this._columnFilter && this._columnFilter.external) {
+        return items
+      }
+      Object.entries(this._columnFilterState).forEach(([key, value]) => {
+        const columnFilter = String(value).toLowerCase()
+        if (columnFilter && this._rawColumnNames.includes(key)) {
           items = items.filter(item => {
-            return this._itemsDataColumns.filter(key => hasFilter(item[key])).length
+            return String(item[key]).toLowerCase().includes(columnFilter)
           })
-          return items
-        })();
+        }
+      })
+      return items
+    })();
 
-    	this._sortedItems = ( ()=> {
-          const col = this._sorterState.column
-          if (!col || !this._rawColumnNames.includes(col) || this._sorter.external) {
-            return this._tableFiltered
+    this._itemsDataColumns = ( ()=> {
+      return this._rawColumnNames.filter(name => {
+        return this._generatedColumnNames.includes(name)
+      })
+    })();
+
+    this._tableFiltered = ( ()=> {
+      let items = this._columnFiltered
+      if (!this._tableFilterState || (this._tableFilter && this._tableFilter.external)) {
+        return items
+      }
+      const filter = this._tableFilterState.toLowerCase()
+      const hasFilter = (item) => String(item).toLowerCase().includes(filter)
+      items = items.filter(item => {
+        return this._itemsDataColumns.filter(key => hasFilter(item[key])).length
+      })
+      return items
+    })();
+
+    this._sortedItems = ( ()=> {
+      const col = this._sorterState.column
+      if (!col || !this._rawColumnNames.includes(col) || this._sorter.external) {
+        return this._tableFiltered
+      }
+      //if values in column are to be sorted by numeric value they all have to be type number
+      const flip = this._sorterState.asc ? 1 : -1
+      return this._tableFiltered.slice().sort((item, item2) => {
+        const value  = item[col]
+        const value2 = item2[col]
+        const a = typeof value === 'number' ? value : String(value).toLowerCase()
+        const b = typeof value2 === 'number' ? value2 : String(value2).toLowerCase()
+        return a > b ? 1 * flip : b > a ? -1 * flip : 0
+      })
+    })();
+
+    this._computedPage = ( ()=> {
+      return this._pagination ? this._page : this._activePage
+    })();
+
+    this._firstItemIndex = ( ()=> {
+      return (this._computedPage - 1) * this._perPageItems || 0
+    })();
+
+    this._paginatedItems = ( ()=> {
+      return this._sortedItems.slice(
+        this._firstItemIndex,
+        this._firstItemIndex + this._perPageItems
+      )
+    })();
+
+    this._currentItems = ( ()=> {
+      return this._computedPage ? this._paginatedItems : this._sortedItems
+    })();
+
+    this._totalPages = ( ()=> {
+      return Math.ceil((this._sortedItems.length)/ this._perPageItems) || 1
+    })();
+
+    this._columnNames = ( ()=> {
+      if (this._fields) {
+        return this._fields.map(f => {
+          return f.label !== undefined ? f.label : this._pretifyName(f.key || f)
+        })
+      }
+      return this._rawColumnNames.map(el => this._pretifyName(el))
+    })();
+
+    this._tableClasses = ( ()=> {
+      return [
+        'table',
+        this._addTableClasses,
+        {
+          [`table-${this._size}`]: this._size,
+          'table-dark': this._dark,
+          'table-striped': this._striped,
+          'table-fixed': this._fixed,
+          'table-hover': this._hover,
+          'table-bordered': this._border,
+          'border': this._outlined
+        }
+      ]
+    })();
+
+    this._sortingIconStyles = ( ()=> {
+      return {'position-relative pr-4' : this._sorter }
+    })();
+
+    this._colspan = ( ()=> {
+      return this._rawColumnNames.length
+    })();
+
+    this._tableFilterData = ( ()=> {
+      return {
+        label: this._tableFilter.label || 'Filter:',
+        placeholder: this._tableFilter.placeholder || 'type string...'
+      }
+    })();
+
+    this._paginationSelect = ( ()=> {
+      return {
+        label: this._itemsPerPageSelect.label || 'Items per page:',
+        values: this._itemsPerPageSelect.values || [5, 10, 20, 50]
+      }
+    })();
+
+    this._noItemsText = ( ()=> {
+      const customValues = this._noItemsView || {}
+      if (this._passedItems.length) {
+        return customValues.noResults || 'No filtering results'
+      }
+      return customValues.noItems || 'No items'
+    })();
+
+    this._isFiltered = ( ()=> {
+      return this._tableFilterState ||
+             Object.values(this._columnFilterState).join('') ||
+             this._sorterState.column
+    })();
+
+    this._cleanerProps = ( ()=> {
+      return {
+        content: this._global.icons.cilFilterX,
+        class: `ml-2 ${this._isFiltered ? 'text-danger' : 'transparent'}`,
+        role: this._isFiltered ? 'button' : null,
+        tabindex: this._isFiltered ? 0 : null,
+      }
+    })();
+
+    this._haveFilterOption = ( ()=> {
+      return this._tableFilter || this._cleaner || this._$scopedSlots.cleaner
+    })();
+
+
+    if (this._itemsPerPage!==this._old_itemsPerPage) ( (val)=> {
+      this._perPageItems = val
+    })(this._itemsPerPage);
+    this._old_itemsPerPage = this._itemsPerPage;
+
+    if (this._sorterValue!==this._old_sorterValue) ( (val)=> {
+        const asc = val.asc === false ? false : true
+        this._sorterState = Object.assign({}, { asc, column: val.column })
+      })(this._sorterValue);
+    this._old_sorterValue = this._sorterValue;
+
+    if (this._tableFilterValue!==this._old_tableFilterValue) ( (val)=> {
+      this._tableFilterState = val
+    })(this._tableFilterValue);
+    this._old_tableFilterValue = this._tableFilterValue;
+
+    if (this._columnFilterValue!==this._old_columnFilterValue) ( (val)=> {
+        this._columnFilterState = Object.assign({}, val)
+      })(this._columnFilterValue);
+    this._old_columnFilterValue = this._columnFilterValue;
+
+    if (this._items!==this._old_items) ( (val, oldVal)=> {
+      if (val && oldVal && this._objectsAreIdentical(val, oldVal)) {
+        return
+      }
+      this._passedItems = val || []
+    })(this._items);
+    this._old_items = this._items;
+
+    if (this._totalPages!==this._old_totalPages) ( (val)=> {
+        this._emitEvent('pages-change', val)
+      })(this._totalPages);
+    this._old_totalPages = this._totalPages;
+
+    if (this._computedPage!==this._old_computedPage) ( (val)=> {
+      this._emitEvent('page-change', val)
+    })(this._computedPage);
+    this._old_computedPage = this._computedPage;
+
+    if (this._sortedItems!==this._old_sortedItems) ( (val, oldVal)=> {
+        if (val && oldVal && this._objectsAreIdentical(val, oldVal)) {
+          return
+        }
+        this._emitEvent('filtered-items-change', val)
+      })(this._sortedItems);
+    this._old_sortedItems = this._sortedItems;
+
+
+
+    replace['exp'] =
+        (par)=>{return htmlRep(objStr(this._tableFilterData.label), par)};
+
+    replace['exp-2'] =
+        (par)=>{return htmlRep(objStr(this._tableFilterData.placeholder), par)};
+
+    replace['filter-input'] =
+        (par)=>{
+          eventN++;
+          handlers[eventN] = {
+            eventType: 'keyup',
+            f: (event)=>this._onFilterInputEvent(event, par)
           }
-          //if values in column are to be sorted by numeric value they all have to be type number
-          const flip = this._sorterState.asc ? 1 : -1
-          return this._tableFiltered.slice().sort((item, item2) => {
-            const value  = item[col]
-            const value2 = item2[col]
-            const a = typeof value === 'number' ? value : String(value).toLowerCase()
-            const b = typeof value2 === 'number' ? value2 : String(value2).toLowerCase()
-            return a > b ? 1 * flip : b > a ? -1 * flip : 0
-          })
-        })();
+          return 'coreui-event="'+eventN+'"';
+        };
 
-    	this._computedPage = ( ()=> {
-          return this._pagination ? this._page : this._activePage
-        })();
-
-    	this._firstItemIndex = ( ()=> {
-          return (this._computedPage - 1) * this._perPageItems || 0
-        })();
-
-    	this._paginatedItems = ( ()=> {
-          return this._sortedItems.slice(
-            this._firstItemIndex,
-            this._firstItemIndex + this._perPageItems
-          )
-        })();
-
-    	this._currentItems = ( ()=> {
-          return this._computedPage ? this._paginatedItems : this._sortedItems
-        })();
-
-    	this._totalPages = ( ()=> {
-          return Math.ceil((this._sortedItems.length)/ this._perPageItems) || 1
-        })();
-
-    	this._columnNames = ( ()=> {
-          if (this._fields) {
-            return this._fields.map(f => {
-              return f.label !== undefined ? f.label : this._pretifyName(f.key || f)
-            })
+    replace['filter-change'] =
+        (par)=>{
+          eventN++;
+          handlers[eventN] = {
+            eventType: 'change',
+            f: (event)=>this._onFilterChangeEvent(event, par)
           }
-          return this._rawColumnNames.map(el => this._pretifyName(el))
-        })();
+          return 'coreui-event="'+eventN+'"';
+        };
 
-    	this._tableClasses = ( ()=> {
-          return [
-            'table',
-            this._addTableClasses,
-            {
-              [`table-${this._size}`]: this._size,
-              'table-dark': this._dark,
-              'table-striped': this._striped,
-              'table-fixed': this._fixed,
-              'table-hover': this._hover,
-              'table-bordered': this._border,
-              'border': this._outlined
-            }
-          ]
-        })();
-
-    	this._sortingIconStyles = ( ()=> {
-          return {'position-relative pr-4' : this._sorter }
-        })();
-
-    	this._colspan = ( ()=> {
-          return this._rawColumnNames.length
-        })();
-
-    	this._tableFilterData = ( ()=> {
-          return {
-            label: this._tableFilter.label || 'Filter:',
-            placeholder: this._tableFilter.placeholder || 'type string...'
-          }
-        })();
-
-    	this._paginationSelect = ( ()=> {
-          return {
-            label: this._itemsPerPageSelect.label || 'Items per page:',
-            values: this._itemsPerPageSelect.values || [5, 10, 20, 50]
-          }
-        })();
-
-    	this._noItemsText = ( ()=> {
-          const customValues = this._noItemsView || {}
-          if (this._passedItems.length) {
-            return customValues.noResults || 'No filtering results'
-          }
-          return customValues.noItems || 'No items'
-        })();
-
-    	this._isFiltered = ( ()=> {
-          return this._tableFilterState ||
-                 Object.values(this._columnFilterState).join('') ||
-                 this._sorterState.column
-        })();
-
-    	this._cleanerProps = ( ()=> {
-          return {
-            content: this._global.icons.cilFilterX,
-            class: `ml-2 ${this._isFiltered ? 'text-danger' : 'transparent'}`,
-            role: this._isFiltered ? 'button' : null,
-            tabindex: this._isFiltered ? 0 : null,
-          }
-        })();
-
-    	this._haveFilterOption = ( ()=> {
-          return this._tableFilter || this._cleaner || this._$scopedSlots.cleaner
-        })();
-
-
-        if (this._itemsPerPage!==this._old_itemsPerPage) ( (val)=> {
-          this._perPageItems = val
-        })(this._itemsPerPage);
-    	this._old_itemsPerPage = this._itemsPerPage;
-
-    	if (this._sorterValue!==this._old_sorterValue) ( (val)=> {
-            const asc = val.asc === false ? false : true
-            this._sorterState = Object.assign({}, { asc, column: val.column })
-          })(this._sorterValue);
-    	this._old_sorterValue = this._sorterValue;
-
-    	if (this._tableFilterValue!==this._old_tableFilterValue) ( (val)=> {
-          this._tableFilterState = val
-        })(this._tableFilterValue);
-    	this._old_tableFilterValue = this._tableFilterValue;
-
-    	if (this._columnFilterValue!==this._old_columnFilterValue) ( (val)=> {
-            this._columnFilterState = Object.assign({}, val)
-          })(this._columnFilterValue);
-    	this._old_columnFilterValue = this._columnFilterValue;
-
-    	if (this._items!==this._old_items) ( (val, oldVal)=> {
-          if (val && oldVal && this._objectsAreIdentical(val, oldVal)) {
-            return
-          }
-          this._passedItems = val || []
-        })(this._items);
-    	this._old_items = this._items;
-
-    	if (this._totalPages!==this._old_totalPages) ( (val)=> {
-            this._emitEvent('pages-change', val)
-          })(this._totalPages);
-    	this._old_totalPages = this._totalPages;
-
-    	if (this._computedPage!==this._old_computedPage) ( (val)=> {
-          this._emitEvent('page-change', val)
-        })(this._computedPage);
-    	this._old_computedPage = this._computedPage;
-
-    	if (this._sortedItems!==this._old_sortedItems) ( (val, oldVal)=> {
-            if (val && oldVal && this._objectsAreIdentical(val, oldVal)) {
-              return
-            }
-            this._emitEvent('filtered-items-change', val)
-          })(this._sortedItems);
-    	this._old_sortedItems = this._sortedItems;
-
-
-
-     		replace['exp'] =
-            (par)=>{return htmlRep(objStr(this._tableFilterData.label), par)};
-
-     		replace['exp-2'] =
-            (par)=>{return htmlRep(objStr(this._tableFilterData.placeholder), par)};
-
-     		replace['filter-input'] =
-            (par)=>{
-              eventN++;
-              handlers[eventN] = {
-                eventType: 'keyup',
-                f: (event)=>this._onFilterInputEvent(event, par)
-              }
-              return 'coreui-event="'+eventN+'"';
-            };
-
-    		replace['filter-change'] =
-            (par)=>{
-              eventN++;
-              handlers[eventN] = {
-                eventType: 'change',
-                f: (event)=>this._onFilterChangeEvent(event, par)
-              }
-              return 'coreui-event="'+eventN+'"';
-            };
-
-     		replace['exp-3'] =
-            (par)=>{return htmlRep(objStr(this._tableFilterState), par)};
+    replace['exp-3'] =
+        (par)=>{return htmlRep(objStr(this._tableFilterState), par)};
 
     //filter part
-     		replace['filter'] =
-            (par)=>{
-              if (this._tableFilter) return htmlRep(`
-              <label class="mr-2">{exp}</label>
-              <input
-                class="form-control"
-                type="text"
-                placeholder="{exp-2}"
-                {filter-input}
-                {filter-change}
-                value=""
-                aria-label="table filter input"
-              >
-            `, par);
-              return ''
-            };
+    replace['filter'] =
+        (par)=>{
+          if (this._tableFilter) return htmlRep(`
+          <label class="mr-2">{exp}</label>
+          <input
+            class="form-control"
+            type="text"
+            placeholder="{exp-2}"
+            {filter-input}
+            {filter-change}
+            value=""
+            aria-label="table filter input"
+          >
+        `, par);
+          return ''
+        };
 
-     		replace['com'] =
-              (par)=>{return '<i class="cui-user"></i>'};
+    replace['exp-4'] =
+        (par)=>{return htmlRep(objStr(this._cleanerProps), par)};
 
-    		replace['val'] =
-            (par)=>{
-              if (this._cleaner && typeof this._cleaner === 'function') return htmlRep(objStr(this._cleaner({clean:this._clean, isFiltered:this._isFiltered})), par);
-              else if (this._cleaner) return htmlRep(objStr(this._cleaner), par);
-              else return htmlRep(`
-                {com}
-            `, par);
-            };
+    replace['cleaner-click'] =
+        (par)=>{
+          eventN++;
+          handlers[eventN] = {
+            eventType: 'click',
+            f: (event)=>this._onCleanerClickEvent(event, par)
+          }
+          return 'coreui-event="'+eventN+'"';
+        };
+
+    replace['val'] =
+        (par)=>{
+          if (this._cleaner && typeof this._cleaner === 'function') return htmlRep(objStr(this._cleaner({clean:this._clean, isFiltered:this._isFiltered})), par);
+          else if (this._cleaner) return htmlRep(objStr(this._cleaner), par);
+          else return htmlRep(`
+          <i
+            class=""
+            {exp-4}
+            {cleaner-click}
+          ></i>
+        `, par);
+        };
 
     //cleaner
-    		replace['cleaner'] =
-            (par)=>{
-              if (this._cleaner) return htmlRep(`
-            {val}
-            `, par);
-              return ''
-            };
+    replace['cleaner'] =
+        (par)=>{
+          if (this._cleaner) return htmlRep(`
+        {val}
+        `, par);
+          return ''
+        };
 
-     		replace['filter-option'] =
-            (par)=>{
-              if (this._haveFilterOption) return htmlRep(`
-          <div
-            class="col-sm-6 form-inline p-0"
+    replace['filter-option'] =
+        (par)=>{
+          if (this._haveFilterOption) return htmlRep(`
+      <div
+        class="col-sm-6 form-inline p-0"
+      >
+        {filter}
+        {cleaner}
+
+      </div>
+      `, par);
+          return ''
+        };
+
+    replace['exp-5'] =
+        (par)=>{return htmlRep(objStr(!this._haveFilterOption ? 'offset-sm-6' : ''), par)};
+
+    replace['exp-6'] =
+        (par)=>{return htmlRep(objStr(this._paginationSelect.label), par)};
+
+    replace['pagination-change'] =
+        (par)=>{
+          eventN++;
+          handlers[eventN] = {
+            eventType: 'change',
+            f: (event)=>this._onPaginationChangeEvent(event, par)
+          }
+          return 'coreui-event="'+eventN+'"';
+        };
+
+    replace['exp-7'] =
+        (par)=>{return htmlRep(objStr(this._perPageItems), par)};
+
+    replace['tymcz'] =
+        (par)=>{
+          let code = '';
+          for (let idx in this._paginationSelect.values){
+            par['key'] = idx;
+            par['number'] = this._paginationSelect.values[idx];
+            code+=htmlRep(`
+            <option
+              val="{:number}"
+              key="{:key}"
+            >
+              {:number}
+            </option>
+            `, {...par});
+          }
+          return code;
+        };
+
+    replace['items-select'] =
+        (par)=>{
+          if (this._itemsPerPageSelect) return htmlRep(`
+      <div
+        class="col-sm-6 p-0 {exp-5}"
+      >
+        <div class="form-inline justify-content-sm-end">
+          <label class="mr-2">{exp-6}</label>
+          <select
+            class="form-control"
+            {pagination-change}
+            aria-label="changes number of visible items"
           >
-            {filter}
-            {cleaner}
-
-          </div>
-          `, par);
-              return ''
-            };
-
-     		replace['exp-4'] =
-            (par)=>{return htmlRep(objStr(!this._haveFilterOption ? 'offset-sm-6' : ''), par)};
-
-     		replace['exp-5'] =
-            (par)=>{return htmlRep(objStr(this._paginationSelect.label), par)};
-
-     		replace['pagination-change'] =
-            (par)=>{
-              eventN++;
-              handlers[eventN] = {
-                eventType: 'change',
-                f: (event)=>this._onPaginationChangeEvent(event, par)
-              }
-              return 'coreui-event="'+eventN+'"';
-            };
-
-     		replace['exp-6'] =
-            (par)=>{return htmlRep(objStr(this._perPageItems), par)};
-
-    		replace['tymcz'] =
-            (par)=>{
-              let code = '';
-              for (let idx in this._paginationSelect.values){
-                par['key'] = idx;
-                par['number'] = this._paginationSelect.values[idx];
-                code+=htmlRep(`
-                <option
-                  val="{:number}"
-                  key="{:key}"
-                >
-                  {:number}
-                </option>
-                `, {...par});
-              }
-              return code;
-            };
-
-     		replace['items-select'] =
-            (par)=>{
-              if (this._itemsPerPageSelect) return htmlRep(`
-          <div
-            class="col-sm-6 p-0 {exp-4}"
-          >
-            <div class="form-inline justify-content-sm-end">
-              <label class="mr-2">{exp-5}</label>
-              <select
-                class="form-control"
-                {pagination-change}
-                aria-label="changes number of visible items"
-              >
-                <option value="" selected disabled hidden>
-                  {exp-6}
-                </option>
-                {tymcz}
-              </select>
-            </div>
-          </div>
-          `, par);
-              return ''
-            };
+            <option value="" selected disabled hidden>
+              {exp-7}
+            </option>
+            {tymcz}
+          </select>
+        </div>
+      </div>
+      `, par);
+          return ''
+        };
 
     //search options
-     		replace['options'] =
-            (par)=>{
-              if (this._itemsPerPageSelect || this._haveFilterOption) return htmlRep(`
-        <div
-          class="row my-2 mx-0"
-        >
-          {filter-option}
+    replace['options'] =
+        (par)=>{
+          if (this._itemsPerPageSelect || this._haveFilterOption) return htmlRep(`
+    <div
+      class="row my-2 mx-0"
+    >
+      {filter-option}
 
-          {items-select}
-        </div>
-        `, par);
-              return ''
-            };
+      {items-select}
+    </div>
+    `, par);
+          return ''
+        };
 
-     		replace['over-table'] =
-            (par)=>{return htmlRep(objStr(this._overTableSlot), par)};
+    replace['over-table'] =
+        (par)=>{return htmlRep(objStr(this._overTableSlot), par)};
 
-     		replace['responsive'] =
-            (par)=>{return htmlRep(objStr(this._responsive ? 'table-responsive' : ''), par)};
+    replace['responsive'] =
+        (par)=>{return htmlRep(objStr(this._responsive ? 'table-responsive' : ''), par)};
 
-    		replace['table-classes'] =
-            (par)=>{return htmlRep(objStr(this._tableClasses), par)};
+    replace['table-classes'] =
+        (par)=>{return htmlRep(objStr(this._tableClasses), par)};
 
-    		replace['header-top'] =
-            (par)=>{return htmlRep(objStr(this._theadTopSlot), par)};
+    replace['header-top'] =
+        (par)=>{return htmlRep(objStr(this._theadTopSlot), par)};
 
-    		replace['sort-click'] =
-            (par)=>{
-              eventN++;
-              handlers[eventN] = {
-                eventType: 'click',
-                f: (event)=>this._onSortClickEvent(event, par)
-              }
-              return 'coreui-event="'+eventN+'"';
-            };
+    replace['sort-click'] =
+        (par)=>{
+          eventN++;
+          handlers[eventN] = {
+            eventType: 'click',
+            f: (event)=>this._onSortClickEvent(event, par)
+          }
+          return 'coreui-event="'+eventN+'"';
+        };
 
-    		replace['exp-7'] =
-            (par)=>{return htmlRep(objStr(this._headerClass(par["index"])), par)};
+    replace['exp-8'] =
+        (par)=>{return htmlRep(objStr(this._headerClass(par["index"])), par)};
 
-     		replace['exp-8'] =
-            (par)=>{return htmlRep(objStr(this._sortingIconStyles), par)};
+    replace['exp-9'] =
+        (par)=>{return htmlRep(objStr(this._sortingIconStyles), par)};
 
-    		replace['exp-9'] =
-            (par)=>{return htmlRep(objStr(this._headerStyles(par["index"])), par)};
+    replace['exp-10'] =
+        (par)=>{return htmlRep(objStr(this._headerStyles(par["index"])), par)};
 
-    		replace['val-2'] =
-            (par)=>{
-              if (this._columnHeaderSlot[this._rawColumnNames[par["index"]]] && typeof this._columnHeaderSlot[this._rawColumnNames[par["index"]]] === 'function') return htmlRep(objStr(this._columnHeaderSlot[this._rawColumnNames[par["index"]]]()), par);
-              else if (this._columnHeaderSlot[this._rawColumnNames[par["index"]]]) return htmlRep(objStr(this._columnHeaderSlot[this._rawColumnNames[par["index"]]]), par);
-              else return htmlRep(`
-                      <div>{:name}</div>
-                    `, par);
-            };
-
-    		replace['com-2'] =
-              (par)=>{return '<i class="cui-user"></i>'};
-
-    		replace['val-3'] =
-            (par)=>{
-              if (this._sortingIcon && typeof this._sortingIcon === 'function') return htmlRep(objStr(this._sortingIcon({state:getIconState(par["index"]), classes:this._iconClasses(par["index"])})), par);
-              else if (this._sortingIcon) return htmlRep(objStr(this._sortingIcon), par);
-              else return htmlRep(`
-                      {com-2}
-                    `, par);
-            };
-
-     		replace['sortable'] =
-            (par)=>{
-              if (this._isSortable(par["index"])) return htmlRep(`
-                    {val-3}
-                    `, par);
-              return ''
-            };
-
-     		replace['table-header'] =
-            (par)=>{
-              let code = '';
-              for (let idx in this._columnNames){
-                par['index'] = idx;
-                par['name'] = this._columnNames[idx];
-                code+=htmlRep(`
-                  <th
-                    {sort-click}
-                    class="{exp-7} {exp-8}"
-                    style="{exp-9}"
-                    key="{:index}"
-                  >
-                    {val-2}
-                    {sortable}
-                  </th>
-                `, {...par});
-              }
-              return code;
-            };
-
-     		replace['header'] =
-            (par)=>{
-              if (this._header) return htmlRep(`
-              <tr>
-                {table-header}
-              </tr>
-              `, par);
-              return ''
-            };
-
-     		replace['exp-10'] =
-            (par)=>{return htmlRep(objStr(this._headerClass(par["index"])), par)};
-
-     		replace['column-filter-input'] =
-            (par)=>{
-              eventN++;
-              handlers[eventN] = {
-                eventType: 'keyup',
-                f: (event)=>this._onColumnFilterInputEvent(event, par)
-              }
-              return 'coreui-event="'+eventN+'"';
-            };
-
-     		replace['column-filter-change'] =
-            (par)=>{
-              eventN++;
-              handlers[eventN] = {
-                eventType: 'change',
-                f: (event)=>this._onColumnFilterChangeEvent(event, par)
-              }
-              return 'coreui-event="'+eventN+'"';
-            };
-
-    		replace['exp-11'] =
-            (par)=>{return htmlRep(objStr(this._columnFilterState[par["colName"]]), par)};
-
-    		replace['fields'] =
-            (par)=>{
-              if (!this._fields || this._fields[par["index"]].filter!==false) return htmlRep(`
-                      <input
-                        class="form-control form-control-sm"
-                        {column-filter-input}
-                        {column-filter-change}
-                        value=""
-                        aria-label="column name: '{:colName}' filter input"
-                      />
-                      `, par);
-              return ''
-            };
-
-     		replace['val-4'] =
-            (par)=>{
-              if (this._columnFilterSlot[this._rawColumnNames[par["index"]]] && typeof this._columnFilterSlot[this._rawColumnNames[par["index"]]] === 'function') return htmlRep(objStr(this._columnFilterSlot[this._rawColumnNames[par["index"]]]()), par);
-              else if (this._columnFilterSlot[this._rawColumnNames[par["index"]]]) return htmlRep(objStr(this._columnFilterSlot[this._rawColumnNames[par["index"]]]), par);
-              else return htmlRep(`
-                      {fields}
-                    `, par);
-            };
-
-    		replace['tymcz2'] =
-            (par)=>{
-              let code = '';
-              for (let idx in this._rawColumnNames){
-                par['index'] = idx;
-                par['colName'] = this._rawColumnNames[idx];
-                code+=htmlRep(`
-                  <th class="{exp-10}" key="{:index}">
-                    {val-4}
-                  </th>
-                `, {...par});
-              }
-              return code;
-            };
-
-     		replace['column-filter'] =
-            (par)=>{
-              if (this._columnFilter) return htmlRep(`
-              <tr class="table-sm">
-                {tymcz2}
-              </tr>
-              `, par);
-              return ''
-            };
-
-     		replace['clicable'] =
-            (par)=>{return htmlRep(objStr(this._clickableRows ? 'cursor:pointer;': null), par)};
-
-    		replace['row-click'] =
-            (par)=>{
-              eventN++;
-              handlers[eventN] = {
-                eventType: 'click',
-                f: (event)=>this._onRowClickEvent(event, par)
-              }
-              return 'coreui-event="'+eventN+'"';
-            };
-
-     		replace['exp-12'] =
-            (par)=>{return htmlRep(objStr(par["item"]._classes), par)};
-
-     		replace['exp-13'] =
-            (par)=>{return htmlRep(objStr(this._clickableRows ? 0 : null), par)};
-
-     		replace['val-5'] =
-            (par)=>{
-              if (this._scopedSlots[par["colName"]] && typeof this._scopedSlots[par["colName"]] === 'function') return htmlRep(objStr(this._scopedSlots[par["colName"]]({item:par["item"], index:par["itemIndex"]+this._firstItemIndex})), par);
-              else if (this._scopedSlots[par["colName"]]) return htmlRep(objStr(this._scopedSlots[par["colName"]]), par);
-              else return htmlRep(`
-                    `, par);
-            };
-
-    		replace['exp-14'] =
-            (par)=>{return htmlRep(objStr(this._cellClass(par["item"], par["colName"], par["index"])), par)};
-
-     		replace['exp-15'] =
-            (par)=>{return htmlRep(objStr(String(par["item"][par["colName"]])), par)};
-
-     		replace['scoped'] =
-            (par)=>{
-              if (this._scopedSlots[par["colName"]]) return htmlRep(`
-                    {val-5}
-                    `, par)
-              return htmlRep(`
-                    <td
-                      class="{exp-14}"
-                      key="{:index}"
-                    >
-                      {exp-15}
-                    </td>
-                    `, par)
-            };
-
-    		replace['tymcz3'] =
-            (par)=>{
-              let code = '';
-              for (let idx in this._rawColumnNames){
-                par['index'] = idx;
-                par['colName'] = this._rawColumnNames[idx];
-                code+=htmlRep(`
-                    {scoped}
-                  `, {...par});
-              }
-              return code;
-            };
-
-    		replace['details-row-click'] =
-            (par)=>{
-              eventN++;
-              handlers[eventN] = {
-                eventType: 'click',
-                f: (event)=>this._onDetailsRowClickEvent(event, par)
-              }
-              return 'coreui-event="'+eventN+'"';
-            };
-
-     		replace['exp-16'] =
-            (par)=>{return htmlRep(objStr(this._colspan), par)};
-
-     		replace['val-6'] =
-            (par)=>{
-              if (this._scopedSlots['details'] && typeof this._scopedSlots['details'] === 'function') return htmlRep(objStr(this._scopedSlots['details']({item:par["item"], index:par["itemIndex"]+this._firstItemIndex})), par);
-              else if (this._scopedSlots['details']) return htmlRep(objStr(this._scopedSlots['details']), par);
-              else return htmlRep(`
-                    `, par);
-            };
-
-     		replace['details'] =
-            (par)=>{
-              if (this._scopedSlots.details) return htmlRep(`
-                <tr
-                  {details-row-click}
-                  class="p-0"
-                  style="border:none !important"
-                  key="details{:itemIndex}"
-                >
-                  <td
-                    colspan="{exp-16}"
-                    class="p-0"
-                    style="border:none !important"
-                  >
-                    {val-6}
-                  </td>
-                </tr>
+    replace['val-2'] =
+        (par)=>{
+          if (this._columnHeaderSlot[this._rawColumnNames[par["index"]]] && typeof this._columnHeaderSlot[this._rawColumnNames[par["index"]]] === 'function') return htmlRep(objStr(this._columnHeaderSlot[this._rawColumnNames[par["index"]]]()), par);
+          else if (this._columnHeaderSlot[this._rawColumnNames[par["index"]]]) return htmlRep(objStr(this._columnHeaderSlot[this._rawColumnNames[par["index"]]]), par);
+          else return htmlRep(`
+                  <div>{:name}</div>
                 `, par);
-              return ''
-            };
+        };
 
-    		replace['table'] =
-            (par)=>{
-              let code = '';
-              for (let idx in this._currentItems){
-                par['itemIndex'] = idx;
-                par['item'] = this._currentItems[idx];
-                code+=htmlRep(`
-                <tr
-                  {row-click}
-                  class="{exp-12}"
-                  tabindex="{exp-13}"
-                  key="{:itemIndex}"
-                >
-                  {tymcz3}
-                </tr>
-                {details}
-              `, {...par});
-              }
-              return code;
-            };
+    replace['exp-11'] =
+        (par)=>{return htmlRep(objStr(this._iconClasses(par["index"])), par)};
 
-     		replace['exp-17'] =
-            (par)=>{return htmlRep(objStr(this._colspan), par)};
+    replace['val-3'] =
+        (par)=>{
+          if (this._sortingIcon && typeof this._sortingIcon === 'function') return htmlRep(objStr(this._sortingIcon({state:getIconState(par["index"]), classes:this._iconClasses(par["index"])})), par);
+          else if (this._sortingIcon) return htmlRep(objStr(this._sortingIcon), par);
+          else return htmlRep(`
+                  <i
+                    class="cil-arrow-top {exp-11}"
+                    aria-label="change column: '{:name}' sorting"
+                  ></i>
+                `, par);
+        };
 
-     		replace['exp-18'] =
-            (par)=>{return htmlRep(objStr(this._noItemsText), par)};
+    replace['sortable'] =
+        (par)=>{
+          if (this._isSortable(par["index"])) return htmlRep(`
+                {val-3}
+                `, par);
+          return ''
+        };
 
-     		replace['com-3'] =
-              (par)=>{return '<i class="cui-user"></i>'};
+    replace['table-header'] =
+        (par)=>{
+          let code = '';
+          for (let idx in this._columnNames){
+            par['index'] = idx;
+            par['name'] = this._columnNames[idx];
+            code+=htmlRep(`
+              <th
+                {sort-click}
+                class="{exp-8} {exp-9}"
+                style="{exp-10}"
+                key="{:index}"
+              >
+                {val-2}
+                {sortable}
+              </th>
+            `, {...par});
+          }
+          return code;
+        };
 
-    		replace['val-7'] =
-            (par)=>{
-              if (this._noItemsViewSlot && typeof this._noItemsViewSlot === 'function') return htmlRep(objStr(this._noItemsViewSlot()), par);
-              else if (this._noItemsViewSlot) return htmlRep(objStr(this._noItemsViewSlot), par);
-              else return htmlRep(`
-                    <div class="text-center my-5">
-                      <h2>
-                        {exp-18}
-                        {com-3}
-                      </h2>
-                    </div>
+    replace['header'] =
+        (par)=>{
+          if (this._header) return htmlRep(`
+          <tr>
+            {table-header}
+          </tr>
+          `, par);
+          return ''
+        };
+
+    replace['exp-12'] =
+        (par)=>{return htmlRep(objStr(this._headerClass(par["index"])), par)};
+
+    replace['column-filter-input'] =
+        (par)=>{
+          eventN++;
+          handlers[eventN] = {
+            eventType: 'keyup',
+            f: (event)=>this._onColumnFilterInputEvent(event, par)
+          }
+          return 'coreui-event="'+eventN+'"';
+        };
+
+    replace['column-filter-change'] =
+        (par)=>{
+          eventN++;
+          handlers[eventN] = {
+            eventType: 'change',
+            f: (event)=>this._onColumnFilterChangeEvent(event, par)
+          }
+          return 'coreui-event="'+eventN+'"';
+        };
+
+    replace['exp-13'] =
+        (par)=>{return htmlRep(objStr(this._columnFilterState[par["colName"]]), par)};
+
+    replace['fields'] =
+        (par)=>{
+          if (!this._fields || this._fields[par["index"]].filter!==false) return htmlRep(`
+                  <input
+                    class="form-control form-control-sm"
+                    {column-filter-input}
+                    {column-filter-change}
+                    value=""
+                    aria-label="column name: '{:colName}' filter input"
+                  />
                   `, par);
-            };
+          return ''
+        };
 
-     		replace['no-items'] =
-            (par)=>{
-              if (!this._currentItems.length) return htmlRep(`
-              <tr>
-                <td colspan={exp-17}>
-                  {val-7}
+    replace['val-4'] =
+        (par)=>{
+          if (this._columnFilterSlot[this._rawColumnNames[par["index"]]] && typeof this._columnFilterSlot[this._rawColumnNames[par["index"]]] === 'function') return htmlRep(objStr(this._columnFilterSlot[this._rawColumnNames[par["index"]]]()), par);
+          else if (this._columnFilterSlot[this._rawColumnNames[par["index"]]]) return htmlRep(objStr(this._columnFilterSlot[this._rawColumnNames[par["index"]]]), par);
+          else return htmlRep(`
+                  {fields}
+                `, par);
+        };
+
+    replace['tymcz2'] =
+        (par)=>{
+          let code = '';
+          for (let idx in this._rawColumnNames){
+            par['index'] = idx;
+            par['colName'] = this._rawColumnNames[idx];
+            code+=htmlRep(`
+              <th class="{exp-12}" key="{:index}">
+                {val-4}
+              </th>
+            `, {...par});
+          }
+          return code;
+        };
+
+    replace['column-filter'] =
+        (par)=>{
+          if (this._columnFilter) return htmlRep(`
+          <tr class="table-sm">
+            {tymcz2}
+          </tr>
+          `, par);
+          return ''
+        };
+
+    replace['clicable'] =
+        (par)=>{return htmlRep(objStr(this._clickableRows ? 'cursor:pointer;': null), par)};
+
+    replace['row-click'] =
+        (par)=>{
+          eventN++;
+          handlers[eventN] = {
+            eventType: 'click',
+            f: (event)=>this._onRowClickEvent(event, par)
+          }
+          return 'coreui-event="'+eventN+'"';
+        };
+
+    replace['exp-14'] =
+        (par)=>{return htmlRep(objStr(par["item"]._classes), par)};
+
+    replace['exp-15'] =
+        (par)=>{return htmlRep(objStr(this._clickableRows ? 0 : null), par)};
+
+    replace['val-5'] =
+        (par)=>{
+          if (this._scopedSlots[par["colName"]] && typeof this._scopedSlots[par["colName"]] === 'function') return htmlRep(objStr(this._scopedSlots[par["colName"]]({item:par["item"], index:par["itemIndex"]+this._firstItemIndex})), par);
+          else if (this._scopedSlots[par["colName"]]) return htmlRep(objStr(this._scopedSlots[par["colName"]]), par);
+          else return htmlRep(`
+                `, par);
+        };
+
+    replace['exp-16'] =
+        (par)=>{return htmlRep(objStr(this._cellClass(par["item"], par["colName"], par["index"])), par)};
+
+    replace['exp-17'] =
+        (par)=>{return htmlRep(objStr(String(par["item"][par["colName"]])), par)};
+
+    replace['scoped'] =
+        (par)=>{
+          if (this._scopedSlots[par["colName"]]) return htmlRep(`
+                {val-5}
+                `, par)
+          return htmlRep(`
+                <td
+                  class="{exp-16}"
+                  key="{:index}"
+                >
+                  {exp-17}
                 </td>
-              </tr>
+                `, par)
+        };
+
+    replace['tymcz3'] =
+        (par)=>{
+          let code = '';
+          for (let idx in this._rawColumnNames){
+            par['index'] = idx;
+            par['colName'] = this._rawColumnNames[idx];
+            code+=htmlRep(`
+                {scoped}
+              `, {...par});
+          }
+          return code;
+        };
+
+    replace['details-row-click'] =
+        (par)=>{
+          eventN++;
+          handlers[eventN] = {
+            eventType: 'click',
+            f: (event)=>this._onDetailsRowClickEvent(event, par)
+          }
+          return 'coreui-event="'+eventN+'"';
+        };
+
+    replace['exp-18'] =
+        (par)=>{return htmlRep(objStr(this._colspan), par)};
+
+    replace['val-6'] =
+        (par)=>{
+          if (this._scopedSlots['details'] && typeof this._scopedSlots['details'] === 'function') return htmlRep(objStr(this._scopedSlots['details']({item:par["item"], index:par["itemIndex"]+this._firstItemIndex})), par);
+          else if (this._scopedSlots['details']) return htmlRep(objStr(this._scopedSlots['details']), par);
+          else return htmlRep(`
+                `, par);
+        };
+
+    replace['details'] =
+        (par)=>{
+          if (this._scopedSlots.details) return htmlRep(`
+            <tr
+              {details-row-click}
+              class="p-0"
+              style="border:none !important"
+              key="details{:itemIndex}"
+            >
+              <td
+                colspan="{exp-18}"
+                class="p-0"
+                style="border:none !important"
+              >
+                {val-6}
+              </td>
+            </tr>
+            `, par);
+          return ''
+        };
+
+    replace['table'] =
+        (par)=>{
+          let code = '';
+          for (let idx in this._currentItems){
+            par['itemIndex'] = idx;
+            par['item'] = this._currentItems[idx];
+            code+=htmlRep(`
+            <tr
+              {row-click}
+              class="{exp-14}"
+              tabindex="{exp-15}"
+              key="{:itemIndex}"
+            >
+              {tymcz3}
+            </tr>
+            {details}
+          `, {...par});
+          }
+          return code;
+        };
+
+    replace['exp-19'] =
+        (par)=>{return htmlRep(objStr(this._colspan), par)};
+
+    replace['exp-20'] =
+        (par)=>{return htmlRep(objStr(this._noItemsText), par)};
+
+    replace['val-7'] =
+        (par)=>{
+          if (this._noItemsViewSlot && typeof this._noItemsViewSlot === 'function') return htmlRep(objStr(this._noItemsViewSlot()), par);
+          else if (this._noItemsViewSlot) return htmlRep(objStr(this._noItemsViewSlot), par);
+          else return htmlRep(`
+                <div class="text-center my-5">
+                  <h2>
+                    {exp-20}
+                    <i
+                      class="cil-ban text-danger mb-2"
+                      width="30"
+                    ></i>
+                  </h2>
+                </div>
               `, par);
-              return ''
-            };
+        };
 
-     		replace['sort-footer-click'] =
-            (par)=>{
-              eventN++;
-              handlers[eventN] = {
-                eventType: 'click',
-                f: (event)=>this._onSortFooterClickEvent(event, par)
-              }
-              return 'coreui-event="'+eventN+'"';
-            };
+    replace['no-items'] =
+        (par)=>{
+          if (!this._currentItems.length) return htmlRep(`
+          <tr>
+            <td colspan={exp-19}>
+              {val-7}
+            </td>
+          </tr>
+          `, par);
+          return ''
+        };
 
-    		replace['exp-19'] =
-            (par)=>{return htmlRep(objStr(this._headerClass(par["index"])), par)};
+    replace['sort-footer-click'] =
+        (par)=>{
+          eventN++;
+          handlers[eventN] = {
+            eventType: 'click',
+            f: (event)=>this._onSortFooterClickEvent(event, par)
+          }
+          return 'coreui-event="'+eventN+'"';
+        };
 
-     		replace['exp-20'] =
-            (par)=>{return htmlRep(objStr(this._sortingIconStyles), par)};
+    replace['exp-21'] =
+        (par)=>{return htmlRep(objStr(this._headerClass(par["index"])), par)};
 
-    		replace['exp-21'] =
-            (par)=>{return htmlRep(objStr(this._headerStyles(par["index"])), par)};
+    replace['exp-22'] =
+        (par)=>{return htmlRep(objStr(this._sortingIconStyles), par)};
 
-     		replace['val-8'] =
-            (par)=>{
-              if (this._columnHeaderSlot[this._rawColumnNames[par["index"]]] && typeof this._columnHeaderSlot[this._rawColumnNames[par["index"]]] === 'function') return htmlRep(objStr(this._columnHeaderSlot[this._rawColumnNames[par["index"]]]()), par);
-              else if (this._columnHeaderSlot[this._rawColumnNames[par["index"]]]) return htmlRep(objStr(this._columnHeaderSlot[this._rawColumnNames[par["index"]]]), par);
-              else return htmlRep(`
-                      <div>{:name}</div>
-                    `, par);
-            };
+    replace['exp-23'] =
+        (par)=>{return htmlRep(objStr(this._headerStyles(par["index"])), par)};
 
-     		replace['com-4'] =
-              (par)=>{return '<i class="cui-user"></i>'};
+    replace['val-8'] =
+        (par)=>{
+          if (this._columnHeaderSlot[this._rawColumnNames[par["index"]]] && typeof this._columnHeaderSlot[this._rawColumnNames[par["index"]]] === 'function') return htmlRep(objStr(this._columnHeaderSlot[this._rawColumnNames[par["index"]]]()), par);
+          else if (this._columnHeaderSlot[this._rawColumnNames[par["index"]]]) return htmlRep(objStr(this._columnHeaderSlot[this._rawColumnNames[par["index"]]]), par);
+          else return htmlRep(`
+                  <div>{:name}</div>
+                `, par);
+        };
 
-     		replace['val-9'] =
-            (par)=>{
-              if (this._sortingIconSlot && typeof this._sortingIconSlot === 'function') return htmlRep(objStr(this._sortingIconSlot({state: this._getIconState(par["index"])})), par);
-              else if (this._sortingIconSlot) return htmlRep(objStr(this._sortingIconSlot), par);
-              else return htmlRep(`
-                      {com-4}
-                    `, par);
-            };
+    replace['exp-24'] =
+        (par)=>{return htmlRep(objStr(this._iconClasses(par["index"])), par)};
 
-     		replace['sortable-down'] =
-            (par)=>{
-              if (this._isSortable(par["index"])) return htmlRep(`
-                    {val-9}
-                    `, par);
-              return ''
-            };
+    replace['val-9'] =
+        (par)=>{
+          if (this._sortingIconSlot && typeof this._sortingIconSlot === 'function') return htmlRep(objStr(this._sortingIconSlot({state: this._getIconState(par["index"])})), par);
+          else if (this._sortingIconSlot) return htmlRep(objStr(this._sortingIconSlot), par);
+          else return htmlRep(`
+                  <i
+                    class="cil-arrow-top {exp-24}"
+                    width="18"
+                  }</i>
+                `, par);
+        };
 
-    		replace['footer-row'] =
-            (par)=>{
-              let code = '';
-              for (let idx in this._columnNames){
-                par['index'] = idx;
-                par['name'] = this._columnNames[idx];
-                code+=htmlRep(`
-                  <th
-                    {sort-footer-click}
-                    class="{exp-19} {exp-20}"
-                    style="{exp-21}"
-                    key="{:index}"
-                  >
-                    {val-8}
-                    {sortable-down}
-                  </th>
-                `, {...par});
-              }
-              return code;
-            };
+    replace['sortable-down'] =
+        (par)=>{
+          if (this._isSortable(par["index"])) return htmlRep(`
+                {val-9}
+                `, par);
+          return ''
+        };
+
+    replace['footer-row'] =
+        (par)=>{
+          let code = '';
+          for (let idx in this._columnNames){
+            par['index'] = idx;
+            par['name'] = this._columnNames[idx];
+            code+=htmlRep(`
+              <th
+                {sort-footer-click}
+                class="{exp-21} {exp-22}"
+                style="{exp-23}"
+                key="{:index}"
+              >
+                {val-8}
+                {sortable-down}
+              </th>
+            `, {...par});
+          }
+          return code;
+        };
 
     //footer part
-    		replace['footer'] =
-            (par)=>{
-              if (this._footer && this._currentItems.length>0) return htmlRep(`
-            <tfoot coreui-part="foot">
-              <tr>
-                {footer-row}
-              </tr>
-            </tfoot>
-            `, par);
-              return ''
-            };
-
-    		replace['footer-slot'] =
-            (par)=>{
-              if (this._footerSlot && typeof this._footerSlot === 'function') return htmlRep(objStr(this._footerSlot({itemsAmount: this._currentItems.length})), par);
-              else if (this._footerSlot) return htmlRep(objStr(this._footerSlot), par);
-              else return htmlRep(``, par);
-            };
-
-     		replace['caption'] =
-            (par)=>{return htmlRep(objStr(this._captionSlot), par)};
-
-     		replace['val-10'] =
-            (par)=>{
-              if (this._loading && typeof this._loading === 'function') return htmlRep(objStr(this._loading()), par);
-              else if (this._loading) return htmlRep(objStr(this._loading), par);
-              else return htmlRep(``, par);
-            };
-
-    		replace['loading'] =
-            (par)=>{
-              if (this._loading) return htmlRep(`
-          {val-10}
-          `, par);
-              return ''
-            };
-
-     		replace['under-table'] =
-            (par)=>{return htmlRep(objStr(this._underTableSlot), par)};
-
-    		replace['com-5'] =
-            (par)=>{
-              compN++;
-              comps[compN] = {
-                compType: 'Pagination',
-                props:      {
-            style: !(this._totalPages > 1) ? 'style="display:none"' : '',
-            activePage: this._page,
-            pages: this._totalPages,
-            paginationProps: typeof this._pagination === 'object' ? this._paginationProps : '',
-            onChange: (n)=>{
-              this._page = n;
-              this._render();
-            }
-          }
-
-              }
-              return '<div coreui-comp="'+compN+'"></div>'
-            };
-
-     		replace['pagination'] =
-            (par)=>{
-              if (this._pagination) return htmlRep(`
-        {com-5}
+    replace['footer'] =
+        (par)=>{
+          if (this._footer && this._currentItems.length>0) return htmlRep(`
+        <tfoot coreui-part="foot">
+          <tr>
+            {footer-row}
+          </tr>
+        </tfoot>
         `, par);
-              return ''
-            };
+          return ''
+        };
+
+    replace['footer-slot'] =
+        (par)=>{
+          if (this._footerSlot && typeof this._footerSlot === 'function') return htmlRep(objStr(this._footerSlot({itemsAmount: this._currentItems.length})), par);
+          else if (this._footerSlot) return htmlRep(objStr(this._footerSlot), par);
+          else return htmlRep(``, par);
+        };
+
+    replace['caption'] =
+        (par)=>{return htmlRep(objStr(this._captionSlot), par)};
+
+    replace['val-10'] =
+        (par)=>{
+          if (this._loading && typeof this._loading === 'function') return htmlRep(objStr(this._loading()), par);
+          else if (this._loading) return htmlRep(objStr(this._loading), par);
+          else return htmlRep(``, par);
+        };
+
+    replace['loading'] =
+        (par)=>{
+          if (this._loading) return htmlRep(`
+      {val-10}
+      `, par);
+          return ''
+        };
+
+    replace['under-table'] =
+        (par)=>{return htmlRep(objStr(this._underTableSlot), par)};
+
+    replace['com'] =
+        (par)=>{
+          compN++;
+          comps[compN] = {
+            compType: 'Pagination',
+            props:      {
+        style: !(this._totalPages > 1) ? 'style="display:none"' : '',
+        activePage: this._page,
+        pages: this._totalPages,
+        paginationProps: typeof this._pagination === 'object' ? this._paginationProps : '',
+        onChange: (n)=>{
+          this._page = n;
+          this._render();
+        }
+      }
+
+          }
+          return '<div coreui-comp="'+compN+'"></div>'
+        };
+
+    replace['pagination'] =
+        (par)=>{
+          if (this._pagination) return htmlRep(`
+    {com}
+    `, par);
+          return ''
+        };
+
 
 
 
@@ -1164,8 +1185,8 @@ class Datatable {
     let compN = 0;
 
     let code = htmlRep(this._template, {});
-    console.log('code:');
-    console.log(code);
+    //console.log('code:');
+    //console.log(code);
 
     let el;
 
@@ -1178,7 +1199,7 @@ class Datatable {
       compN = 0;
       code = htmlRep(this._templates[part], {});
 
-      console.log('code part:'+part, code);
+      //console.log('code part:'+part, code);
 
       if (code!==this._codes[part]){ //let m = md5(code)!==this._code['part']
 
@@ -1187,7 +1208,7 @@ class Datatable {
           //return;
         }
 
-        console.log('code part old:'+part, this._codes[part]);
+        //console.log('code part old:'+part, this._codes[part]);
 
         el = SelectorEngine.findOne('[coreui-part="'+part+'"]', this._element);
         el.innerHTML = code;
@@ -1203,7 +1224,7 @@ class Datatable {
         for (let id in comps){
           el = SelectorEngine.findOne('[coreui-comp="'+id+'"]', this._element);
           // init
-          console.log('comps', comps[id].props);
+          //console.log('comps', comps[id].props);
           let component = new coreui[comps[id].compType](el, comps[id].props);
         }
 
@@ -1214,7 +1235,7 @@ class Datatable {
         for (let id in comps){
           el = SelectorEngine.findOne('[coreui-comp="'+id+'"]', this._element);
           // update
-          console.log('comps update', comps[id].props);
+          //console.log('comps update', comps[id].props);
           coreui[comps[id].compType].getInstance(el).update(comps[id].props);
         }
 
@@ -1401,7 +1422,7 @@ class Datatable {
   */
 
   _emitEvent(type, value, element=document) { //c
-    console.log('emit', type, value);
+    //console.log('emit', type, value);
     switch(type){
       //case 'update:sorter-value':
       //case 'update:column-filter-value':

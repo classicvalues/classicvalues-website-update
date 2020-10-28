@@ -88,7 +88,6 @@
     <hr>
     <h1>Datatable</h1>
     <div id="t1" ms="sss"></div>
-    <div id="t2" data-mss="kkk"></div>
 
     <br>
     <hr>
@@ -166,7 +165,6 @@
           //template
           //inicjacja w stylu jQuery
           //$('#t1').template();
-          //$('#t2').template();
 
 
           // Datatable
@@ -253,24 +251,21 @@
             scopedSlots: {
               'status':
                  pars =>{
-                  console.log('pars1', pars)
+                 //console.log('pars1', pars)
                  return `
                   <td>
-                    <span class="badge" color=${getBadge(pars.item.status)}>
+                    <span class="badge badge-${getBadge(pars.item.status)}">
                       ${pars.item.status}
                     </span>
                   </td>
                 `},
               'show_details':
                 pars =>{
-                  console.log('pars2', pars)
+                  //console.log('pars2', pars)
                   return `
                     <td className="py-2">
                       <button
-                        color="primary"
-                        variant="outline"
-                        shape="square"
-                        size="sm"
+                        class="btn btn-outline-primary btn-square btn-sm"
                         onclick="toggleDetails(${pars.item.id})"
                       >
                         ${details.includes(pars.item.id) ? 'Hide' : 'Show'}
@@ -279,7 +274,7 @@
                   `},
               'details':
                   pars => {
-                  console.log('pars3', pars)
+                  //console.log('pars3', pars)
                   return details.includes(pars.item.id) ? `
                     <div>
                       <div class="card-body">
@@ -287,44 +282,16 @@
                           ${pars.item.name}
                         </h4>
                         <p className="text-muted">User since: ${pars.item.registered}</p>
-                        <button size="sm" color="info">
+                        <button class="btn btn-sm btn-info">
                           User Settings
                         </button>
-                        <button size="sm" color="danger" className="ml-1">
+                        <button class="btn btn-sm btn-danger ml-1">
                           Delete
                         </button>
                       </dib>
                     </div>
                   ` : ''}
               }
-
-              /*
-              scopedSlots: {
-                'status':
-                   par =>`
-                    <td>
-                      ${par.item.status}
-                    </td>
-                  `,
-                'show_details':
-                  par => `
-                      <td className="py-2">
-                        <button></button>
-                      </td>
-                    `,
-                'details':
-                    (par)=>{
-                      console.log(par);
-                      if (false)
-                        return `
-                          <div class="card-body">
-                            details
-                          </div>
-                        `
-                      else
-                        return '';
-                  }
-                }*/
 
             });
 

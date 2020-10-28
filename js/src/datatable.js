@@ -135,12 +135,11 @@ class Datatable {
     //saving props
 
     this._config = this._getConfig(config);
-    console.log('config', this._config);
+    //console.log('config', this._config);
 
     //data
     //zapisanie elementu do data
-    if (this._element)
-    {
+    if (this._element){
       Data.setData(element, DATA_KEY, this)
     }
 
@@ -1177,7 +1176,7 @@ class Datatable {
 
     // build
 
-    console.log(this._scopedSlots);
+    //console.log(this._scopedSlots);
 
     let handlers = {};
     let comps = {};

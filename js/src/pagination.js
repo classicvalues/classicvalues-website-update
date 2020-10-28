@@ -118,12 +118,11 @@ class Pagination {
     //saving props
 
     this._config = this._getConfig(config);
-    console.log('config', this._config);
+    //console.log('config', this._config);
 
     //data
     //zapisanie elementu do data
-    if (this._element)
-    {
+    if (this._element){
       Data.setData(element, DATA_KEY, this)
     }
 
@@ -288,11 +287,11 @@ class Pagination {
       })();
 
 
-      if (this._pages!==this._old_pages) ( (val)=> {
-          if (val && val < this._activePage) {
-            this._emitEvent('update:activePage', {val, auto:true})
-          }
-        })(this._pages);
+    if (this._pages!==this._old_pages) ( (val)=> {
+        if (val && val < this._activePage) {
+          this._emitEvent('update:activePage', {val, auto:true})
+        }
+      })(this._pages);
   	this._old_pages = this._pages;
 
 

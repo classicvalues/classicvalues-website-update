@@ -290,7 +290,7 @@ class Pagination {
 
       if (this._pages!==this._old_pages) ( (val)=> {
           if (val && val < this._activePage) {
-            this._emitEvent('update:activePage', val, true)
+            this._emitEvent('update:activePage', {val, auto:true})
           }
         })(this._pages);
   	this._old_pages = this._pages;
@@ -635,7 +635,7 @@ class Pagination {
     if (number === this._activePage) {
       return
     }
-    this._emitEvent('update:activePage', number, false)
+    this._emitEvent('update:activePage', {number, auto:false})
     if (e) {
       this._changeFocus(e)
     }

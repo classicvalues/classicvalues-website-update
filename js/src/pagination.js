@@ -74,6 +74,8 @@ const Default = {
   dots: true,
   arrows: true,
   doubleArrows: true,
+  //
+  size: ''
 }
 
 
@@ -217,6 +219,8 @@ class Pagination {
       return code;
     }
 
+    const htmlRepStr = (code, tPar)=>htmlRep(objStr(code), tPar)
+
     //
 
     // template, this.template
@@ -228,63 +232,63 @@ class Pagination {
 
     let replace = {};
     this._backArrowsClasses = ( ()=> {
-          return ['page-item', { 'disabled': this._activePage === 1 }]
-      })();
+        return ['page-item', { 'disabled': this._activePage === 1 }]
+    })();
 
-  	this._nextArrowsClasses = ( ()=> {
-        return ['page-item', { 'disabled': this._activePage === this._pages }]
-      })();
+	this._nextArrowsClasses = ( ()=> {
+      return ['page-item', { 'disabled': this._activePage === this._pages }]
+    })();
 
-  	this._computedClasses = ( ()=> {
-        const sizeClass = this._size ? `pagination-${this._size}` : ''
-        return `pagination ${sizeClass} justify-content-${this._align}`
-      })();
+	this._computedClasses = ( ()=> {
+      const sizeClass = this._size ? `pagination-${this._size}` : ''
+      return `pagination ${sizeClass} justify-content-${this._align}`
+    })();
 
-  	this._showDots = ( ()=> {
-        return this._dots && this._limit > 4 && this._limit < this._pages
-      })();
+	this._showDots = ( ()=> {
+      return this._dots && this._limit > 4 && this._limit < this._pages
+    })();
 
-  	this._maxPrevItems = ( ()=> {
-        return Math.floor((this._limit - 1) / 2)
-      })();
+	this._maxPrevItems = ( ()=> {
+      return Math.floor((this._limit - 1) / 2)
+    })();
 
-  	this._maxNextItems = ( ()=> {
-        return Math.ceil((this._limit - 1) / 2)
-      })();
+	this._maxNextItems = ( ()=> {
+      return Math.ceil((this._limit - 1) / 2)
+    })();
 
-  	this._beforeDots = ( ()=> {
-        return this._showDots && this._activePage > this._maxPrevItems + 1
-      })();
+	this._beforeDots = ( ()=> {
+      return this._showDots && this._activePage > this._maxPrevItems + 1
+    })();
 
-  	this._afterDots = ( ()=> {
-        return this._showDots && this._activePage < this._pages - this._maxNextItems
-      })();
+	this._afterDots = ( ()=> {
+      return this._showDots && this._activePage < this._pages - this._maxNextItems
+    })();
 
-  	this._computedLimit = ( ()=> {
-        return this._limit - this._afterDots - this._beforeDots
-      })();
+	this._computedLimit = ( ()=> {
+      return this._limit - this._afterDots - this._beforeDots
+    })();
 
-  	this._range = ( ()=> {
-        return this._activePage + this._maxNextItems
-      })();
+	this._range = ( ()=> {
+      return this._activePage + this._maxNextItems
+    })();
 
-  	this._lastItem = ( ()=> {
-        return this._range >= this._pages ? this._pages : this._range - this._afterDots
-      })();
+	this._lastItem = ( ()=> {
+      return this._range >= this._pages ? this._pages : this._range - this._afterDots
+    })();
 
-  	this._itemsAmount = ( ()=> {
-        return this._pages < this._computedLimit ? this._pages : this._computedLimit
-      })();
+	this._itemsAmount = ( ()=> {
+      return this._pages < this._computedLimit ? this._pages : this._computedLimit
+    })();
 
-  	this._items = ( ()=> {
-        if (this._activePage - this._maxPrevItems <= 1 ) {
-          return Array.from({ length: this._itemsAmount }, (v, i) => i + 1 )
-        } else {
-          return Array.from({length: this._itemsAmount}, (v, i) => {
-            return this._lastItem - i
-          }).reverse()
-        }
-      })();
+	this._items = ( ()=> {
+      if (this._activePage - this._maxPrevItems <= 1 ) {
+        return Array.from({ length: this._itemsAmount }, (v, i) => i + 1 )
+      } else {
+        return Array.from({length: this._itemsAmount}, (v, i) => {
+          return this._lastItem - i
+        }).reverse()
+      }
+    })();
 
 
     if (this._pages!==this._old_pages) ( (val)=> {
@@ -292,14 +296,15 @@ class Pagination {
           this._emitEvent('update:activePage', {val, auto:true})
         }
       })(this._pages);
-  	this._old_pages = this._pages;
+	this._old_pages = this._pages;
 
 
-		replace['exp'] =
-        (par)=>{return htmlRep(objStr(this._computedClasses), par)};
+
+ 		replace['exp'] =
+        (par)=>{return htmlRepStr(this._computedClasses, par)};
 
  		replace['exp-2'] =
-        (par)=>{return htmlRep(objStr(this._backArrowsClasses), par)};
+        (par)=>{return htmlRepStr(this._backArrowsClasses, par)};
 
  		replace['first-click'] =
         (par)=>{
@@ -312,21 +317,21 @@ class Pagination {
         };
 
  		replace['exp-3'] =
-        (par)=>{return htmlRep(objStr(this._activePage === 1), par)};
+        (par)=>{return htmlRepStr(this._activePage === 1, par)};
 
- 		replace['exp-4'] =
-        (par)=>{return htmlRep(objStr(this._activePage === 1), par)};
+		replace['exp-4'] =
+        (par)=>{return htmlRepStr(this._activePage === 1, par)};
 
- 		replace['first-button'] =
+		replace['first-button'] =
         (par)=>{
-          if (this._firstButton && typeof this._firstButton === 'function') return htmlRep(objStr(this._firstButton()), par);
-          else if (this._firstButton) return htmlRep(objStr(this._firstButton), par);
+          if (this._firstButton && typeof this._firstButton === 'function') return htmlRepStr(this._firstButton(), par);
+          else if (this._firstButton) return htmlRepStr(this._firstButton, par);
           else return htmlRep(`
           &laquo;
           `, par);
         };
 
- 		replace['double-arrows'] =
+		replace['double-arrows'] =
         (par)=>{
           if (this._doubleArrows) return htmlRep(`
       <li class="{exp-2}">
@@ -345,8 +350,8 @@ class Pagination {
           return ''
         };
 
- 		replace['exp-5'] =
-        (par)=>{return htmlRep(objStr(this._backArrowsClasses), par)};
+		replace['exp-5'] =
+        (par)=>{return htmlRepStr(this._backArrowsClasses, par)};
 
  		replace['previous-click'] =
         (par)=>{
@@ -358,22 +363,22 @@ class Pagination {
           return 'coreui-event="'+eventN+'"';
         };
 
- 		replace['exp-6'] =
-        (par)=>{return htmlRep(objStr(this._activePage === 1), par)};
+		replace['exp-6'] =
+        (par)=>{return htmlRepStr(this._activePage === 1, par)};
 
  		replace['exp-7'] =
-        (par)=>{return htmlRep(objStr(this._activePage === 1), par)};
+        (par)=>{return htmlRepStr(this._activePage === 1, par)};
 
  		replace['previous-button'] =
         (par)=>{
-          if (this._previousButton && typeof this._previousButton === 'function') return htmlRep(objStr(this._previousButton()), par);
-          else if (this._previousButton) return htmlRep(objStr(this._previousButton), par);
+          if (this._previousButton && typeof this._previousButton === 'function') return htmlRepStr(this._previousButton(), par);
+          else if (this._previousButton) return htmlRepStr(this._previousButton, par);
           else return htmlRep(`
           &lsaquo;
           `, par);
         };
 
- 		replace['arrows'] =
+		replace['arrows'] =
         (par)=>{
           if (this._arrows) return htmlRep(`
       <li class="{exp-5}">
@@ -405,10 +410,10 @@ class Pagination {
           return ''
         };
 
-		replace['exp-8'] =
-        (par)=>{return htmlRep(objStr([{'active': this._activePage === par["item"] }, 'page-item']), par)};
+ 		replace['exp-8'] =
+        (par)=>{return htmlRepStr([{'active': this._activePage === par["item"] }, 'page-item'], par)};
 
- 		replace['set-click'] =
+		replace['set-click'] =
         (par)=>{
           eventN++;
           handlers[eventN] = {
@@ -418,8 +423,8 @@ class Pagination {
           return 'coreui-event="'+eventN+'"';
         };
 
-		replace['exp-9'] =
-        (par)=>{return htmlRep(objStr(this._activePage === par["item"] ? `Current page par["item"]` : `Go to page par["item"]`), par)};
+ 		replace['exp-9'] =
+        (par)=>{return htmlRepStr(this._activePage === par["item"] ? `Current page par["item"]` : `Go to page par["item"]`, par)};
 
  		replace['items'] =
         (par)=>{
@@ -460,7 +465,7 @@ class Pagination {
         };
 
  		replace['exp-10'] =
-        (par)=>{return htmlRep(objStr(this._nextArrowsClasses), par)};
+        (par)=>{return htmlRepStr(this._nextArrowsClasses, par)};
 
  		replace['next-click'] =
         (par)=>{
@@ -473,21 +478,21 @@ class Pagination {
         };
 
 		replace['exp-11'] =
-        (par)=>{return htmlRep(objStr(this._activePage === this._pages), par)};
+        (par)=>{return htmlRepStr(this._activePage === this._pages, par)};
 
-		replace['exp-12'] =
-        (par)=>{return htmlRep(objStr(this._activePage === this._pages), par)};
+ 		replace['exp-12'] =
+        (par)=>{return htmlRepStr(this._activePage === this._pages, par)};
 
  		replace['next-button'] =
         (par)=>{
-          if (this._nextButton && typeof this._nextButton === 'function') return htmlRep(objStr(this._nextButton()), par);
-          else if (this._nextButton) return htmlRep(objStr(this._nextButton), par);
+          if (this._nextButton && typeof this._nextButton === 'function') return htmlRepStr(this._nextButton(), par);
+          else if (this._nextButton) return htmlRepStr(this._nextButton, par);
           else return htmlRep(`
           &rsaquo;
           `, par);
         };
 
-		replace['arrows-2'] =
+ 		replace['arrows-2'] =
         (par)=>{
           if (this._arrows) return htmlRep(`
       <li
@@ -508,10 +513,10 @@ class Pagination {
           return ''
         };
 
-		replace['exp-13'] =
-        (par)=>{return htmlRep(objStr(this._nextArrowsClasses), par)};
+ 		replace['exp-13'] =
+        (par)=>{return htmlRepStr(this._nextArrowsClasses, par)};
 
- 		replace['last-click'] =
+		replace['last-click'] =
         (par)=>{
           eventN++;
           handlers[eventN] = {
@@ -521,22 +526,22 @@ class Pagination {
           return 'coreui-event="'+eventN+'"';
         };
 
-		replace['exp-14'] =
-        (par)=>{return htmlRep(objStr(this._activePage === this._pages), par)};
+ 		replace['exp-14'] =
+        (par)=>{return htmlRepStr(this._activePage === this._pages, par)};
 
-		replace['exp-15'] =
-        (par)=>{return htmlRep(objStr(this._activePage === this._pages), par)};
+ 		replace['exp-15'] =
+        (par)=>{return htmlRepStr(this._activePage === this._pages, par)};
 
  		replace['last-button'] =
         (par)=>{
-          if (this._lastButton && typeof this._lastButton === 'function') return htmlRep(objStr(this._lastButton()), par);
-          else if (this._lastButton) return htmlRep(objStr(this._lastButton), par);
+          if (this._lastButton && typeof this._lastButton === 'function') return htmlRepStr(this._lastButton(), par);
+          else if (this._lastButton) return htmlRepStr(this._lastButton, par);
           else return htmlRep(`
           &raquo;
           `, par);
         };
 
-		replace['double-arrows-2'] =
+ 		replace['double-arrows-2'] =
         (par)=>{
           if (this._doubleArrows) return htmlRep(`
       <li class="{exp-13}">
@@ -554,6 +559,8 @@ class Pagination {
       `, par);
           return ''
         };
+
+
 
 
     this._template = `
@@ -715,13 +722,12 @@ class Pagination {
     for (let key in config)
       this['_'+key] = config[key];
 
-    /*
     typeCheckConfig(
       NAME,
       config,
       this.constructor.DefaultType
     )
-    */
+
 
     return config
   }

@@ -244,6 +244,8 @@ class Datatable {
       return code;
     }
 
+    const htmlRepStr = (code, tPar)=>htmlRep(objStr(code), tPar)
+
     //
 
     // template, this.template
@@ -269,14 +271,14 @@ class Datatable {
       return Object.keys(this._passedItems[0] || {}).filter(el => el.charAt(0) !== '_')
     })();
 
-    this._rawColumnNames = ( ()=> {
+	this._rawColumnNames = ( ()=> {
       if (this._fields) {
         return this._fields.map(el => el.key || el)
       }
       return this._generatedColumnNames
     })();
 
-    this._columnFiltered = ( ()=> {
+	this._columnFiltered = ( ()=> {
       let items = this._passedItems
       if (this._columnFilter && this._columnFilter.external) {
         return items
@@ -292,13 +294,13 @@ class Datatable {
       return items
     })();
 
-    this._itemsDataColumns = ( ()=> {
+	this._itemsDataColumns = ( ()=> {
       return this._rawColumnNames.filter(name => {
         return this._generatedColumnNames.includes(name)
       })
     })();
 
-    this._tableFiltered = ( ()=> {
+	this._tableFiltered = ( ()=> {
       let items = this._columnFiltered
       if (!this._tableFilterState || (this._tableFilter && this._tableFilter.external)) {
         return items
@@ -311,7 +313,7 @@ class Datatable {
       return items
     })();
 
-    this._sortedItems = ( ()=> {
+	this._sortedItems = ( ()=> {
       const col = this._sorterState.column
       if (!col || !this._rawColumnNames.includes(col) || this._sorter.external) {
         return this._tableFiltered
@@ -327,30 +329,30 @@ class Datatable {
       })
     })();
 
-    this._computedPage = ( ()=> {
+	this._computedPage = ( ()=> {
       return this._pagination ? this._page : this._activePage
     })();
 
-    this._firstItemIndex = ( ()=> {
+	this._firstItemIndex = ( ()=> {
       return (this._computedPage - 1) * this._perPageItems || 0
     })();
 
-    this._paginatedItems = ( ()=> {
+	this._paginatedItems = ( ()=> {
       return this._sortedItems.slice(
         this._firstItemIndex,
         this._firstItemIndex + this._perPageItems
       )
     })();
 
-    this._currentItems = ( ()=> {
+	this._currentItems = ( ()=> {
       return this._computedPage ? this._paginatedItems : this._sortedItems
     })();
 
-    this._totalPages = ( ()=> {
+	this._totalPages = ( ()=> {
       return Math.ceil((this._sortedItems.length)/ this._perPageItems) || 1
     })();
 
-    this._columnNames = ( ()=> {
+	this._columnNames = ( ()=> {
       if (this._fields) {
         return this._fields.map(f => {
           return f.label !== undefined ? f.label : this._pretifyName(f.key || f)
@@ -359,7 +361,7 @@ class Datatable {
       return this._rawColumnNames.map(el => this._pretifyName(el))
     })();
 
-    this._tableClasses = ( ()=> {
+	this._tableClasses = ( ()=> {
       return [
         'table',
         this._addTableClasses,
@@ -375,29 +377,29 @@ class Datatable {
       ]
     })();
 
-    this._sortingIconStyles = ( ()=> {
+	this._sortingIconStyles = ( ()=> {
       return {'position-relative pr-4' : this._sorter }
     })();
 
-    this._colspan = ( ()=> {
+	this._colspan = ( ()=> {
       return this._rawColumnNames.length
     })();
 
-    this._tableFilterData = ( ()=> {
+	this._tableFilterData = ( ()=> {
       return {
         label: this._tableFilter.label || 'Filter:',
         placeholder: this._tableFilter.placeholder || 'type string...'
       }
     })();
 
-    this._paginationSelect = ( ()=> {
+	this._paginationSelect = ( ()=> {
       return {
         label: this._itemsPerPageSelect.label || 'Items per page:',
         values: this._itemsPerPageSelect.values || [5, 10, 20, 50]
       }
     })();
 
-    this._noItemsText = ( ()=> {
+	this._noItemsText = ( ()=> {
       const customValues = this._noItemsView || {}
       if (this._passedItems.length) {
         return customValues.noResults || 'No filtering results'
@@ -405,13 +407,13 @@ class Datatable {
       return customValues.noItems || 'No items'
     })();
 
-    this._isFiltered = ( ()=> {
+	this._isFiltered = ( ()=> {
       return this._tableFilterState ||
              Object.values(this._columnFilterState).join('') ||
              this._sorterState.column
     })();
 
-    this._cleanerProps = ( ()=> {
+	this._cleanerProps = ( ()=> {
       return {
         content: this._global.icons.cilFilterX,
         class: `ml-2 ${this._isFiltered ? 'text-danger' : 'transparent'}`,
@@ -420,7 +422,7 @@ class Datatable {
       }
     })();
 
-    this._haveFilterOption = ( ()=> {
+	this._haveFilterOption = ( ()=> {
       return this._tableFilter || this._cleaner || this._$scopedSlots.cleaner
     })();
 
@@ -428,59 +430,59 @@ class Datatable {
     if (this._itemsPerPage!==this._old_itemsPerPage) ( (val)=> {
       this._perPageItems = val
     })(this._itemsPerPage);
-    this._old_itemsPerPage = this._itemsPerPage;
+	this._old_itemsPerPage = this._itemsPerPage;
 
-    if (this._sorterValue!==this._old_sorterValue) ( (val)=> {
+	if (this._sorterValue!==this._old_sorterValue) ( (val)=> {
         const asc = val.asc === false ? false : true
         this._sorterState = Object.assign({}, { asc, column: val.column })
       })(this._sorterValue);
-    this._old_sorterValue = this._sorterValue;
+	this._old_sorterValue = this._sorterValue;
 
-    if (this._tableFilterValue!==this._old_tableFilterValue) ( (val)=> {
+	if (this._tableFilterValue!==this._old_tableFilterValue) ( (val)=> {
       this._tableFilterState = val
     })(this._tableFilterValue);
-    this._old_tableFilterValue = this._tableFilterValue;
+	this._old_tableFilterValue = this._tableFilterValue;
 
-    if (this._columnFilterValue!==this._old_columnFilterValue) ( (val)=> {
+	if (this._columnFilterValue!==this._old_columnFilterValue) ( (val)=> {
         this._columnFilterState = Object.assign({}, val)
       })(this._columnFilterValue);
-    this._old_columnFilterValue = this._columnFilterValue;
+	this._old_columnFilterValue = this._columnFilterValue;
 
-    if (this._items!==this._old_items) ( (val, oldVal)=> {
+	if (this._items!==this._old_items) ( (val, oldVal)=> {
       if (val && oldVal && this._objectsAreIdentical(val, oldVal)) {
         return
       }
       this._passedItems = val || []
     })(this._items);
-    this._old_items = this._items;
+	this._old_items = this._items;
 
-    if (this._totalPages!==this._old_totalPages) ( (val)=> {
+	if (this._totalPages!==this._old_totalPages) ( (val)=> {
         this._emitEvent('pages-change', val)
       })(this._totalPages);
-    this._old_totalPages = this._totalPages;
+	this._old_totalPages = this._totalPages;
 
-    if (this._computedPage!==this._old_computedPage) ( (val)=> {
+	if (this._computedPage!==this._old_computedPage) ( (val)=> {
       this._emitEvent('page-change', val)
     })(this._computedPage);
-    this._old_computedPage = this._computedPage;
+	this._old_computedPage = this._computedPage;
 
-    if (this._sortedItems!==this._old_sortedItems) ( (val, oldVal)=> {
+	if (this._sortedItems!==this._old_sortedItems) ( (val, oldVal)=> {
         if (val && oldVal && this._objectsAreIdentical(val, oldVal)) {
           return
         }
         this._emitEvent('filtered-items-change', val)
       })(this._sortedItems);
-    this._old_sortedItems = this._sortedItems;
+	this._old_sortedItems = this._sortedItems;
 
 
 
-    replace['exp'] =
-        (par)=>{return htmlRep(objStr(this._tableFilterData.label), par)};
+ 		replace['exp'] =
+        (par)=>{return htmlRepStr(this._tableFilterData.label, par)};
 
-    replace['exp-2'] =
-        (par)=>{return htmlRep(objStr(this._tableFilterData.placeholder), par)};
+ 		replace['exp-2'] =
+        (par)=>{return htmlRepStr(this._tableFilterData.placeholder, par)};
 
-    replace['filter-input'] =
+		replace['filter-input'] =
         (par)=>{
           eventN++;
           handlers[eventN] = {
@@ -490,7 +492,7 @@ class Datatable {
           return 'coreui-event="'+eventN+'"';
         };
 
-    replace['filter-change'] =
+		replace['filter-change'] =
         (par)=>{
           eventN++;
           handlers[eventN] = {
@@ -500,11 +502,8 @@ class Datatable {
           return 'coreui-event="'+eventN+'"';
         };
 
-    replace['exp-3'] =
-        (par)=>{return htmlRep(objStr(this._tableFilterState), par)};
-
-    //filter part
-    replace['filter'] =
+//filter part
+ 		replace['filter'] =
         (par)=>{
           if (this._tableFilter) return htmlRep(`
           <label class="mr-2">{exp}</label>
@@ -521,10 +520,10 @@ class Datatable {
           return ''
         };
 
-    replace['exp-4'] =
-        (par)=>{return htmlRep(objStr(this._cleanerProps), par)};
+ 		replace['exp-3'] =
+        (par)=>{return htmlRepStr(this._cleanerProps, par)};
 
-    replace['cleaner-click'] =
+		replace['cleaner-click'] =
         (par)=>{
           eventN++;
           handlers[eventN] = {
@@ -534,21 +533,21 @@ class Datatable {
           return 'coreui-event="'+eventN+'"';
         };
 
-    replace['val'] =
+ 		replace['val'] =
         (par)=>{
-          if (this._cleaner && typeof this._cleaner === 'function') return htmlRep(objStr(this._cleaner({clean:this._clean, isFiltered:this._isFiltered})), par);
-          else if (this._cleaner) return htmlRep(objStr(this._cleaner), par);
+          if (this._cleaner && typeof this._cleaner === 'function') return htmlRepStr(this._cleaner({clean:this._clean, isFiltered:this._isFiltered}), par);
+          else if (this._cleaner) return htmlRepStr(this._cleaner, par);
           else return htmlRep(`
           <i
             class=""
-            {exp-4}
+            {exp-3}
             {cleaner-click}
           ></i>
         `, par);
         };
 
-    //cleaner
-    replace['cleaner'] =
+//cleaner
+		replace['cleaner'] =
         (par)=>{
           if (this._cleaner) return htmlRep(`
         {val}
@@ -556,7 +555,7 @@ class Datatable {
           return ''
         };
 
-    replace['filter-option'] =
+ 		replace['filter-option'] =
         (par)=>{
           if (this._haveFilterOption) return htmlRep(`
       <div
@@ -570,13 +569,13 @@ class Datatable {
           return ''
         };
 
-    replace['exp-5'] =
-        (par)=>{return htmlRep(objStr(!this._haveFilterOption ? 'offset-sm-6' : ''), par)};
+ 		replace['exp-4'] =
+        (par)=>{return htmlRepStr(!this._haveFilterOption ? 'offset-sm-6' : '', par)};
 
-    replace['exp-6'] =
-        (par)=>{return htmlRep(objStr(this._paginationSelect.label), par)};
+ 		replace['exp-5'] =
+        (par)=>{return htmlRepStr(this._paginationSelect.label, par)};
 
-    replace['pagination-change'] =
+		replace['pagination-change'] =
         (par)=>{
           eventN++;
           handlers[eventN] = {
@@ -586,10 +585,10 @@ class Datatable {
           return 'coreui-event="'+eventN+'"';
         };
 
-    replace['exp-7'] =
-        (par)=>{return htmlRep(objStr(this._perPageItems), par)};
+ 		replace['exp-6'] =
+        (par)=>{return htmlRepStr(this._perPageItems, par)};
 
-    replace['tymcz'] =
+ 		replace['tymcz'] =
         (par)=>{
           let code = '';
           for (let idx in this._paginationSelect.values){
@@ -607,21 +606,21 @@ class Datatable {
           return code;
         };
 
-    replace['items-select'] =
+		replace['items-select'] =
         (par)=>{
           if (this._itemsPerPageSelect) return htmlRep(`
       <div
-        class="col-sm-6 p-0 {exp-5}"
+        class="col-sm-6 p-0 {exp-4}"
       >
         <div class="form-inline justify-content-sm-end">
-          <label class="mr-2">{exp-6}</label>
+          <label class="mr-2">{exp-5}</label>
           <select
             class="form-control"
             {pagination-change}
             aria-label="changes number of visible items"
           >
             <option value="" selected disabled hidden>
-              {exp-7}
+              {exp-6}
             </option>
             {tymcz}
           </select>
@@ -631,8 +630,8 @@ class Datatable {
           return ''
         };
 
-    //search options
-    replace['options'] =
+//search options
+ 		replace['options'] =
         (par)=>{
           if (this._itemsPerPageSelect || this._haveFilterOption) return htmlRep(`
     <div
@@ -646,19 +645,19 @@ class Datatable {
           return ''
         };
 
-    replace['over-table'] =
-        (par)=>{return htmlRep(objStr(this._overTableSlot), par)};
+ 		replace['over-table'] =
+        (par)=>{return htmlRepStr(this._overTableSlot, par)};
 
-    replace['responsive'] =
-        (par)=>{return htmlRep(objStr(this._responsive ? 'table-responsive' : ''), par)};
+		replace['responsive'] =
+        (par)=>{return htmlRepStr(this._responsive ? 'table-responsive' : '', par)};
 
-    replace['table-classes'] =
-        (par)=>{return htmlRep(objStr(this._tableClasses), par)};
+ 		replace['table-classes'] =
+        (par)=>{return htmlRepStr(this._tableClasses, par)};
 
-    replace['header-top'] =
-        (par)=>{return htmlRep(objStr(this._theadTopSlot), par)};
+ 		replace['header-top'] =
+        (par)=>{return htmlRepStr(this._theadTopSlot, par)};
 
-    replace['sort-click'] =
+ 		replace['sort-click'] =
         (par)=>{
           eventN++;
           handlers[eventN] = {
@@ -668,40 +667,40 @@ class Datatable {
           return 'coreui-event="'+eventN+'"';
         };
 
-    replace['exp-8'] =
-        (par)=>{return htmlRep(objStr(this._headerClass(par["index"])), par)};
+ 		replace['exp-7'] =
+        (par)=>{return htmlRepStr(this._headerClass(par["index"]), par)};
 
-    replace['exp-9'] =
-        (par)=>{return htmlRep(objStr(this._sortingIconStyles), par)};
+ 		replace['exp-8'] =
+        (par)=>{return htmlRepStr(this._sortingIconStyles, par)};
 
-    replace['exp-10'] =
-        (par)=>{return htmlRep(objStr(this._headerStyles(par["index"])), par)};
+ 		replace['exp-9'] =
+        (par)=>{return htmlRepStr(this._headerStyles(par["index"]), par)};
 
-    replace['val-2'] =
+		replace['val-2'] =
         (par)=>{
-          if (this._columnHeaderSlot[this._rawColumnNames[par["index"]]] && typeof this._columnHeaderSlot[this._rawColumnNames[par["index"]]] === 'function') return htmlRep(objStr(this._columnHeaderSlot[this._rawColumnNames[par["index"]]]()), par);
-          else if (this._columnHeaderSlot[this._rawColumnNames[par["index"]]]) return htmlRep(objStr(this._columnHeaderSlot[this._rawColumnNames[par["index"]]]), par);
+          if (this._columnHeaderSlot[this._rawColumnNames[par["index"]]] && typeof this._columnHeaderSlot[this._rawColumnNames[par["index"]]] === 'function') return htmlRepStr(this._columnHeaderSlot[this._rawColumnNames[par["index"]]](), par);
+          else if (this._columnHeaderSlot[this._rawColumnNames[par["index"]]]) return htmlRepStr(this._columnHeaderSlot[this._rawColumnNames[par["index"]]], par);
           else return htmlRep(`
                   <div>{:name}</div>
                 `, par);
         };
 
-    replace['exp-11'] =
-        (par)=>{return htmlRep(objStr(this._iconClasses(par["index"])), par)};
+ 		replace['exp-10'] =
+        (par)=>{return htmlRepStr(this._iconClasses(par["index"]), par)};
 
-    replace['val-3'] =
+ 		replace['val-3'] =
         (par)=>{
-          if (this._sortingIcon && typeof this._sortingIcon === 'function') return htmlRep(objStr(this._sortingIcon({state:getIconState(par["index"]), classes:this._iconClasses(par["index"])})), par);
-          else if (this._sortingIcon) return htmlRep(objStr(this._sortingIcon), par);
+          if (this._sortingIcon && typeof this._sortingIcon === 'function') return htmlRepStr(this._sortingIcon({state:getIconState(par["index"]), classes:this._iconClasses(par["index"])}), par);
+          else if (this._sortingIcon) return htmlRepStr(this._sortingIcon, par);
           else return htmlRep(`
                   <i
-                    class="cil-arrow-top {exp-11}"
+                    class="cil-arrow-top {exp-10}"
                     aria-label="change column: '{:name}' sorting"
                   ></i>
                 `, par);
         };
 
-    replace['sortable'] =
+ 		replace['sortable'] =
         (par)=>{
           if (this._isSortable(par["index"])) return htmlRep(`
                 {val-3}
@@ -709,7 +708,7 @@ class Datatable {
           return ''
         };
 
-    replace['table-header'] =
+ 		replace['table-header'] =
         (par)=>{
           let code = '';
           for (let idx in this._columnNames){
@@ -718,8 +717,8 @@ class Datatable {
             code+=htmlRep(`
               <th
                 {sort-click}
-                class="{exp-8} {exp-9}"
-                style="{exp-10}"
+                class="{exp-7} {exp-8}"
+                style="{exp-9}"
                 key="{:index}"
               >
                 {val-2}
@@ -730,7 +729,7 @@ class Datatable {
           return code;
         };
 
-    replace['header'] =
+ 		replace['header'] =
         (par)=>{
           if (this._header) return htmlRep(`
           <tr>
@@ -740,10 +739,10 @@ class Datatable {
           return ''
         };
 
-    replace['exp-12'] =
-        (par)=>{return htmlRep(objStr(this._headerClass(par["index"])), par)};
+		replace['exp-11'] =
+        (par)=>{return htmlRepStr(this._headerClass(par["index"]), par)};
 
-    replace['column-filter-input'] =
+ 		replace['column-filter-input'] =
         (par)=>{
           eventN++;
           handlers[eventN] = {
@@ -753,7 +752,7 @@ class Datatable {
           return 'coreui-event="'+eventN+'"';
         };
 
-    replace['column-filter-change'] =
+ 		replace['column-filter-change'] =
         (par)=>{
           eventN++;
           handlers[eventN] = {
@@ -763,10 +762,7 @@ class Datatable {
           return 'coreui-event="'+eventN+'"';
         };
 
-    replace['exp-13'] =
-        (par)=>{return htmlRep(objStr(this._columnFilterState[par["colName"]]), par)};
-
-    replace['fields'] =
+		replace['fields'] =
         (par)=>{
           if (!this._fields || this._fields[par["index"]].filter!==false) return htmlRep(`
                   <input
@@ -780,23 +776,23 @@ class Datatable {
           return ''
         };
 
-    replace['val-4'] =
+ 		replace['val-4'] =
         (par)=>{
-          if (this._columnFilterSlot[this._rawColumnNames[par["index"]]] && typeof this._columnFilterSlot[this._rawColumnNames[par["index"]]] === 'function') return htmlRep(objStr(this._columnFilterSlot[this._rawColumnNames[par["index"]]]()), par);
-          else if (this._columnFilterSlot[this._rawColumnNames[par["index"]]]) return htmlRep(objStr(this._columnFilterSlot[this._rawColumnNames[par["index"]]]), par);
+          if (this._columnFilterSlot[this._rawColumnNames[par["index"]]] && typeof this._columnFilterSlot[this._rawColumnNames[par["index"]]] === 'function') return htmlRepStr(this._columnFilterSlot[this._rawColumnNames[par["index"]]](), par);
+          else if (this._columnFilterSlot[this._rawColumnNames[par["index"]]]) return htmlRepStr(this._columnFilterSlot[this._rawColumnNames[par["index"]]], par);
           else return htmlRep(`
                   {fields}
                 `, par);
         };
 
-    replace['tymcz2'] =
+ 		replace['tymcz2'] =
         (par)=>{
           let code = '';
           for (let idx in this._rawColumnNames){
             par['index'] = idx;
             par['colName'] = this._rawColumnNames[idx];
             code+=htmlRep(`
-              <th class="{exp-12}" key="{:index}">
+              <th class="{exp-11}" key="{:index}">
                 {val-4}
               </th>
             `, {...par});
@@ -804,7 +800,7 @@ class Datatable {
           return code;
         };
 
-    replace['column-filter'] =
+ 		replace['column-filter'] =
         (par)=>{
           if (this._columnFilter) return htmlRep(`
           <tr class="table-sm">
@@ -814,10 +810,10 @@ class Datatable {
           return ''
         };
 
-    replace['clicable'] =
-        (par)=>{return htmlRep(objStr(this._clickableRows ? 'cursor:pointer;': null), par)};
+ 		replace['clicable'] =
+        (par)=>{return htmlRepStr(this._clickableRows ? 'cursor:pointer;': null, par)};
 
-    replace['row-click'] =
+		replace['row-click'] =
         (par)=>{
           eventN++;
           handlers[eventN] = {
@@ -827,42 +823,42 @@ class Datatable {
           return 'coreui-event="'+eventN+'"';
         };
 
-    replace['exp-14'] =
-        (par)=>{return htmlRep(objStr(par["item"]._classes), par)};
+ 		replace['exp-12'] =
+        (par)=>{return htmlRepStr(par["item"]._classes, par)};
 
-    replace['exp-15'] =
-        (par)=>{return htmlRep(objStr(this._clickableRows ? 0 : null), par)};
+ 		replace['exp-13'] =
+        (par)=>{return htmlRepStr(this._clickableRows ? 0 : null, par)};
 
-    replace['val-5'] =
+ 		replace['val-5'] =
         (par)=>{
-          if (this._scopedSlots[par["colName"]] && typeof this._scopedSlots[par["colName"]] === 'function') return htmlRep(objStr(this._scopedSlots[par["colName"]]({item:par["item"], index:par["itemIndex"]+this._firstItemIndex})), par);
-          else if (this._scopedSlots[par["colName"]]) return htmlRep(objStr(this._scopedSlots[par["colName"]]), par);
+          if (this._scopedSlots[par["colName"]] && typeof this._scopedSlots[par["colName"]] === 'function') return htmlRepStr(this._scopedSlots[par["colName"]]({item:par["item"], index:par["itemIndex"]+this._firstItemIndex}), par);
+          else if (this._scopedSlots[par["colName"]]) return htmlRepStr(this._scopedSlots[par["colName"]], par);
           else return htmlRep(`
                 `, par);
         };
 
-    replace['exp-16'] =
-        (par)=>{return htmlRep(objStr(this._cellClass(par["item"], par["colName"], par["index"])), par)};
+ 		replace['exp-14'] =
+        (par)=>{return htmlRepStr(this._cellClass(par["item"], par["colName"], par["index"]), par)};
 
-    replace['exp-17'] =
-        (par)=>{return htmlRep(objStr(String(par["item"][par["colName"]])), par)};
+ 		replace['exp-15'] =
+        (par)=>{return htmlRepStr(String(par["item"][par["colName"]]), par)};
 
-    replace['scoped'] =
+		replace['scoped'] =
         (par)=>{
           if (this._scopedSlots[par["colName"]]) return htmlRep(`
                 {val-5}
                 `, par)
           return htmlRep(`
                 <td
-                  class="{exp-16}"
+                  class="{exp-14}"
                   key="{:index}"
                 >
-                  {exp-17}
+                  {exp-15}
                 </td>
                 `, par)
         };
 
-    replace['tymcz3'] =
+ 		replace['tymcz3'] =
         (par)=>{
           let code = '';
           for (let idx in this._rawColumnNames){
@@ -875,7 +871,7 @@ class Datatable {
           return code;
         };
 
-    replace['details-row-click'] =
+ 		replace['details-row-click'] =
         (par)=>{
           eventN++;
           handlers[eventN] = {
@@ -885,18 +881,18 @@ class Datatable {
           return 'coreui-event="'+eventN+'"';
         };
 
-    replace['exp-18'] =
-        (par)=>{return htmlRep(objStr(this._colspan), par)};
+ 		replace['exp-16'] =
+        (par)=>{return htmlRepStr(this._colspan, par)};
 
-    replace['val-6'] =
+ 		replace['val-6'] =
         (par)=>{
-          if (this._scopedSlots['details'] && typeof this._scopedSlots['details'] === 'function') return htmlRep(objStr(this._scopedSlots['details']({item:par["item"], index:par["itemIndex"]+this._firstItemIndex})), par);
-          else if (this._scopedSlots['details']) return htmlRep(objStr(this._scopedSlots['details']), par);
+          if (this._scopedSlots['details'] && typeof this._scopedSlots['details'] === 'function') return htmlRepStr(this._scopedSlots['details']({item:par["item"], index:par["itemIndex"]+this._firstItemIndex}), par);
+          else if (this._scopedSlots['details']) return htmlRepStr(this._scopedSlots['details'], par);
           else return htmlRep(`
                 `, par);
         };
 
-    replace['details'] =
+ 		replace['details'] =
         (par)=>{
           if (this._scopedSlots.details) return htmlRep(`
             <tr
@@ -906,7 +902,7 @@ class Datatable {
               key="details{:itemIndex}"
             >
               <td
-                colspan="{exp-18}"
+                colspan="{exp-16}"
                 class="p-0"
                 style="border:none !important"
               >
@@ -917,7 +913,7 @@ class Datatable {
           return ''
         };
 
-    replace['table'] =
+ 		replace['table'] =
         (par)=>{
           let code = '';
           for (let idx in this._currentItems){
@@ -926,8 +922,8 @@ class Datatable {
             code+=htmlRep(`
             <tr
               {row-click}
-              class="{exp-14}"
-              tabindex="{exp-15}"
+              class="{exp-12}"
+              tabindex="{exp-13}"
               key="{:itemIndex}"
             >
               {tymcz3}
@@ -938,20 +934,20 @@ class Datatable {
           return code;
         };
 
-    replace['exp-19'] =
-        (par)=>{return htmlRep(objStr(this._colspan), par)};
+		replace['exp-17'] =
+        (par)=>{return htmlRepStr(this._colspan, par)};
 
-    replace['exp-20'] =
-        (par)=>{return htmlRep(objStr(this._noItemsText), par)};
+ 		replace['exp-18'] =
+        (par)=>{return htmlRepStr(this._noItemsText, par)};
 
-    replace['val-7'] =
+ 		replace['val-7'] =
         (par)=>{
-          if (this._noItemsViewSlot && typeof this._noItemsViewSlot === 'function') return htmlRep(objStr(this._noItemsViewSlot()), par);
-          else if (this._noItemsViewSlot) return htmlRep(objStr(this._noItemsViewSlot), par);
+          if (this._noItemsViewSlot && typeof this._noItemsViewSlot === 'function') return htmlRepStr(this._noItemsViewSlot(), par);
+          else if (this._noItemsViewSlot) return htmlRepStr(this._noItemsViewSlot, par);
           else return htmlRep(`
                 <div class="text-center my-5">
                   <h2>
-                    {exp-20}
+                    {exp-18}
                     <i
                       class="cil-ban text-danger mb-2"
                       width="30"
@@ -961,11 +957,11 @@ class Datatable {
               `, par);
         };
 
-    replace['no-items'] =
+ 		replace['no-items'] =
         (par)=>{
           if (!this._currentItems.length) return htmlRep(`
           <tr>
-            <td colspan={exp-19}>
+            <td colspan={exp-17}>
               {val-7}
             </td>
           </tr>
@@ -973,7 +969,7 @@ class Datatable {
           return ''
         };
 
-    replace['sort-footer-click'] =
+		replace['sort-footer-click'] =
         (par)=>{
           eventN++;
           handlers[eventN] = {
@@ -983,40 +979,40 @@ class Datatable {
           return 'coreui-event="'+eventN+'"';
         };
 
-    replace['exp-21'] =
-        (par)=>{return htmlRep(objStr(this._headerClass(par["index"])), par)};
+ 		replace['exp-19'] =
+        (par)=>{return htmlRepStr(this._headerClass(par["index"]), par)};
 
-    replace['exp-22'] =
-        (par)=>{return htmlRep(objStr(this._sortingIconStyles), par)};
+ 		replace['exp-20'] =
+        (par)=>{return htmlRepStr(this._sortingIconStyles, par)};
 
-    replace['exp-23'] =
-        (par)=>{return htmlRep(objStr(this._headerStyles(par["index"])), par)};
+ 		replace['exp-21'] =
+        (par)=>{return htmlRepStr(this._headerStyles(par["index"]), par)};
 
-    replace['val-8'] =
+ 		replace['val-8'] =
         (par)=>{
-          if (this._columnHeaderSlot[this._rawColumnNames[par["index"]]] && typeof this._columnHeaderSlot[this._rawColumnNames[par["index"]]] === 'function') return htmlRep(objStr(this._columnHeaderSlot[this._rawColumnNames[par["index"]]]()), par);
-          else if (this._columnHeaderSlot[this._rawColumnNames[par["index"]]]) return htmlRep(objStr(this._columnHeaderSlot[this._rawColumnNames[par["index"]]]), par);
+          if (this._columnHeaderSlot[this._rawColumnNames[par["index"]]] && typeof this._columnHeaderSlot[this._rawColumnNames[par["index"]]] === 'function') return htmlRepStr(this._columnHeaderSlot[this._rawColumnNames[par["index"]]](), par);
+          else if (this._columnHeaderSlot[this._rawColumnNames[par["index"]]]) return htmlRepStr(this._columnHeaderSlot[this._rawColumnNames[par["index"]]], par);
           else return htmlRep(`
                   <div>{:name}</div>
                 `, par);
         };
 
-    replace['exp-24'] =
-        (par)=>{return htmlRep(objStr(this._iconClasses(par["index"])), par)};
+ 		replace['exp-22'] =
+        (par)=>{return htmlRepStr(this._iconClasses(par["index"]), par)};
 
-    replace['val-9'] =
+ 		replace['val-9'] =
         (par)=>{
-          if (this._sortingIconSlot && typeof this._sortingIconSlot === 'function') return htmlRep(objStr(this._sortingIconSlot({state: this._getIconState(par["index"])})), par);
-          else if (this._sortingIconSlot) return htmlRep(objStr(this._sortingIconSlot), par);
+          if (this._sortingIconSlot && typeof this._sortingIconSlot === 'function') return htmlRepStr(this._sortingIconSlot({state: this._getIconState(par["index"])}), par);
+          else if (this._sortingIconSlot) return htmlRepStr(this._sortingIconSlot, par);
           else return htmlRep(`
                   <i
-                    class="cil-arrow-top {exp-24}"
+                    class="cil-arrow-top {exp-22}"
                     width="18"
                   }</i>
                 `, par);
         };
 
-    replace['sortable-down'] =
+ 		replace['sortable-down'] =
         (par)=>{
           if (this._isSortable(par["index"])) return htmlRep(`
                 {val-9}
@@ -1024,7 +1020,7 @@ class Datatable {
           return ''
         };
 
-    replace['footer-row'] =
+ 		replace['footer-row'] =
         (par)=>{
           let code = '';
           for (let idx in this._columnNames){
@@ -1033,8 +1029,8 @@ class Datatable {
             code+=htmlRep(`
               <th
                 {sort-footer-click}
-                class="{exp-21} {exp-22}"
-                style="{exp-23}"
+                class="{exp-19} {exp-20}"
+                style="{exp-21}"
                 key="{:index}"
               >
                 {val-8}
@@ -1045,8 +1041,8 @@ class Datatable {
           return code;
         };
 
-    //footer part
-    replace['footer'] =
+//footer part
+		replace['footer'] =
         (par)=>{
           if (this._footer && this._currentItems.length>0) return htmlRep(`
         <tfoot coreui-part="foot">
@@ -1058,24 +1054,24 @@ class Datatable {
           return ''
         };
 
-    replace['footer-slot'] =
+		replace['footer-slot'] =
         (par)=>{
-          if (this._footerSlot && typeof this._footerSlot === 'function') return htmlRep(objStr(this._footerSlot({itemsAmount: this._currentItems.length})), par);
-          else if (this._footerSlot) return htmlRep(objStr(this._footerSlot), par);
+          if (this._footerSlot && typeof this._footerSlot === 'function') return htmlRepStr(this._footerSlot({itemsAmount: this._currentItems.length}), par);
+          else if (this._footerSlot) return htmlRepStr(this._footerSlot, par);
           else return htmlRep(``, par);
         };
 
-    replace['caption'] =
-        (par)=>{return htmlRep(objStr(this._captionSlot), par)};
+ 		replace['caption'] =
+        (par)=>{return htmlRepStr(this._captionSlot, par)};
 
-    replace['val-10'] =
+		replace['val-10'] =
         (par)=>{
-          if (this._loading && typeof this._loading === 'function') return htmlRep(objStr(this._loading()), par);
-          else if (this._loading) return htmlRep(objStr(this._loading), par);
+          if (this._loading && typeof this._loading === 'function') return htmlRepStr(this._loading(), par);
+          else if (this._loading) return htmlRepStr(this._loading, par);
           else return htmlRep(``, par);
         };
 
-    replace['loading'] =
+ 		replace['loading'] =
         (par)=>{
           if (this._loading) return htmlRep(`
       {val-10}
@@ -1083,10 +1079,10 @@ class Datatable {
           return ''
         };
 
-    replace['under-table'] =
-        (par)=>{return htmlRep(objStr(this._underTableSlot), par)};
+		replace['under-table'] =
+        (par)=>{return htmlRepStr(this._underTableSlot, par)};
 
-    replace['com'] =
+ 		replace['com'] =
         (par)=>{
           compN++;
           comps[compN] = {
@@ -1106,16 +1102,13 @@ class Datatable {
           return '<div coreui-comp="'+compN+'"></div>'
         };
 
-    replace['pagination'] =
+		replace['pagination'] =
         (par)=>{
           if (this._pagination) return htmlRep(`
     {com}
     `, par);
           return ''
         };
-
-
-
 
 
       //

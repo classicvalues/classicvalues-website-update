@@ -1124,7 +1124,9 @@ class Datatable {
               class="position-relative"
               coreui-part="body"
             ></tbody>
-            <div coreui-part="footer"></div>
+            {footer}
+            {footer-slot}
+            {caption}
           </table>
           <div coreui-part="loading"></div>
         </div>
@@ -1158,12 +1160,6 @@ class Datatable {
 
     this._templates['loading'] = `
       {loading}
-    `;
-
-    this._templates['footer'] = `
-      {footer}
-      {footer-slot}
-      {caption}
     `;
 
 
@@ -1261,6 +1257,7 @@ class Datatable {
     renderPart('body');
     renderPart('options');
     renderPart('pagination');
+    renderPart('loading');
 
 
     //

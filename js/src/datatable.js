@@ -423,7 +423,7 @@ class Datatable {
     })();
 
 	this._haveFilterOption = ( ()=> {
-      return this._tableFilter || this._cleaner || this._$scopedSlots.cleaner
+      return this._tableFilter || this._cleaner || this._scopedSlots.cleaner
     })();
 
 

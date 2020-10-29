@@ -228,16 +228,23 @@
 
           datatable = new coreui.Datatable(tableElement, {
 
+            overTableSlot: '<h3>Over Table Slot</h3>',
+            underTableSlot: '<h3>Under Table Slot</h3>',
+
             items: usersData,
             fields: fields,
-            columnFilter: true,
-            tableFilter: true,
-            footer: true,
-            itemsPerPageSelect: true,
-            itemsPerPage: 5,
+            itemsPerPage: 7,
             hover: true,
-            sorter: true,
+            columnFilter: true,
             pagination:true,
+            itemsPerPageSelect: true,
+            sorter: true,
+            //
+            footer: true,
+            captionSlot: '<h3>Caption Slot</h3>',
+            tableFilter: true,
+            //
+
             // loading
             // onRowClick={(item,index,col,e) => console.log(item,index,col,e)}
             // onPageChange={(val) => console.log('new page:', val)}
@@ -290,7 +297,9 @@
                         </button>
                       </dib>
                     </div>
-                  ` : ''}
+                  ` : ''},
+                'cleaner':
+                  par => 'cleaner'
               }
 
             });

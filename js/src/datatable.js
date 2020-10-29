@@ -1045,10 +1045,7 @@ class Datatable {
 		replace['footer'] =
         (par)=>{
           if (this._footer && this._currentItems.length>0) return htmlRep(`
-        <tfoot coreui-part="foot">
-          <tr>
-            {footer-row}
-          </tr>
+        <tfoot coreui-part="footer">
         </tfoot>
         `, par);
           return ''
@@ -1162,6 +1159,12 @@ class Datatable {
       {loading}
     `;
 
+    this._templates['footer'] = `
+      <tr>
+        {footer-row}
+      </tr>
+    `;
+
 
     // build
 
@@ -1199,6 +1202,8 @@ class Datatable {
         //console.log('code part old:'+part, this._codes[part]);
 
         el = SelectorEngine.findOne('[coreui-part="'+part+'"]', this._element);
+        if (!el)
+          return;
         el.innerHTML = code;
         this._codes[part] = code;
 
@@ -1257,6 +1262,7 @@ class Datatable {
     renderPart('body');
     renderPart('options');
     renderPart('pagination');
+    renderPart('footer');
     renderPart('loading');
 
 

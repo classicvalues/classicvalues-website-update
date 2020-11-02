@@ -1525,9 +1525,32 @@ class Datatable {
 
   // Static
 
+  static datatableInterface(element, config, par) {
+    let data = Data.getData(element, DATA_KEY)
+    if (!data) {
+      data = typeof config === 'object' ? new Datatable(element, config) : new Datatable(element)
+    }
+
+    if (typeof config === 'string') {
+      if (typeof data[config] === 'undefined') {
+        throw new TypeError(`No method named "${config}"`)
+      }
+
+      switch (config){
+        case 'update':
+        data[config](par)
+        break;
+        case 'dispose':
+        data[config]()
+        break;
+      }
+    }
+  }
+
   static jQueryInterface(config) {
     return this.each(function () {
-
+      Datatable.datatableInterface(this, config, par);
+      /*
       let data = Data.getData(this, DATA_KEY)
 
       if (!data) {
@@ -1546,7 +1569,7 @@ class Datatable {
         data[config](this)
         break;
       }
-
+      */
     })
   }
 

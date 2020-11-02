@@ -742,9 +742,33 @@ class Pagination {
 
   // Static
 
+  static paginationInterface(element, config, par) {
+    let data = Data.getData(element, DATA_KEY)
+    if (!data) {
+      data = typeof config === 'object' ? new Datatable(element, config) : new Datatable(element)
+    }
+
+    if (typeof config === 'string') {
+      if (typeof data[config] === 'undefined') {
+        throw new TypeError(`No method named "${config}"`)
+      }
+
+      switch (config){
+        case 'update':
+        data[config](par)
+        break;
+        case 'dispose':
+        case 'value':
+        data[config]()
+        break;
+      }
+    }
+  }
+
   static jQueryInterface(config) {
     return this.each(function () {
-
+      Pagination.paginationInterface(this, config, par);
+      /*
       let data = Data.getData(this, DATA_KEY)
 
       if (!data) {
@@ -763,7 +787,7 @@ class Pagination {
         data[config](this)
         break;
       }
-
+      */
     })
   }
 
@@ -825,7 +849,7 @@ class Pagination {
  EventHandler.on(window, EVENT_LOAD_DATA_API, () => {
    // eslint-disable-next-line unicorn/prefer-spread
    Array.from(document.querySelectorAll(SELECTOR_COMPONENT)).forEach(element => {
-     //Pagination.jQueryInterface(element)
+     Pagination.paginationInterface(element, Manipulator.getDataAttributes(element))
    })
  })
 

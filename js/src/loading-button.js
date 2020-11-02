@@ -26,13 +26,12 @@ const VERSION = '3.2.2'
 const DATA_KEY = 'coreui.loadingbutton'
 const EVENT_KEY = `.${DATA_KEY}`
 const DATA_API_KEY = '.data-api'
-
+const SELECTOR_COMPONENT = '[data-coreui="loading-button"]'
 const SELECTOR_SPINNER = '[data-target="loading-button"]'
-
 const EVENT_START = `start${EVENT_KEY}`
 const EVENT_STOP = `stop${EVENT_KEY}`
-
 const CLASSNAME_LOADING_BUTTON = 'c-loading-button'
+const EVENT_LOAD_DATA_API = `load${EVENT_KEY}${DATA_API_KEY}`
 
 const Default = {
   progress: 100, // max progress
@@ -111,11 +110,13 @@ class LoadingButton {
 
   //
 
-  start(element) {
+  start() {
     let rootElement = this._element
+    /*
     if (element) {
       rootElement = this._getRootElement(element)
     }
+    */
     const customEvent = this._triggerStartEvent(rootElement)
     if (customEvent === null || customEvent.defaultPrevented) {
       return
@@ -129,7 +130,7 @@ class LoadingButton {
     }, 1);
   }
 
-  stop(element) {
+  stop() {
     const customEvent = this._triggerStopEvent(this._element)
     if (customEvent === null || customEvent.defaultPrevented) {
       return;
@@ -238,24 +239,33 @@ class LoadingButton {
 
   // Static
 
-  static jQueryInterface(config, par) {
-    return this.each(function () {
-      let data = Data.getData(this, DATA_KEY)
+  static loadingButtonInterface(element, config, par) {
+    let data = Data.getData(element, DATA_KEY)
+    if (!data) {
+      data = typeof config === 'object' ? new LoadingButton(element, config) : new LoadingButton(element)
+    }
 
-      if (!data) {
-        data = new LoadingButton(this)
+    if (typeof config === 'string') {
+      if (typeof data[config] === 'undefined') {
+        throw new TypeError(`No method named "${config}"`)
       }
 
       switch (config){
         case 'update':
-        data[config](this, par)
+        data[config](par)
         break;
         case 'dispose':
         case 'start':
         case 'stop':
-        data[config](this)
+        data[config]()
         break;
       }
+    }
+  }
+
+  static jQueryInterface(config, par) {
+    return this.each(function () {
+      LoadingButton.loadingButtonInterface(this, config, par);
     })
   }
 
@@ -270,6 +280,13 @@ class LoadingButton {
  * Data Api implementation
  * ------------------------------------------------------------------------
  */
+
+ EventHandler.on(window, EVENT_LOAD_DATA_API, () => {
+   // eslint-disable-next-line unicorn/prefer-spread
+   Array.from(document.querySelectorAll(SELECTOR_COMPONENT)).forEach(element => {
+     LoadingButton.loadingButtonInterface(element, Manipulator.getDataAttributes(element))
+   })
+ })
 
 
 const $ = getjQuery()

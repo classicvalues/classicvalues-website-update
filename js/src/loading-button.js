@@ -67,6 +67,7 @@ class LoadingButton {
 
     this._element = element
     this._config = this._getConfig(config)
+    //console.log('config', this._config);
 
     if (this._element) {
       Data.setData(element, DATA_KEY, this)
@@ -243,6 +244,7 @@ class LoadingButton {
     let data = Data.getData(element, DATA_KEY)
     if (!data) {
       data = typeof config === 'object' ? new LoadingButton(element, config) : new LoadingButton(element)
+      data.start();
     }
 
     if (typeof config === 'string') {
@@ -284,6 +286,7 @@ class LoadingButton {
  EventHandler.on(window, EVENT_LOAD_DATA_API, () => {
    // eslint-disable-next-line unicorn/prefer-spread
    Array.from(document.querySelectorAll(SELECTOR_COMPONENT)).forEach(element => {
+     console.log('asa', Manipulator.getDataAttributes(element));
      LoadingButton.loadingButtonInterface(element, Manipulator.getDataAttributes(element))
    })
  })

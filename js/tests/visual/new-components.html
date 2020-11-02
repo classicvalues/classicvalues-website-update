@@ -37,16 +37,22 @@
     <hr>
     <br>
     <h1>New Components</h1>
+
     <br>
     <h1>LoadingButton</h1>
 
-    <button class="btn btn-default c-loading-button" data-time="1" id="lb1">
+    <button class="btn btn-default c-loading-button" data-time="6" id="lb1">
       loading button 1 with spinner, data-time attribute
       <div class="spinner-grow spinner-grow-sm" data-target="loading-button"></div>
     </button>
 
     <button class="btn btn-default c-loading-button" data-time="0.5" data-stripe-color="rgba(255, 0, 0, 0.2)" id="lb2">
       loading button 2 without spinner, jQuery initialized
+    </button>
+
+    <button class="btn btn-default c-loading-button" data-coreui="loading-button" data-time="5">
+      loading button 3 with spinner, data-time attribute and auto initialization
+      <div class="spinner-grow spinner-grow-sm" data-target="loading-button"></div>
     </button>
 
     <br>
@@ -80,19 +86,18 @@
       </ul>
 
     </div>
-
     <hr>
     <button class='btn btn-default' onclick='alertValue()'>Get value</button>
 
     <br>
     <hr>
     <h1>Datatable</h1>
-    <div id="t1" ms="sss"></div>
+    <div id="t1"></div>
 
     <br>
     <hr>
     <h1>Pagination</h1>
-    <div id="pag1" ms="sss"></div>
+    <div id="pag1"></div>
 
 
 
@@ -159,7 +164,7 @@
 
           //jQuery
           $('#lb2').loadingbutton();
-          $('#lb2').loadingbutton('start', 12);
+          //$('#lb2').loadingbutton('start');
 
 
           //template

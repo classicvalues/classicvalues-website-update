@@ -745,7 +745,7 @@ class Pagination {
   static paginationInterface(element, config, par) {
     let data = Data.getData(element, DATA_KEY)
     if (!data) {
-      data = typeof config === 'object' ? new Datatable(element, config) : new Datatable(element)
+      data = typeof config === 'object' ? new Pagination(element, config) : new Pagination(element)
     }
 
     if (typeof config === 'string') {
@@ -765,7 +765,7 @@ class Pagination {
     }
   }
 
-  static jQueryInterface(config) {
+  static jQueryInterface(config, par) {
     return this.each(function () {
       Pagination.paginationInterface(this, config, par);
       /*

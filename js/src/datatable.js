@@ -166,7 +166,9 @@ class Datatable {
     // init
 
     this._templates = [];
+    this._templatePart = {};
     this._codes = [];
+    this._userFocusElement = {part: '', idx: 0}
 
 
     // first render
@@ -246,6 +248,8 @@ class Datatable {
 
     const htmlRepStr = (code, tPar)=>htmlRep(objStr(code), tPar)
 
+
+
     //
 
     // template, this.template
@@ -263,6 +267,7 @@ class Datatable {
         cilFilterX:1
       }
     }
+
 
     //***
 
@@ -479,58 +484,82 @@ class Datatable {
  		replace['exp'] =
         (par)=>{return htmlRepStr(this._tableFilterData.label, par)};
 
- 		replace['exp-2'] =
+		replace['exp-2'] =
         (par)=>{return htmlRepStr(this._tableFilterData.placeholder, par)};
 
-		replace['filter-input'] =
+ 		replace['filter-input'] =
         (par)=>{
           eventN++;
           handlers[eventN] = {
             eventType: 'keyup',
-            f: (event)=>this._onFilterInputEvent(event, par)
+            f: (event)=>this._onFilterInput(event, par)
           }
-          return 'coreui-event="'+eventN+'"';
+          return 'coreui-event-keyup="'+eventN+'"';
         };
 
-		replace['filter-change'] =
+ 		replace['filter-change'] =
         (par)=>{
           eventN++;
           handlers[eventN] = {
             eventType: 'change',
-            f: (event)=>this._onFilterChangeEvent(event, par)
+            f: (event)=>this._onFilterChange(event, par)
           }
-          return 'coreui-event="'+eventN+'"';
+          return 'coreui-event-change="'+eventN+'"';
         };
 
-//filter part
+ 		replace['filter-focus'] =
+        (par)=>{
+          eventN++;
+          handlers[eventN] = {
+            eventType: 'focus',
+            f: (event)=>this._onFilterFocus(event, par)
+          }
+          return 'coreui-event-focus="'+eventN+'"';
+        };
+
+		replace['filter-blur'] =
+        (par)=>{
+          eventN++;
+          handlers[eventN] = {
+            eventType: 'blur',
+            f: (event)=>this._onFilterBlur(event, par)
+          }
+          return 'coreui-event-blur="'+eventN+'"';
+        };
+
+		//filter part
  		replace['filter'] =
         (par)=>{
           if (this._tableFilter) return htmlRep(`
           <label class="mr-2">{exp}</label>
-          <input
-            class="form-control"
-            type="text"
-            placeholder="{exp-2}"
-            {filter-input}
-            {filter-change}
-            value=""
-            aria-label="table filter input"
-          >
+          <div coreui-part="filter-input">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="{exp-2}"
+              {filter-input}
+              {filter-change}
+              {filter-focus}
+              {filter-blur}
+              value=""
+              aria-label="table filter input"
+            >
+          </div>
         `, par);
           return ''
         };
 
- 		replace['exp-3'] =
+		replace['exp-3'] =
         (par)=>{return htmlRepStr(this._cleanerProps, par)};
 
-		replace['cleaner-click'] =
+ 		replace['cleaner-click'] =
         (par)=>{
           eventN++;
           handlers[eventN] = {
             eventType: 'click',
-            f: (event)=>this._onCleanerClickEvent(event, par)
+            f: (event)=>this._onCleanerClick(event, par)
           }
-          return 'coreui-event="'+eventN+'"';
+          return 'coreui-event-click="'+eventN+'"';
         };
 
  		replace['val'] =
@@ -546,8 +575,8 @@ class Datatable {
         `, par);
         };
 
-//cleaner
-		replace['cleaner'] =
+		//cleaner
+ 		replace['cleaner'] =
         (par)=>{
           if (this._cleaner) return htmlRep(`
         {val}
@@ -580,15 +609,15 @@ class Datatable {
           eventN++;
           handlers[eventN] = {
             eventType: 'change',
-            f: (event)=>this._onPaginationChangeEvent(event, par)
+            f: (event)=>this._onPaginationChange(event, par)
           }
-          return 'coreui-event="'+eventN+'"';
+          return 'coreui-event-change="'+eventN+'"';
         };
 
- 		replace['exp-6'] =
+		replace['exp-6'] =
         (par)=>{return htmlRepStr(this._perPageItems, par)};
 
- 		replace['tymcz'] =
+		replace['tymcz'] =
         (par)=>{
           let code = '';
           for (let idx in this._paginationSelect.values){
@@ -606,7 +635,7 @@ class Datatable {
           return code;
         };
 
-		replace['items-select'] =
+ 		replace['items-select'] =
         (par)=>{
           if (this._itemsPerPageSelect) return htmlRep(`
       <div
@@ -630,7 +659,7 @@ class Datatable {
           return ''
         };
 
-//search options
+		//search options
  		replace['options'] =
         (par)=>{
           if (this._itemsPerPageSelect || this._haveFilterOption) return htmlRep(`
@@ -648,7 +677,7 @@ class Datatable {
  		replace['over-table'] =
         (par)=>{return htmlRepStr(this._overTableSlot, par)};
 
-		replace['responsive'] =
+ 		replace['responsive'] =
         (par)=>{return htmlRepStr(this._responsive ? 'table-responsive' : '', par)};
 
  		replace['table-classes'] =
@@ -662,9 +691,9 @@ class Datatable {
           eventN++;
           handlers[eventN] = {
             eventType: 'click',
-            f: (event)=>this._onSortClickEvent(event, par)
+            f: (event)=>this._onSortClick(event, par)
           }
-          return 'coreui-event="'+eventN+'"';
+          return 'coreui-event-click="'+eventN+'"';
         };
 
  		replace['exp-7'] =
@@ -676,7 +705,7 @@ class Datatable {
  		replace['exp-9'] =
         (par)=>{return htmlRepStr(this._headerStyles(par["index"]), par)};
 
-		replace['val-2'] =
+ 		replace['val-2'] =
         (par)=>{
           if (this._columnHeaderSlot[this._rawColumnNames[par["index"]]] && typeof this._columnHeaderSlot[this._rawColumnNames[par["index"]]] === 'function') return htmlRepStr(this._columnHeaderSlot[this._rawColumnNames[par["index"]]](), par);
           else if (this._columnHeaderSlot[this._rawColumnNames[par["index"]]]) return htmlRepStr(this._columnHeaderSlot[this._rawColumnNames[par["index"]]], par);
@@ -688,7 +717,7 @@ class Datatable {
  		replace['exp-10'] =
         (par)=>{return htmlRepStr(this._iconClasses(par["index"]), par)};
 
- 		replace['val-3'] =
+		replace['val-3'] =
         (par)=>{
           if (this._sortingIcon && typeof this._sortingIcon === 'function') return htmlRepStr(this._sortingIcon({state:getIconState(par["index"]), classes:this._iconClasses(par["index"])}), par);
           else if (this._sortingIcon) return htmlRepStr(this._sortingIcon, par);
@@ -700,7 +729,7 @@ class Datatable {
                 `, par);
         };
 
- 		replace['sortable'] =
+		replace['sortable'] =
         (par)=>{
           if (this._isSortable(par["index"])) return htmlRep(`
                 {val-3}
@@ -729,7 +758,7 @@ class Datatable {
           return code;
         };
 
- 		replace['header'] =
+		replace['header'] =
         (par)=>{
           if (this._header) return htmlRep(`
           <tr>
@@ -747,9 +776,9 @@ class Datatable {
           eventN++;
           handlers[eventN] = {
             eventType: 'keyup',
-            f: (event)=>this._onColumnFilterInputEvent(event, par)
+            f: (event)=>this._onColumnFilterInput(event, par)
           }
-          return 'coreui-event="'+eventN+'"';
+          return 'coreui-event-keyup="'+eventN+'"';
         };
 
  		replace['column-filter-change'] =
@@ -757,21 +786,58 @@ class Datatable {
           eventN++;
           handlers[eventN] = {
             eventType: 'change',
-            f: (event)=>this._onColumnFilterChangeEvent(event, par)
+            f: (event)=>this._onColumnFilterChange(event, par)
           }
-          return 'coreui-event="'+eventN+'"';
+          return 'coreui-event-change="'+eventN+'"';
         };
 
-		replace['fields'] =
+		replace['column-filter-focus'] =
+        (par)=>{
+          eventN++;
+          handlers[eventN] = {
+            eventType: 'focus',
+            f: (event)=>this._onColumnFilterFocus(event, par)
+          }
+          return 'coreui-event-focus="'+eventN+'"';
+        };
+
+ 		replace['column-filter-blur'] =
+        (par)=>{
+          eventN++;
+          handlers[eventN] = {
+            eventType: 'blur',
+            f: (event)=>this._onColumnFilterBlur(event, par)
+          }
+          return 'coreui-event-blur="'+eventN+'"';
+        };
+
+ 		replace['part-column-input'] =
+        (par)=>{
+          if (!this._templatePart['part-column-input'])
+            this._templatePart['part-column-input'] = [];
+          this._templatePart['part-column-input'].push({
+            html: `
+                    <input
+                      class="form-control form-control-sm"
+                      {column-filter-input}
+                      {column-filter-change}
+                      {column-filter-focus}
+                      {column-filter-blur}
+                      value=""
+                      aria-label="column name: '{:colName}' filter input"
+                    />
+                    `,
+            par: par
+          });
+          return '';
+        };
+
+ 		replace['fields'] =
         (par)=>{
           if (!this._fields || this._fields[par["index"]].filter!==false) return htmlRep(`
-                  <input
-                    class="form-control form-control-sm"
-                    {column-filter-input}
-                    {column-filter-change}
-                    value=""
-                    aria-label="column name: '{:colName}' filter input"
-                  />
+                  <div coreui-part="part-column-input">
+                    {part-column-input}
+                  </div>
                   `, par);
           return ''
         };
@@ -800,11 +866,24 @@ class Datatable {
           return code;
         };
 
+ 		replace['part-column-filter'] =
+        (par)=>{
+          if (!this._templatePart['part-column-filter'])
+            this._templatePart['part-column-filter'] = [];
+          this._templatePart['part-column-filter'].push({
+            html: `
+            {tymcz2}
+            `,
+            par: par
+          });
+          return '';
+        };
+
  		replace['column-filter'] =
         (par)=>{
           if (this._columnFilter) return htmlRep(`
-          <tr class="table-sm">
-            {tymcz2}
+          <tr class="table-sm" coreui-part="part-column-filter">
+            {part-column-filter}
           </tr>
           `, par);
           return ''
@@ -818,9 +897,9 @@ class Datatable {
           eventN++;
           handlers[eventN] = {
             eventType: 'click',
-            f: (event)=>this._onRowClickEvent(event, par)
+            f: (event)=>this._onRowClick(event, par)
           }
-          return 'coreui-event="'+eventN+'"';
+          return 'coreui-event-click="'+eventN+'"';
         };
 
  		replace['exp-12'] =
@@ -843,7 +922,7 @@ class Datatable {
  		replace['exp-15'] =
         (par)=>{return htmlRepStr(String(par["item"][par["colName"]]), par)};
 
-		replace['scoped'] =
+ 		replace['scoped'] =
         (par)=>{
           if (this._scopedSlots[par["colName"]]) return htmlRep(`
                 {val-5}
@@ -871,17 +950,17 @@ class Datatable {
           return code;
         };
 
- 		replace['details-row-click'] =
+		replace['details-row-click'] =
         (par)=>{
           eventN++;
           handlers[eventN] = {
             eventType: 'click',
-            f: (event)=>this._onDetailsRowClickEvent(event, par)
+            f: (event)=>this._onDetailsRowClick(event, par)
           }
-          return 'coreui-event="'+eventN+'"';
+          return 'coreui-event-click="'+eventN+'"';
         };
 
- 		replace['exp-16'] =
+		replace['exp-16'] =
         (par)=>{return htmlRepStr(this._colspan, par)};
 
  		replace['val-6'] =
@@ -934,7 +1013,7 @@ class Datatable {
           return code;
         };
 
-		replace['exp-17'] =
+ 		replace['exp-17'] =
         (par)=>{return htmlRepStr(this._colspan, par)};
 
  		replace['exp-18'] =
@@ -969,14 +1048,14 @@ class Datatable {
           return ''
         };
 
-		replace['sort-footer-click'] =
+ 		replace['sort-footer-click'] =
         (par)=>{
           eventN++;
           handlers[eventN] = {
             eventType: 'click',
-            f: (event)=>this._onSortFooterClickEvent(event, par)
+            f: (event)=>this._onSortFooterClick(event, par)
           }
-          return 'coreui-event="'+eventN+'"';
+          return 'coreui-event-click="'+eventN+'"';
         };
 
  		replace['exp-19'] =
@@ -985,7 +1064,7 @@ class Datatable {
  		replace['exp-20'] =
         (par)=>{return htmlRepStr(this._sortingIconStyles, par)};
 
- 		replace['exp-21'] =
+		replace['exp-21'] =
         (par)=>{return htmlRepStr(this._headerStyles(par["index"]), par)};
 
  		replace['val-8'] =
@@ -1012,7 +1091,7 @@ class Datatable {
                 `, par);
         };
 
- 		replace['sortable-down'] =
+		replace['sortable-down'] =
         (par)=>{
           if (this._isSortable(par["index"])) return htmlRep(`
                 {val-9}
@@ -1041,17 +1120,18 @@ class Datatable {
           return code;
         };
 
-//footer part
+		//footer part
 		replace['footer'] =
         (par)=>{
           if (this._footer && this._currentItems.length>0) return htmlRep(`
-        <tfoot coreui-part="footer">
-        </tfoot>
+            <tr>
+              {footer-row}
+            </tr>
         `, par);
           return ''
         };
 
-		replace['footer-slot'] =
+ 		replace['footer-slot'] =
         (par)=>{
           if (this._footerSlot && typeof this._footerSlot === 'function') return htmlRepStr(this._footerSlot({itemsAmount: this._currentItems.length}), par);
           else if (this._footerSlot) return htmlRepStr(this._footerSlot, par);
@@ -1108,6 +1188,7 @@ class Datatable {
         };
 
 
+
       //
 
       this._template = `
@@ -1121,7 +1202,7 @@ class Datatable {
               class="position-relative"
               coreui-part="body"
             ></tbody>
-            {footer}
+            <tfoot coreui-part="foot"></tfoot>
             {footer-slot}
             {caption}
           </table>
@@ -1131,39 +1212,36 @@ class Datatable {
       </div>
     `;
 
+    this._templatePart = {};
 
-    // parts
-
-    this._templates['head'] = `
+    this._templatePart['head'] = [{par:{}, html:`
       {header-top}
       {header}
       {column-filter}
-    `;
+    `}];
 
-    this._templates['body'] = `
+    this._templatePart['body'] = [{par:{}, html:`
       {table}
       {no-items}
-    `;
+    `}];
 
-    this._templates['options'] = `
+    this._templatePart['options'] = [{par:{}, html:`
       {options}
       {over-table}
-    `;
+    `}];
 
-    this._templates['pagination'] = `
+    this._templatePart['pagination'] = [{par:{}, html:`
       {under-table}
       {pagination}
-    `;
+    `}];
 
-    this._templates['loading'] = `
+    this._templatePart['loading'] = [{par:{}, html:`
       {loading}
-    `;
+    `}];
 
-    this._templates['footer'] = `
-      <tr>
-        {footer-row}
-      </tr>
-    `;
+    this._templatePart['foot'] = [{par:{}, html:`
+      {footer}
+    `}];
 
 
     // build
@@ -1189,15 +1267,9 @@ class Datatable {
       eventN = 0;
       compN = 0;
       code = htmlRep(this._templates[part], {});
-
-      //console.log('code part:'+part, code);
+      console.log('code part:'+part, code);
 
       if (code!==this._codes[part]){ //let m = md5(code)!==this._code['part']
-
-        if (part==='options' && this._codes[part]){
-          //console.log('code part old:'+part, this._codes[part]);
-          //return;
-        }
 
         //console.log('code part old:'+part, this._codes[part]);
 
@@ -1207,9 +1279,12 @@ class Datatable {
         el.innerHTML = code;
         this._codes[part] = code;
 
+        if (part==='head')
+          this._codes['part-column-filter'] = null;
+
         //events
         for (let id in handlers){
-          el = SelectorEngine.findOne('[coreui-event="'+id+'"]', this._element);
+          el = SelectorEngine.findOne('[coreui-event-'+handlers[id].eventType+'="'+id+'"]', this._element);
           EventHandler.on(el, handlers[id].eventType+EVENT_KEY, handlers[id].f);
         }
 
@@ -1236,7 +1311,109 @@ class Datatable {
 
     }
 
+    const renderPartDyn = (part, idx)=>{
+
+      handlers = {};
+      comps = {};
+      eventN = 0;
+      compN = 0;
+
+      //for (let name in this._templatePart[part][idx])
+      //  last
+
+      let par = this._templatePart[part][idx].par;
+      par['.part'] = part;
+      par['.idx'] = idx;
+      code = htmlRep(this._templatePart[part][idx].html, par);
+      //console.log('code part:'+part, code);
+
+      let el, elMod;
+
+      if (!this._codes[part] || code!==this._codes[part][idx]){ //let m = md5(code)!==this._code['part']
+
+        if (part==='head'){
+          console.log('dif');
+          if (this._codes[part]) console.log(this._codes[part][idx]);
+          console.log(this._codes[part] ? this._codes[part][idx] : 'no', code);
+        }
+
+        if (this._codes[part] &&
+          this._userFocusElement &&
+          this._userFocusElement.part===part &&
+          this._userFocusElement.idx===idx)
+          return false;
+
+        if  (!this._codes[part])
+          this._codes[part] = [];
+
+        el = SelectorEngine.find('[coreui-part="'+part+'"]', this._element);
+        if (el.length===0)
+          return false;
+        el = el[idx];
+
+        //console.log('rendered', part);
+
+        el.innerHTML = code;
+        this._codes[part][idx] = code;
+
+        //for (let name in newTemplatePart)
+
+        switch (part) {
+          case 'head':
+            this._codes['part-column-filter'] = null;
+            break;
+          case 'part-column-filter':
+          this._codes['part-column-input'] = null;
+            break;
+        }
+
+        //events
+        for (let id in handlers){
+          elMod = SelectorEngine.findOne('[coreui-event-'+handlers[id].eventType+'="'+id+'"]', el);
+          //console.log('aaa', elMod, id, handlers[id]);
+          EventHandler.on(elMod, handlers[id].eventType+EVENT_KEY, handlers[id].f);
+          //EventHandler.on(elMod, handlers[id].eventType+EVENT_KEY, (function(id, part, idx){return function(event){handlers[id].f(event, part, idx)}})(id, part, idx) );
+        }
+
+        //components
+        for (let id in comps){
+          elMod = SelectorEngine.findOne('[coreui-comp="'+id+'"]', el);
+          // init
+          //console.log('comps', comps[id].props);
+          let component = new coreui[comps[id].compType](elMod, comps[id].props);
+        }
+
+      }
+      else{
+
+        //console.log('ommited render', part);
+
+        el = SelectorEngine.find('[coreui-part="'+part+'"]', this._element);
+        if (el.length===0)
+          return false;
+        el = el[idx];
+
+        //components
+        for (let id in comps){
+          elMod = SelectorEngine.findOne('[coreui-comp="'+id+'"]', el);
+          // update
+          //console.log('comps update', elMod, comps[id].props);
+          coreui[comps[id].compType].getInstance(elMod).update(comps[id].props);
+        }
+
+      }
+
+      return true;
+
+    }
+
+
     if (code!==this._codes['main']){
+
+      //console.log('rendered main');
+      //console.log(code)
+      //console.log(this._codes['main'])
+
       //insert main code
       this._element.innerHTML = code;
       this._codes = [];
@@ -1244,7 +1421,7 @@ class Datatable {
 
       //events
       for (let id in handlers){
-        el = SelectorEngine.findOne('[coreui-event="'+id+'"]', this._element);
+        el = SelectorEngine.findOne('[coreui-event-'+handlers[id].eventType+'="'+id+'"]', this._element);
         EventHandler.on(el, handlers[id].eventType+EVENT_KEY, handlers[id].f);
       }
 
@@ -1257,14 +1434,31 @@ class Datatable {
     }
 
     // render sub-parts
-
+    /*
+    renderPart('options');
     renderPart('head');
     renderPart('body');
-    renderPart('options');
-    renderPart('pagination');
-    renderPart('footer');
+    renderPart('foot');
     renderPart('loading');
+    renderPart('pagination');
+    */
 
+    //console.log('_templatePart', this._templatePart);
+
+    let rendered = {};
+    let next = true;
+    while (next){
+      next = false;
+      for (let part in this._templatePart){
+        //console.log(part);
+        if (rendered[part]) continue;
+        rendered[part] = true;
+        for (let i=0; i<this._templatePart[part].length; i++){
+          //console.log(this._templatePart[part][i].html);
+          if (renderPartDyn(part, i)) next = true;
+        }
+      }
+    }
 
     //
 
@@ -1436,59 +1630,103 @@ class Datatable {
     return EventHandler.trigger(element, type, value);
   }
 
-  _onFilterInputEvent(event, par) {
+  _onFilterInput(event, par) {
   	this._tableFilterChange(event.target.value, 'input');
   	event.preventDefault();
   	event.stopPropagation();
   }
 
-  _onFilterChangeEvent(event, par) {
+  _onFilterChange(event, par) {
   	this._tableFilterChange(event.target.value, 'change');
   	event.preventDefault();
   	event.stopPropagation();
   }
 
-  _onPaginationChangeEvent(event, par) {
+  _onFilterFocus(event, par) {
+  	//alert('focus')
+  	this._userFocusElement = {
+            part: par['.part'],
+            idx: par['.idx']
+          };
+  	event.preventDefault();
+  	event.stopPropagation();
+  }
+
+  _onFilterBlur(event, par) {
+  	//alert('blur')
+  	this._userFocusElement = null;
+  	event.preventDefault();
+  	event.stopPropagation();
+  }
+
+  _onCleanerClick(event, par) {
+  	this._clean(event);
+  	event.preventDefault();
+  	event.stopPropagation();
+  }
+
+  _onPaginationChange(event, par) {
   	this._paginationChange(event);
   	event.preventDefault();
   	event.stopPropagation();
   }
 
-  _onSortClickEvent(event, par) {
+  _onSortClick(event, par) {
   	this._changeSort(this._rawColumnNames[par["index"]], par["index"]);
   	event.preventDefault();
   	event.stopPropagation();
   }
 
-  _onColumnFilterInputEvent(event, par) {
+  _onColumnFilterInput(event, par) {
   	this._columnFilterEvent(par["colName"], event.target.value, 'input');
   	event.preventDefault();
   	event.stopPropagation();
   }
 
-  _onColumnFilterChangeEvent(event, par) {
+  _onColumnFilterChange(event, par) {
   	this._columnFilterEvent(par["colName"], event.target.value, 'change');
   	event.preventDefault();
   	event.stopPropagation();
   }
 
-  _onRowClickEvent(event, par) {
+  _onColumnFilterFocus(event, par) {
+  	//alert('focus')
+  	this._userFocusElement = {
+            part: par['.part'],
+            idx: par['.idx']
+          };
+  	event.preventDefault();
+  	event.stopPropagation();
+  }
+
+  _onColumnFilterBlur(event, par) {
+  	//alert('blur')
+  	this._userFocusElement = null;
+  	event.preventDefault();
+  	event.stopPropagation();
+  }
+
+  _onRowClick(event, par) {
   	this._rowClicked(par["item"], par["itemIndex"] + this._firstItemIndex, event);
   	event.preventDefault();
   	event.stopPropagation();
   }
 
-  _onDetailsRowClickEvent(event, par) {
+  _onDetailsRowClick(event, par) {
   	this._rowClicked(par["item"], par["itemIndex"] + this._firstItemIndex, event, true);
   	event.preventDefault();
   	event.stopPropagation();
   }
 
-  _onSortFooterClickEvent(event, par) {
+  _onSortFooterClick(event, par) {
   	this._changeSort(this._rawColumnNames[par["index"]], par["index"]);
   	event.preventDefault();
   	event.stopPropagation();
   }
+
+
+
+
 
 
   // config
@@ -1547,7 +1785,7 @@ class Datatable {
     }
   }
 
-  static jQueryInterface(config) {
+  static jQueryInterface(config, par) {
     return this.each(function () {
       Datatable.datatableInterface(this, config, par);
       /*

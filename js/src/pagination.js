@@ -221,6 +221,12 @@ class Pagination {
 
     const htmlRepStr = (code, tPar)=>htmlRep(objStr(code), tPar)
 
+    const getValue = (val, pars, par, html)=>{
+      if (val && typeof val === 'function') return htmlRepStr(val(pars), par);
+      else if (val) return htmlRepStr(val, par);
+      else return htmlRep(html, par);
+    }
+
     //
 
     // template, this.template
@@ -229,6 +235,7 @@ class Pagination {
 
 
     //***
+
 
     let replace = {};
     this._backArrowsClasses = ( ()=> {
@@ -295,53 +302,89 @@ class Pagination {
         if (val && val < this._activePage) {
           this._emitEvent('update:activePage', {val, auto:true})
         }
-      })(this._pages);
+      })(this._pages, this._old_pages);
 	this._old_pages = this._pages;
 
 
 
- 		replace['exp'] =
-        (par)=>{return htmlRepStr(this._computedClasses, par)};
+ 		replace['last-click'] =
+        (par)=>{
+          eventN++;
+          handlers[eventN] = {
+            eventType: 'click',
+            f: (event)=>this._onLastClick(event, par)
+          }
+          return 'coreui-event-click="'+eventN+'"';
+        };
 
- 		replace['exp-2'] =
-        (par)=>{return htmlRepStr(this._backArrowsClasses, par)};
+		replace['next-click'] =
+        (par)=>{
+          eventN++;
+          handlers[eventN] = {
+            eventType: 'click',
+            f: (event)=>this._onNextClick(event, par)
+          }
+          return 'coreui-event-click="'+eventN+'"';
+        };
+
+		replace['set-click'] =
+        (par)=>{
+          eventN++;
+          handlers[eventN] = {
+            eventType: 'click',
+            f: (event)=>this._onSetClick(event, par)
+          }
+          return 'coreui-event-click="'+eventN+'"';
+        };
+
+ 		replace['previous-click'] =
+        (par)=>{
+          eventN++;
+          handlers[eventN] = {
+            eventType: 'click',
+            f: (event)=>this._onPreviousClick(event, par)
+          }
+          return 'coreui-event-click="'+eventN+'"';
+        };
 
  		replace['first-click'] =
         (par)=>{
           eventN++;
           handlers[eventN] = {
             eventType: 'click',
-            f: (event)=>this._onFirstClickEvent(event, par)
+            f: (event)=>this._onFirstClick(event, par)
           }
-          return 'coreui-event="'+eventN+'"';
+          return 'coreui-event-click="'+eventN+'"';
         };
 
- 		replace['exp-3'] =
+ 		replace['classes'] =
+        (par)=>{return htmlRepStr(this._computedClasses, par)};
+
+ 		replace['back-classes'] =
+        (par)=>{return htmlRepStr(this._backArrowsClasses, par)};
+
+ 		replace['active-page'] =
         (par)=>{return htmlRepStr(this._activePage === 1, par)};
 
-		replace['exp-4'] =
+ 		replace['active-page-2'] =
         (par)=>{return htmlRepStr(this._activePage === 1, par)};
 
-		replace['first-button'] =
-        (par)=>{
-          if (this._firstButton && typeof this._firstButton === 'function') return htmlRepStr(this._firstButton(), par);
-          else if (this._firstButton) return htmlRepStr(this._firstButton, par);
-          else return htmlRep(`
+ 		replace['first-button'] =
+          (par)=>getValue(this._firstButton, null, par, `
           &laquo;
-          `, par);
-        };
+          `);
 
-		replace['double-arrows'] =
+ 		replace['double-arrows'] =
         (par)=>{
           if (this._doubleArrows) return htmlRep(`
-      <li class="{exp-2}">
+      <li class="{back-classes}">
         <a
           href="#self"
           class="page-link"
           {first-click}
-          disabled="{exp-3}"
+          disabled="{active-page}"
           aria-label="Go to first page"
-          aria-disabled="{exp-4}"
+          aria-disabled="{active-page-2}"
         >
           {first-button}
         </a>
@@ -350,45 +393,31 @@ class Pagination {
           return ''
         };
 
-		replace['exp-5'] =
+ 		replace['cack-classes'] =
         (par)=>{return htmlRepStr(this._backArrowsClasses, par)};
 
- 		replace['previous-click'] =
-        (par)=>{
-          eventN++;
-          handlers[eventN] = {
-            eventType: 'click',
-            f: (event)=>this._onPreviousClickEvent(event, par)
-          }
-          return 'coreui-event="'+eventN+'"';
-        };
-
-		replace['exp-6'] =
+ 		replace['active-page-3'] =
         (par)=>{return htmlRepStr(this._activePage === 1, par)};
 
- 		replace['exp-7'] =
+ 		replace['active-page-4'] =
         (par)=>{return htmlRepStr(this._activePage === 1, par)};
 
- 		replace['previous-button'] =
-        (par)=>{
-          if (this._previousButton && typeof this._previousButton === 'function') return htmlRepStr(this._previousButton(), par);
-          else if (this._previousButton) return htmlRepStr(this._previousButton, par);
-          else return htmlRep(`
+		replace['previous-button'] =
+          (par)=>getValue(this._previousButton, null, par, `
           &lsaquo;
-          `, par);
-        };
+          `);
 
-		replace['arrows'] =
+ 		replace['arrows'] =
         (par)=>{
           if (this._arrows) return htmlRep(`
-      <li class="{exp-5}">
+      <li class="{cack-classes}">
         <a
           href="#self"
           class="page-link"
           {previous-click}
-          disabled="{exp-6}"
+          disabled="{active-page-3}"
           aria-label="Go to previous page"
-          aria-disabled="{exp-7}"
+          aria-disabled="{active-page-4}"
         >
           {previous-button}
         </a>
@@ -410,20 +439,10 @@ class Pagination {
           return ''
         };
 
- 		replace['exp-8'] =
+ 		replace['classes-2'] =
         (par)=>{return htmlRepStr([{'active': this._activePage === par["item"] }, 'page-item'], par)};
 
-		replace['set-click'] =
-        (par)=>{
-          eventN++;
-          handlers[eventN] = {
-            eventType: 'click',
-            f: (event)=>this._onSetClickEvent(event, par)
-          }
-          return 'coreui-event="'+eventN+'"';
-        };
-
- 		replace['exp-9'] =
+		replace['exp'] =
         (par)=>{return htmlRepStr(this._activePage === par["item"] ? `Current page par["item"]` : `Go to page par["item"]`, par)};
 
  		replace['items'] =
@@ -435,13 +454,13 @@ class Pagination {
             code+=htmlRep(`
       <li
         key="{:item}"
-        class="{exp-8}"
+        class="{classes-2}"
       >
         <a
           href="#self"
           class="page-link c-page-link-number"
           {set-click}
-          aria-label="{exp-9}"
+          aria-label="as label {exp}"
         >
           {:item}
         </a>
@@ -451,7 +470,7 @@ class Pagination {
           return code;
         };
 
-		replace['after-dots'] =
+ 		replace['after-dots'] =
         (par)=>{
           if (this._afterDots) return htmlRep(`
       <li
@@ -464,47 +483,33 @@ class Pagination {
           return ''
         };
 
- 		replace['exp-10'] =
+ 		replace['next-classes'] =
         (par)=>{return htmlRepStr(this._nextArrowsClasses, par)};
 
- 		replace['next-click'] =
-        (par)=>{
-          eventN++;
-          handlers[eventN] = {
-            eventType: 'click',
-            f: (event)=>this._onNextClickEvent(event, par)
-          }
-          return 'coreui-event="'+eventN+'"';
-        };
-
-		replace['exp-11'] =
+ 		replace['active-page-5'] =
         (par)=>{return htmlRepStr(this._activePage === this._pages, par)};
 
- 		replace['exp-12'] =
+ 		replace['active-page-6'] =
         (par)=>{return htmlRepStr(this._activePage === this._pages, par)};
 
  		replace['next-button'] =
-        (par)=>{
-          if (this._nextButton && typeof this._nextButton === 'function') return htmlRepStr(this._nextButton(), par);
-          else if (this._nextButton) return htmlRepStr(this._nextButton, par);
-          else return htmlRep(`
+          (par)=>getValue(this._nextButton, null, par, `
           &rsaquo;
-          `, par);
-        };
+          `);
 
  		replace['arrows-2'] =
         (par)=>{
           if (this._arrows) return htmlRep(`
       <li
-        class="{exp-10}"
+        class="{next-classes}"
       >
         <a
           href="#self"
           class="page-link"
           {next-click}
-          disabled="{exp-11}"
+          disabled="{active-page-5}"
           aria-label="Go to next page"
-          aria-disabled="{exp-12}"
+          aria-disabled="{active-page-6}"
         >
           {next-button}
         </a>
@@ -513,45 +518,31 @@ class Pagination {
           return ''
         };
 
- 		replace['exp-13'] =
+		replace['next-classes-2'] =
         (par)=>{return htmlRepStr(this._nextArrowsClasses, par)};
 
-		replace['last-click'] =
-        (par)=>{
-          eventN++;
-          handlers[eventN] = {
-            eventType: 'click',
-            f: (event)=>this._onLastClickEvent(event, par)
-          }
-          return 'coreui-event="'+eventN+'"';
-        };
-
- 		replace['exp-14'] =
+		replace['active-page-7'] =
         (par)=>{return htmlRepStr(this._activePage === this._pages, par)};
 
- 		replace['exp-15'] =
+ 		replace['active-page-8'] =
         (par)=>{return htmlRepStr(this._activePage === this._pages, par)};
 
  		replace['last-button'] =
-        (par)=>{
-          if (this._lastButton && typeof this._lastButton === 'function') return htmlRepStr(this._lastButton(), par);
-          else if (this._lastButton) return htmlRepStr(this._lastButton, par);
-          else return htmlRep(`
+          (par)=>getValue(this._lastButton, null, par, `
           &raquo;
-          `, par);
-        };
+          `);
 
  		replace['double-arrows-2'] =
         (par)=>{
           if (this._doubleArrows) return htmlRep(`
-      <li class="{exp-13}">
+      <li class="{next-classes-2}">
         <a
           href="#self"
           class="page-link"
           {last-click}
-          disabled="{exp-14}"
+          disabled="{active-page-7}"
           aria-label="Go to last page"
-          aria-disabled="{exp-15}"
+          aria-disabled="{active-page-8}"
         >
           {last-button}
         </a>
@@ -561,11 +552,9 @@ class Pagination {
         };
 
 
-
-
     this._template = `
       <nav aria-label="pagination">
-        <ul class="{exp}">
+        <ul class="{classes}">
           {double-arrows}
           {arrows}
           {before-dots}
@@ -599,7 +588,7 @@ class Pagination {
 
       //events
       for (let id in handlers){
-        el = SelectorEngine.findOne('[coreui-event="'+id+'"]', this._element);
+        el = SelectorEngine.findOne('[coreui-event-'+handlers[id].eventType+'="'+id+'"]', this._element);
         EventHandler.on(el, handlers[id].eventType+EVENT_KEY, handlers[id].f);
       }
 
@@ -610,21 +599,6 @@ class Pagination {
         let component = new coreui[comps[id].compType](el, comps[id].props);
       }
     }
-
-    /*
-
-    //insert code
-    this._element.innerHTML = code;
-
-    let el;
-
-    //events
-    for (let id in handlers){
-      el = SelectorEngine.findOne('[coreui-event="'+id+'"]', this._element);
-      EventHandler.on(el, handlers[id].eventType+EVENT_KEY, handlers[id].f);
-    }
-
-    */
 
     setTimeout(()=>{
       this._rendered();
@@ -678,31 +652,31 @@ class Pagination {
     return EventHandler.trigger(element, type, value);
   }
 
-  _onFirstClickEvent(event, par) {
+  _onFirstClick(event, par) {
   	this._setPage(1);
   	event.preventDefault();
   	event.stopPropagation();
   }
 
-  _onPreviousClickEvent(event, par) {
+  _onPreviousClick(event, par) {
   	this._setPage(this._activePage - 1);
   	event.preventDefault();
   	event.stopPropagation();
   }
 
-  _onSetClickEvent(event, par) {
+  _onSetClick(event, par) {
   	this._setPage(par["item"], event);
   	event.preventDefault();
   	event.stopPropagation();
   }
 
-  _onNextClickEvent(event, par) {
+  _onNextClick(event, par) {
   	this._setPage(this._activePage + 1);
   	event.preventDefault();
   	event.stopPropagation();
   }
 
-  _onLastClickEvent(event, par) {
+  _onLastClick(event, par) {
   	return (event)=>this._setPage(this._pages);
   	event.preventDefault();
   	event.stopPropagation();

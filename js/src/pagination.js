@@ -7,7 +7,6 @@
 
 import {
   getjQuery,
-  getElementFromSelector,
   typeCheckConfig,
   objStr,
   findRep
@@ -23,7 +22,7 @@ import SelectorEngine from './dom/selector-engine'
  * ------------------------------------------------------------------------
  */
 
-const NAME = 'pagination' //zmienna
+const NAME = 'pagination'
 const VERSION = '3.2.2'
 const DATA_KEY = 'coreui.pagination'
 const EVENT_KEY = `.${DATA_KEY}`
@@ -31,26 +30,6 @@ const DATA_API_KEY = '.data-api'
 
 // zmienne
 const SELECTOR_COMPONENT = '[data-coreui="pagination"]'
-
-const SELECTOR_LIST = '[data-list]'
-const SELECTOR_INPUT = 'input'
-const SELECTOR_TAGS = '.c-tag-area'
-const SELECTOR_TAG_DEL = '.c-tag button'
-
-const EVENT_OPEN = `open${EVENT_KEY}`
-const EVENT_CLOSE = `close${EVENT_KEY}`
-const EVENT_SEARCH = `search${EVENT_KEY}`
-const EVENT_FOCUS = `focus${EVENT_KEY}`
-const EVENT_BLUR = `blur${EVENT_KEY}`
-const EVENT_CHANGE = `keyup${EVENT_KEY}`
-const EVENT_CLICK = `click${EVENT_KEY}`
-
-const TAG_LIST = 'UL'
-const TAG_ITEM = 'LI'
-
-const CLASSNAME_MULTI_SELECT = 'c-select'
-const CLASSNAME_TAG = 'c-tag'
-const CLASSNAME_LABEL = 'c-label'
 
 //jquery
 const EVENT_LOAD_DATA_API = `load${EVENT_KEY}${DATA_API_KEY}`
@@ -88,24 +67,6 @@ const Default = {
 class Pagination {
   constructor(element, config) {
 
-    //alert('template');
-
-    /*
-
-    Dropdown
-
-    this._element = element
-    this._popper = null
-    this._config = this._getConfig(config)
-    this._menu = this._getMenuElement()
-    this._inNavbar = this._detectNavbar()
-    this._inHeader = this._detectHeader()
-
-    this._addEventListeners()
-    Data.setData(element, DATA_KEY, this)
-
-    */
-
     //check if exist
 
     if (Data.getData(element, DATA_KEY)) { // already found
@@ -131,13 +92,6 @@ class Pagination {
 
     //data
 
-    let data = (()=>{
-    return {
-    }
-    })()
-    for (let key in data)
-      this['_'+key] = data[key];
-
 
     // init
 
@@ -150,30 +104,6 @@ class Pagination {
 
 
     return;
-
-    /*
-
-    //list
-    this._elementList = SelectorEngine.findOne(SELECTOR_LIST, element);
-    if (this._elementList) {
-      this._elementList.style.display = 'none';
-    }
-
-
-    //set init values ?
-    this._getNames();
-
-    this._config.selected.map(val=>{
-      this._options[val] = this._names[val];
-    });
-
-    //input
-    this._elementInput = SelectorEngine.findOne(SELECTOR_INPUT, element);
-
-    //tags
-    this._elementTags = SelectorEngine.findOne(SELECTOR_TAGS, element);
-
-    */
 
   }
 
@@ -226,15 +156,6 @@ class Pagination {
       else if (val) return htmlRepStr(val, par);
       else return htmlRep(html, par);
     }
-
-    //
-
-    // template, this.template
-
-    //alert('pagination render');
-
-
-    //***
 
 
     let replace = {};
@@ -306,6 +227,7 @@ class Pagination {
 	this._old_pages = this._pages;
 
 
+    // events
 
  		replace['last-click'] =
         (par)=>{
@@ -356,6 +278,8 @@ class Pagination {
           }
           return 'coreui-event-click="'+eventN+'"';
         };
+
+    //
 
  		replace['classes'] =
         (par)=>{return htmlRepStr(this._computedClasses, par)};
@@ -742,26 +666,6 @@ class Pagination {
   static jQueryInterface(config, par) {
     return this.each(function () {
       Pagination.paginationInterface(this, config, par);
-      /*
-      let data = Data.getData(this, DATA_KEY)
-
-      if (!data) {
-        data = new Pagination(this)
-      }
-
-      switch (config){
-        case 'update':
-        data[config](this, par)
-        break;
-        case 'dispose':
-        case 'open':
-        case 'close':
-        case 'search':
-        case 'value':
-        data[config](this)
-        break;
-      }
-      */
     })
   }
 

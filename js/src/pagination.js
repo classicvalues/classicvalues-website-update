@@ -601,7 +601,7 @@ class Pagination {
   }
 
   _onLastClick(event, par) {
-  	return (event)=>this._setPage(this._pages);
+  	this._setPage(this._pages);
   	event.preventDefault();
   	event.stopPropagation();
   }

@@ -12,6 +12,18 @@ import { defineJQueryPlugin } from './util/index'
 import EventHandler from './dom/event-handler'
 import BaseComponent from './base-component'
 
+const Default = {
+  mask: '',
+  value: '',
+  //onChange
+}
+
+const DefaultType = {
+  mask: 'string',
+  value: 'string',
+  //onChange
+}
+
 /**
  * ------------------------------------------------------------------------
  * Constants
@@ -29,6 +41,11 @@ const SELECTOR_DATA_TOGGLE = '[data-coreui-toggle="button"]' //?
 
 const EVENT_CLICK_DATA_API = `click${EVENT_KEY}${DATA_API_KEY}` //?
 
+
+//
+const EVENT_CHANGED = `changed${EVENT_KEY}`
+const EVENT_LOAD_DATA_API = `load${EVENT_KEY}${DATA_API_KEY}`
+
 /**
  * ------------------------------------------------------------------------
  * Class Definition
@@ -36,7 +53,31 @@ const EVENT_CLICK_DATA_API = `click${EVENT_KEY}${DATA_API_KEY}` //?
  */
 
 class FormMask extends BaseComponent {
+
+  constructor(element, config) {
+    super(element)
+
+    //this._popper = null
+    this._config = this._getConfig(config)
+    //this._menu = this._getMenuElement()
+    //this._inNavbar = this._detectNavbar()
+
+    this.data
+    this.mask
+    this.onChange
+
+    this._addEventListeners()
+  }
+
   // Getters
+
+  static get Default() {
+    return Default
+  }
+
+  static get DefaultType() {
+    return DefaultType
+  }
 
   static get NAME() {
     return NAME
@@ -44,6 +85,7 @@ class FormMask extends BaseComponent {
 
   // Public
 
+  // ?
   toggle() {
     // Toggle class and sync the `aria-pressed` attribute with the return value of the `.toggle()` method
     this._element.setAttribute('aria-pressed', this._element.classList.toggle(CLASS_NAME_ACTIVE))
@@ -51,23 +93,83 @@ class FormMask extends BaseComponent {
 
   // Private
 
+  _getConfig(config, update) {
+    if (update !== true) {
+      config = {
+        ...this.constructor.Default,
+        ...Manipulator.getDataAttributes(this._element),
+        ...config
+      }
+    }
+    typeCheckConfig(
+      NAME,
+      config,
+      this.constructor.DefaultType
+    )
+    return config
+  }
+
+  // add event listeners
+  _addEventListeners() {
+    EventHandler.on(this._element, EVENT_CHANGED, () => {
+      //this._updateValue()
+    })
+
+    // EventHandler.on(this._clone, EVENT_CLICK, () => {
+    //   this.show()
+    // })
+    //
+    // EventHandler.on(this._searchElement, EVENT_KEYUP, () => {
+    //   this._onSearchChange(this._searchElement)
+    // })
+    //
+    // EventHandler.on(this._searchElement, EVENT_KEYDOWN, event => {
+    //   const key = event.keyCode || event.charCode
+    //
+    //   if ((key === 8 || key === 46) && event.target.value.length === 0) {
+    //     this._selectionDeleteLast()
+    //   }
+    // })
+    //
+    // EventHandler.on(this._optionsElement, EVENT_CLICK, event => {
+    //   event.preventDefault()
+    //   event.stopPropagation()
+    //   this._onOptionsClick(event.target)
+    // })
+    //
+    // EventHandler.on(this._selectionCleanerElement, EVENT_CLICK, event => {
+    //   event.preventDefault()
+    //   event.stopPropagation()
+    //   this._selectionClear()
+    //   this._updateSelection()
+    //   // this._updateSelectionCleaner()
+    //   this._updateSearch()
+    //   this._updateSearchSize()
+    // })
+    //
+    // EventHandler.on(this._optionsElement, EVENT_KEYDOWN, event => {
+    //   const key = event.keyCode || event.charCode
+    //
+    //   if (key === 13) {
+    //     this._onOptionsClick(event.target)
+    //     SelectorEngine.findOne(SELECTOR_INPUT, this._clone).focus()
+    //   }
+    // })
+  }
+
   // warn about mask
-  _wrongMask(msg:string) {
+  _wrongMask(msg) {
     console.warn(`Wrong mask format (${msg})!`)
   }
 
   // check value in context of whole input value
-  _checkValueForInput(type:string, value: string) {
+  _checkValueForInput(type, value) {
     switch (type) {
       case 'year':
       case 'month':
       case 'day':
-        const values:{
-          year?: string
-          month?: string
-          day?: string
-        } = {}
-        for (let part of data.maskPart)
+        const values = {}
+        for (let part of this.data.maskPart)
           switch (part.type) {
             case 'year':
             case 'month':
@@ -87,7 +189,7 @@ class FormMask extends BaseComponent {
   }
 
   // check value for mask part
-  _checkValueForPart(value:string, part:maskPartType, ready = false) {
+  _checkValueForPart(value, part, ready = false) {
     //console.log(part.type, value, value.length)
     // check
     switch(part.type) {
@@ -132,22 +234,22 @@ class FormMask extends BaseComponent {
         break;
     }
     // TODO: add onCheck callback prop
-    // if (onCheck && !onCheck(data.maskPart))
+    // if (onCheck && !onCheck(this.data.maskPart))
     //   return false
     return true
   }
 
   // check whole input value
   _checkValue() {
-    for (let part of data.maskPart)
+    for (let part of this.data.maskPart)
       if (!checkValueForPart(part.value, part, true))
         return false
     return true
   }
 
   // check part value and render final version
-  _renderPart(part:maskPartType) {
-    //const part = data.maskPart[idx]
+  _renderPart(part) {
+    //const part = this.data.maskPart[idx]
     // check type
     // if (value && !checkValueForPart(value, part))
     //   return {check: false, render: ''}
@@ -161,7 +263,7 @@ class FormMask extends BaseComponent {
   }
 
   // find parameters value ('(...)') based on string starting with '('
-  _findParametersEnd(s:string) {
+  _findParametersEnd(s) {
     let opening = 0
     for (let i=0; i<s.length; i++)
       if (s[i]==='(')
@@ -177,25 +279,24 @@ class FormMask extends BaseComponent {
   // render input value based on maskPart object
   _renderValue() {
     let value = ''
-    for (let part of data.maskPart)
+    for (let part of this.data.maskPart)
       value += renderPart(part)
     return value
   }
 
   // update value
-  // on change input handler
-  _updateValue(value:string, cursorPos: number) {
+  _updateValue(value, cursorPos) {
     let start = 0
     let modified = false
-    for (let i=0; i<data.maskPart.length; i++) {
-      const length = data.maskPart[i].length
+    for (let i=0; i<this.data.maskPart.length; i++) {
+      const length = this.data.maskPart[i].length
       let limiterIdx = -1
       let limiter = null
-      if (i+1<data.maskPart.length) {
+      if (i+1<this.data.maskPart.length) {
         limiter = data.maskPart[i+1].value
         limiterIdx = value.indexOf(limiter, start)
       }
-      if (data.maskPart[i].type!=='const') {
+      if (this.data.maskPart[i].type!=='const') {
         let v = ''
         let idx
         let lastIdx = 0
@@ -209,10 +310,10 @@ class FormMask extends BaseComponent {
         }
         // set new value for mask part
         //console.log(v, data.maskPart[i].value)
-        if (checkValueForPart(v, data.maskPart[i])) {
-          if (v!==data.maskPart[i].value) {
+        if (checkValueForPart(v, this.data.maskPart[i])) {
+          if (v!==this.data.maskPart[i].value) {
             //console.log(v, data.maskPart[i].value)
-            data.maskPart[i].value = v
+            this.data.maskPart[i].value = v
             if (limiter && lastIdx===length)
               cursorPos += limiter.length
             modified = true
@@ -227,23 +328,28 @@ class FormMask extends BaseComponent {
         start += length
     }
     //console.log(_maskPart, getValue())
-    console.log(modified, changeCounter, setChangeCounter)
+    //console.log(modified, changeCounter, setChangeCounter)
     // update input value
     const render = renderValue()
     //console.log(render, value)
     if (render===_value)
       cursorPos = 0
-    data.cursorPos = cursorPos
+    this.data.cursorPos = cursorPos
     _setValue(render)
-    setChangeCounter(changeCounter+1)
+    //setChangeCounter(changeCounter+1)
     return render
+  }
+
+  _setValue(value) {
+    // change input attribute
+    // ...
   }
 
   //
 
   _changeMask() {
-    data.maskPart = []
-    const maskTab = mask.split('%')
+    this.data.maskPart = []
+    const maskTab = this.mask.split('%')
     for (let i=0; i<maskTab.length; i++) {
       const getParameters = () => {
         if (maskTab[i][1]!=='(') {
@@ -268,7 +374,7 @@ class FormMask extends BaseComponent {
 
       if (i===0) {
         if (maskTab[i].length>0)
-          data.maskPart.push({
+          this.data.maskPart.push({
             type: 'const', length: maskTab[i].length, value: maskTab[i]
           })
         continue
@@ -289,11 +395,11 @@ class FormMask extends BaseComponent {
           minLength = range[0].length
           maxLength = range[1].length
           length = minLength>maxLength ? minLength : maxLength
-          data.maskPart.push({
+          this.data.maskPart.push({
             type: 'number', length, value: ''
           })
-          data.maskPart[ data.maskPart.length-1 ].valueFrom = Number(range[0])
-          data.maskPart[ data.maskPart.length-1 ].valueTo = Number(range[1])
+          this.data.maskPart[ this.data.maskPart.length-1 ].valueFrom = Number(range[0])
+          this.data.maskPart[ this.data.maskPart.length-1 ].valueTo = Number(range[1])
           break
 
         case 's': // string found
@@ -310,11 +416,11 @@ class FormMask extends BaseComponent {
           minLength = Number(range[0])
           maxLength = Number(range[1])
           length = minLength>maxLength ? minLength : maxLength
-          data.maskPart.push({
+          this.data.maskPart.push({
             type: 'string', length, value: ''
           })
-          data.maskPart[ data.maskPart.length-1 ].lengthFrom = Number(range[0])
-          data.maskPart[ data.maskPart.length-1 ].lengthTo = Number(range[1])
+          this.data.maskPart[ this.data.maskPart.length-1 ].lengthFrom = Number(range[0])
+          this.data.maskPart[ this.data.maskPart.length-1 ].lengthTo = Number(range[1])
           break
 
         case 'r': // regular expresion found
@@ -330,7 +436,7 @@ class FormMask extends BaseComponent {
           pars.forEach( (_, idx) => pars[idx] = pars[idx].trim() )
           const size = pars[pars.length-1]
           pars.pop()
-          data.maskPart.push({
+          this.data.maskPart.push({
             type: 'regular', expresion: pars.join(' size '), length: Number(size), value: ''
           })
           break
@@ -338,31 +444,31 @@ class FormMask extends BaseComponent {
         // date
 
         case 'y':
-          data.maskPart.push({
+          this.data.maskPart.push({
             type: 'year', length: 4, valueFrom: 1970, valueTo: 2100, value: ''
           })
           break
 
         case 'm':
-          data.maskPart.push({
+          this.data.maskPart.push({
             type: 'month', length: 2, valueFrom: 1, valueTo: 12, value: ''
           })
           break
 
         case 'd':
-          data.maskPart.push({
+          this.data.maskPart.push({
             type: 'day', length: 2, valueFrom: 1, valueTo: 31, value: ''
           })
           break
 
         case 'h':
-          data.maskPart.push({
+          this.data.maskPart.push({
             type: 'hour', length: 2, valueFrom: 0, valueTo: 23, value: ''
           })
           break
 
         case 'i': // minute or second
-          data.maskPart.push({
+          this.data.maskPart.push({
             type: 'minute', length: 2, valueFrom: 0, valueTo: 59, value: ''
           })
           break
@@ -371,7 +477,7 @@ class FormMask extends BaseComponent {
       if ('nsr'.indexOf(maskTab[i][0])>-1) { // parameters types
         // handle part next to parameters
         if (parameters && parameters[1]!=='')
-          data.maskPart.push({
+          this.data.maskPart.push({
             type: 'const', length: parameters[1].length, value: parameters[1]
           })
       }
@@ -380,7 +486,7 @@ class FormMask extends BaseComponent {
         // handle part next to parameters
         const next = maskTab[i].substr(1)
         if (next!=='')
-          data.maskPart.push({
+          this.data.maskPart.push({
             type: 'const', length: next.length, value: next
           })
       }
@@ -393,23 +499,23 @@ class FormMask extends BaseComponent {
 
   // prop value change
   _changeValue() {
-    value && typeof value === 'string' && updateValue(value, 0)
+    this.value && typeof this.value === 'string' && updateValue(this.value, 0)
   })
 
   // restore cursor position
-  _restoreCursor() {
-    console.log(inputRef, ref)
-    const input = inputRef.current
-    if (input) {
-      input.selectionStart = data.cursorPos
-      input.selectionEnd = data.cursorPos
-    }
-  }
+  // _restoreCursor() {
+  //   //console.log(inputRef, ref)
+  //   const input = inputRef.current
+  //   if (input) {
+  //     input.selectionStart = data.cursorPos
+  //     input.selectionEnd = data.cursorPos
+  //   }
+  // }
 
   // Events
 
   // on change input handler
-  _onChange(e: ChangeEvent<HTMLInputElement>) {
+  _onChange(e) {
     //console.log(e)
     const value = e.target.value
     //console.log(value)
@@ -418,29 +524,64 @@ class FormMask extends BaseComponent {
     if (render!=_value) {
       // on change user action
       console.log('check: ', checkValue())
-      onChange && onChange(e)
+      this.onChange && this.onChange(e)
     }
   }
 
   // on blur input handler
-  _onBlur(e: FocusEvent<HTMLInputElement>) {
-    //console.log('blur')
-    data.cursorPos = null
-    onBlur && onBlur(e)
-  }
-  
+  // _onBlur(e: FocusEvent<HTMLInputElement>) {
+  //   //console.log('blur')
+  //   data.cursorPos = null
+  //   onBlur && onBlur(e)
+  // }
+
 
   // Static
 
-  static jQueryInterface(config) {
-    return this.each(function () {
-      const data = Button.getOrCreateInstance(this)
+  // static jQueryInterface(config) {
+  //   return this.each(function () {
+  //     const data = Button.getOrCreateInstance(this)
+  //
+  //     if (config === 'toggle') {
+  //       data[config]()
+  //     }
+  //   })
+  // }
 
-      if (config === 'toggle') {
-        data[config]()
+  static initComponent(element, config, par) {
+    // let data = Data.getData(element, DATA_KEY)
+    // if (!data) {
+    //   data = typeof config === 'object' ? new MultiSelect(element, config) : new MultiSelect(element)
+    // }
+    const data = Button.getOrCreateInstance(this)
+    if (typeof config === 'string') {
+      const method = config
+      if (typeof data[method] === 'undefined') {
+        throw new TypeError(`No method named "${method}"`)
       }
+      // eslint-disable-next-line default-case
+      switch (method){
+        case 'update':
+        data[method](par)
+        break;
+        // case 'search':
+        // data[method]('')
+        // break;
+        // case 'dispose':
+        // case 'show':
+        // case 'hide':
+        // data[method]()
+        // break;
+      }
+    }
+  }
+
+  static jQueryInterface(config, par) {
+    return this.each(function () {
+      FormMask.initComponent(this, config, par);
     })
   }
+
 }
 
 /**
@@ -449,14 +590,21 @@ class FormMask extends BaseComponent {
  * ------------------------------------------------------------------------
  */
 
-EventHandler.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, event => {
-  event.preventDefault()
-
-  const button = event.target.closest(SELECTOR_DATA_TOGGLE)
-  const data = Button.getOrCreateInstance(button)
-
-  data.toggle()
+EventHandler.on(window, EVENT_LOAD_DATA_API, () => {
+  // eslint-disable-next-line unicorn/prefer-spread
+  Array.from(document.querySelectorAll(SELECTOR_COMPONENT)).forEach(element => {
+    FormMask.initComponent(element, Manipulator.getDataAttributes(element))
+  })
 })
+
+// EventHandler.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, event => {
+//   event.preventDefault()
+//
+//   const button = event.target.closest(SELECTOR_DATA_TOGGLE)
+//   const data = Button.getOrCreateInstance(button)
+//
+//   data.toggle()
+// })
 
 /**
  * ------------------------------------------------------------------------

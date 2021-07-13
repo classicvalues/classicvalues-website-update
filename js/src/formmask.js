@@ -43,6 +43,7 @@ const EVENT_CLICK_DATA_API = `click${EVENT_KEY}${DATA_API_KEY}` //?
 
 
 //
+const SELECTOR_COMPONENT = '.c-formmask'
 const EVENT_CHANGED = `changed${EVENT_KEY}`
 const EVENT_LOAD_DATA_API = `load${EVENT_KEY}${DATA_API_KEY}`
 
@@ -334,18 +335,22 @@ class FormMask extends BaseComponent {
     //console.log(render, value)
     if (render===_value)
       cursorPos = 0
-    this.data.cursorPos = cursorPos
+    // update value
     _setValue(render)
     //setChangeCounter(changeCounter+1)
+    // set cursor position
+    //this.data.cursorPos = cursorPos
+    this._element.selectionStart = cursorPos
+    this._element.selectionEnd = cursorPos
     return render
   }
 
   _setValue(value) {
     // change input attribute
-    // ...
+    this._element.value = value
   }
 
-  //
+  // after prop change
 
   _changeMask() {
     this.data.maskPart = []
@@ -499,7 +504,7 @@ class FormMask extends BaseComponent {
 
   // prop value change
   _changeValue() {
-    this.value && typeof this.value === 'string' && updateValue(this.value, 0)
+    this._config.value && typeof this._config.value === 'string' && updateValue(this._config.value, 0)
   })
 
   // restore cursor position
@@ -524,7 +529,7 @@ class FormMask extends BaseComponent {
     if (render!=_value) {
       // on change user action
       console.log('check: ', checkValue())
-      this.onChange && this.onChange(e)
+      this._config.onChange && this._config.onChange(e)
     }
   }
 
@@ -576,6 +581,7 @@ class FormMask extends BaseComponent {
     }
   }
 
+  // function for jquery
   static jQueryInterface(config, par) {
     return this.each(function () {
       FormMask.initComponent(this, config, par);
@@ -590,6 +596,7 @@ class FormMask extends BaseComponent {
  * ------------------------------------------------------------------------
  */
 
+// automatically components init based on class
 EventHandler.on(window, EVENT_LOAD_DATA_API, () => {
   // eslint-disable-next-line unicorn/prefer-spread
   Array.from(document.querySelectorAll(SELECTOR_COMPONENT)).forEach(element => {

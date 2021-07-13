@@ -10,6 +10,7 @@ import Button from './src/button'
 import Carousel from './src/carousel'
 import Collapse from './src/collapse'
 import Dropdown from './src/dropdown'
+import FormMask from './src/formmask'
 import Modal from './src/modal'
 import Navigation from './src/navigation'
 import OffCanvas from './src/offcanvas'
@@ -26,6 +27,7 @@ export default {
   Carousel,
   Collapse,
   Dropdown,
+  FormMask,
   Modal,
   Navigation,
   OffCanvas,

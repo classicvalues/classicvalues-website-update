@@ -13,7 +13,7 @@ import EventHandler from './dom/event-handler'
 import BaseComponent from './base-component'
 
 const Default = {
-  mask: '',
+  mask: '%n(1 to 105)',
   value: '',
   //onChange
 }
@@ -59,13 +59,14 @@ class FormMask extends BaseComponent {
     super(element)
 
     //this._popper = null
-    this._config = this._getConfig(config)
+    //this._config = this._getConfig(config)
     //this._menu = this._getMenuElement()
     //this._inNavbar = this._detectNavbar()
 
-    this.data
-    this.mask
-    this.onChange
+    this.update(config)
+
+    //instance data
+    this.data = {}
 
     this._addEventListeners()
   }
@@ -86,11 +87,21 @@ class FormMask extends BaseComponent {
 
   // Public
 
-  // ?
-  toggle() {
-    // Toggle class and sync the `aria-pressed` attribute with the return value of the `.toggle()` method
-    this._element.setAttribute('aria-pressed', this._element.classList.toggle(CLASS_NAME_ACTIVE))
+  update(config) { // public method
+    const mask = this._config ? this._config.mask : ''
+    const value = this._config ? this._config.value : ''
+    this._config = this._getConfig(config)
+    if (this._config.mask!==mask)
+      this._changeMask()
+    if (this._config.value!==value)
+      this._changeValue()
   }
+
+  // ?
+  // toggle() {
+  //   // Toggle class and sync the `aria-pressed` attribute with the return value of the `.toggle()` method
+  //   this._element.setAttribute('aria-pressed', this._element.classList.toggle(CLASS_NAME_ACTIVE))
+  // }
 
   // Private
 
@@ -112,8 +123,9 @@ class FormMask extends BaseComponent {
 
   // add event listeners
   _addEventListeners() {
-    EventHandler.on(this._element, EVENT_CHANGED, () => {
-      //this._updateValue()
+    EventHandler.on(this._element, EVENT_CHANGED, (e) => {
+      alert('change')
+      this._onChange(e)
     })
 
     // EventHandler.on(this._clone, EVENT_CLICK, () => {
@@ -354,7 +366,7 @@ class FormMask extends BaseComponent {
 
   _changeMask() {
     this.data.maskPart = []
-    const maskTab = this.mask.split('%')
+    const maskTab = this._config.mask.split('%')
     for (let i=0; i<maskTab.length; i++) {
       const getParameters = () => {
         if (maskTab[i][1]!=='(') {
@@ -572,11 +584,11 @@ class FormMask extends BaseComponent {
         // case 'search':
         // data[method]('')
         // break;
-        // case 'dispose':
+        case 'dispose':
         // case 'show':
         // case 'hide':
-        // data[method]()
-        // break;
+        data[method]()
+        break;
       }
     }
   }

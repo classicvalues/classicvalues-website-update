@@ -1,6 +1,6 @@
 /**
  * --------------------------------------------------------------------------
- * CoreUI (v4.0.1): formmask.js
+ * CoreUI (v4.0.1): form-mask.js
  * Licensed under MIT (https://coreui.io/license)
  *
  * This component is a modified version of the Bootstrap's button.js
@@ -30,8 +30,8 @@ const DefaultType = {
  * ------------------------------------------------------------------------
  */
 
-const NAME = 'formmask'
-const DATA_KEY = 'coreui.formmask'
+const NAME = 'form-mask'
+const DATA_KEY = 'coreui.form-mask'
 const EVENT_KEY = `.${DATA_KEY}`
 const DATA_API_KEY = '.data-api'
 
@@ -385,7 +385,7 @@ class FormMask extends BaseComponent {
 
       let minLength = 0
       let maxLength = 0
-      let range: string[]
+      let range = []
       let length, par
       let parameters
 
@@ -517,7 +517,7 @@ class FormMask extends BaseComponent {
   // prop value change
   _changeValue() {
     this._config.value && typeof this._config.value === 'string' && updateValue(this._config.value, 0)
-  })
+  }
 
   // restore cursor position
   // _restoreCursor() {

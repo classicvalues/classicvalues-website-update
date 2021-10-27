@@ -374,20 +374,20 @@ class DatePicker extends BaseComponent {
         // set year/month limits, correct range is (year-min/month-min, yearmax/month-max)
         if (props.minDate) {
           const minDateObj = new Date(minDate)
-          setState(minYear, minDateObj.getFullYear())
-          setState(minMonth, minDateObj.getMonth())
-          setState(minDay, 100) // 100 if min/max date is set
+          t.setState(minYear, minDateObj.getFullYear())
+          t.setState(minMonth, minDateObj.getMonth())
+          t.setState(minDay, 100) // 100 if min/max date is set
         }
         else
-          setState(maxDay, -1)
+          t.setState(maxDay, -1)
         if (props.maxDate) {
           const maxDateObj = new Date(maxDate)
-          setState(maxYear,maxDateObj.getFullYear())
-          setState(maxMonth, maxDateObj.getMonth())
-          setState(maxDay, 100) // 100 if min/max date is set
+          t.setState(maxYear,maxDateObj.getFullYear())
+          t.setState(maxMonth, maxDateObj.getMonth())
+          t.setState(maxDay, 100) // 100 if min/max date is set
         }
         else
-          setState(maxDay, -1)
+          t.setState(maxDay, -1)
       }, [minDate, maxDate])
 
       // handling of 'date' props change
@@ -396,21 +396,21 @@ class DatePicker extends BaseComponent {
         if (props.date) {
           const dateObj = new Date(date)
           // set selected date
-          setState(year, dateObj.getFullYear())
-          setState(month, dateObj.getMonth())
-          setState(day, dateObj.getDate())
+          t.setState(year, dateObj.getFullYear())
+          t.setState(month, dateObj.getMonth())
+          t.setState(day, dateObj.getDate())
         }
         else
-          setState(day, -1)
+          t.setState(day, -1)
         // range selection available
         if (range && dateTo) {
           const dateObj = new Date(dateTo)
-          setState(yearTo, dateObj.getFullYear())
-          setState(monthTo, dateObj.getMonth())
-          setState(dayTo, dateObj.getDate())
+          t.setState(yearTo, dateObj.getFullYear())
+          t.setState(monthTo, dateObj.getMonth())
+          t.setState(dayTo, dateObj.getDate())
         }
         else
-          setState(dayTo, -1)
+          t.setState(dayTo, -1)
       }, [range, date, dateTo])
 
     }
@@ -464,9 +464,136 @@ class DatePicker extends BaseComponent {
 
     render() {
       const t = this
-      const CalendarCard = `
-      
-      `
+
+      const CalendarCard = () => {
+        switch (t.view) {
+          case 'days':
+            return (
+              `
+                ${t.daysNames.map((item, idx) => `<div key=${idx} className="c-cell" style=${style_dayName}>${item}</div>`)}
+                <div onMouseOut=${() => setDayOver(!t.helper ? 31 : -1)}>
+                ${t.days.map((item, idx) => {
+                  const style_day_mod = {...style_day}
+                  if (item.current)
+                    style_day_mod['background'] = 'red'
+                  if (item.over) {
+                    if (item.current)
+                      style_day_mod['background'] = '#ffaaaa'
+                    else
+                      style_day_mod['background'] = '#e0e0e0'
+                  }
+                  if (item.selected) {
+                    if (item.current)
+                      style_day_mod['background'] = '#ff5555'
+                    else
+                      style_day_mod['background'] = '#c0c0c0'
+                  }
+                  return `
+                    <div
+                      key=${idx}
+                      className="c-day"
+                      style=${style_day_mod}
+                      onMouseOver=${() => {
+                        if (item.number!==0)
+                          t.setState('dayOver', item.number)
+                      }}
+                      onClick=${() => {
+                        // set date
+                        if (!t.range) {
+                          if (t.onChange && !t.onChange(`${t.calendarMonth+1}/${item.number}/${t.calendarYear}`))
+                            return false
+                          t.setState('day', item.number)
+                          t.setState('month', t.calendarMonth)
+                          t.setState('year', t.calendarYear)
+                          return true
+                        }
+                        else {
+                          if (t.day===-1 || t.dayTo!==-1) { // from selection dont exist or both exists
+                            if (t.onChange && !t.onChange(`${t.calendarMonth+1}/${item.number}/${t.calendarYear}`))
+                              return false
+                            t.setState('day', item.number)
+                            t.setState('month', calendarMonth)
+                            t.setState('year', calendarYear)
+                            t.setState('dayTo', -1)
+                            return true
+                          }
+                          else { // to selection dont exist
+                            if (new Date(`${t.month+1}/${t.day}/${t.year}`).getTime() >=
+                            new Date(`${t.calendarMonth+1}/${item.number}/${t.calendarYear}`).getTime()) {
+                              t.onNotification && t.onNotification('wrong-selection')
+                              return false
+                            }
+                            if (t.onChange && !t.onChange(
+                              `${t.month+1}/${t.day}/${t.year}`,
+                              `${t.calendarMonth+1}/${item.number}/${t.calendarYear}`
+                            ))
+                              return false
+                            t.setState('dayTo', item.number)
+                            t.setState('monthTo', t.calendarMonth)
+                            t.setState('yearTo', t.calendarYear)
+                            return true
+                          }
+                        }
+                      }}
+                    >
+                      ${item.number!==0 ? item.number : DAY_SIGN}
+                    </div>
+                  `
+                })}
+                </div>
+              `
+            )
+          case 'months':
+            return (
+              `
+                ${t.monthsNames.map((item, idx) => {
+                  // select month
+                  return (
+                    `<div
+                      key=${idx}
+                      className="c-month"
+                      style=${style_month}
+                      onClick=${() => {
+                        setCalendarPage(t.calendarYear, idx)
+                        t.setState('view', 'days')
+                      }}
+                    >
+                      {item}
+                    </div>`
+                  )
+                })}
+              `
+            )
+          case 'years':
+            const yearsList = []
+            for (let year=t.calendarYear - 4; year<t.calendarYear+4; year++)
+              yearsList.push({
+                year
+              })
+            return (
+              `
+                ${yearsList.map((item, idx) => {
+                  // select year
+                  return (
+                    `<div
+                      key=${idx}
+                      className="c-year"
+                      style=${style_year}
+                      onClick=${() => {
+                        t.setCalendarPage(item.year, t.calendarMonth)
+                        t.setState('view', 'days')
+                      }}
+                    >
+                      {item.year}
+                    </div>`
+                  )
+                })}
+              `
+            )
+          default:
+            return ''
+        }
+      }
 
       return `
         <div
@@ -499,11 +626,11 @@ class DatePicker extends BaseComponent {
               ` : ``}
             </div>
             <div style=${styleCenter}>
-              <span onClick=${() => t.showNavi ? t.setVal('view', 'months') : null}>
+              <span onClick=${() => t.showNavi ? t.setState('view', 'months') : null}>
                 ${t.monthsNames[t.calendarMonth]}
               </span>
               &nbsp;
-              <span onClick=${() => t.showNavi ? t.setVal('view', 'years') : null}>
+              <span onClick=${() => t.showNavi ? t.setState('view', 'years') : null}>
                 ${t.calendarYear}
               </span>
             </div>
@@ -530,7 +657,7 @@ class DatePicker extends BaseComponent {
             style=${style}
             className=${className_calendar}
           >
-            <CalendarCard />
+            ${CalendarCard()}
             ${t.showNavi&&view==='days' ? `
             <div onClick=${() => {
               setCalendarPage(t.getCurrentYear(), t.getCurrentMonth())

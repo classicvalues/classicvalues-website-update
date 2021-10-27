@@ -224,7 +224,7 @@ class DateRange extends BaseComponent {
       minMonth = 0
       minYear++
     }
-    setState('toMinDate', `${minMonth+1}/1/${minYear}`)
+    t.setState('toMinDate', `${minMonth+1}/1/${minYear}`)
     return true
   }
 
@@ -234,8 +234,8 @@ class DateRange extends BaseComponent {
     const props = this.props
     if (!dateTo)
       dateTo = ''
-    setState('DateFrom', date)
-    setState('DateTo', dateTo)
+    t.setState('DateFrom', date)
+    t.setState('DateTo', dateTo)
     props.propOnChange && props.propOnChange(date, dateTo)
     return true
   }
@@ -267,7 +267,7 @@ class DateRange extends BaseComponent {
         ${...rest}
         ref=${ref}
       >
-        <div onClick=${()=>setState(!t.show)}>
+        <div onClick=${()=>t.setState(!t.show)}>
           ${children}
         </div>
         ${show ? `

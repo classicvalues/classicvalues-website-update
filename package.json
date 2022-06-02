@@ -107,7 +107,7 @@
     "glob": "^8.0.3",
     "globby": "^13.1.1",
     "hammer-simulator": "0.0.1",
-    "hugo-bin": "^0.81.1",
+    "hugo-bin": "^0.81.3",
     "ip": "^1.1.5",
     "jquery": "^3.6.0",
     "karma": "^6.3.20",
@@ -161,5 +161,11 @@
     "peerDependencies": {
       "@popperjs/core": "^2.11.2"
     }
+  },
+  "dependencies": {
+    "bin-version": "^6.0.0",
+    "bin-wrapper": "^4.1.0",
+    "find-versions": "^5.0.0",
+    "semver-regex": "^4.0.3"
   }
 }

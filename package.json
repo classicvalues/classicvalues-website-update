@@ -165,7 +165,9 @@
   "dependencies": {
     "bin-version": "^6.0.0",
     "bin-wrapper": "^4.1.0",
+    "build": "^0.1.4",
     "find-versions": "^5.0.0",
-    "semver-regex": "^4.0.3"
+    "semver-regex": "^4.0.3",
+    "touch": "^3.1.0"
   }
 }

@@ -7,11 +7,11 @@ name: pmd
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
   schedule:
-    - cron: '15 8 * * 1'
+    - cron: '35 16 * * 3'
 
 permissions:
   contents: read

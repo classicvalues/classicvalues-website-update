@@ -151,11 +151,11 @@ name: "NeuraLegion"
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
   schedule:
-    - cron: '30 4 * * 3'
+    - cron: '20 8 * * 1'
 
 jobs:
   neuralegion_scan:

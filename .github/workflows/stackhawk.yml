@@ -31,11 +31,11 @@ name: "StackHawk"
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
   schedule:
-    - cron: '37 21 * * 1'
+    - cron: '21 19 * * 4'
 
 permissions:
   contents: read

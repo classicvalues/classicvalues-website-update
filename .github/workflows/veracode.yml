@@ -9,12 +9,12 @@ name: Veracode Static Analysis Pipeline Scan
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ master ]
+    branches: [ main ]
   schedule:
-    - cron: '18 13 * * 1'
+    - cron: '34 13 * * 2'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 permissions:

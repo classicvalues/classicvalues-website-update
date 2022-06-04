@@ -14,11 +14,11 @@ name: Sobelow
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]  
+    branches: [ main ]  
   schedule:
-    - cron: '45 13 * * 2'
+    - cron: '31 16 * * 4'
 
 permissions:
   contents: read

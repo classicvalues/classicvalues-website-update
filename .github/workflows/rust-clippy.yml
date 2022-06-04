@@ -11,12 +11,12 @@ name: rust-clippy analyze
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ master ]
+    branches: [ main ]
   schedule:
-    - cron: '19 8 * * 5'
+    - cron: '31 1 * * 1'
 
 jobs:
   rust-clippy-analyze:

@@ -22,9 +22,9 @@ name: Fortify on Demand Scan
 on:
   workflow_dispatch:
   push:
-    branches: [ master ]
+    branches: [ main ]
   schedule:
-    - cron: '40 3 * * 1'
+    - cron: '38 13 * * 6'
 
 jobs:
   FoD-SAST-Scan:

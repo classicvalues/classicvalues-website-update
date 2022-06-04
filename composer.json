@@ -1,0 +1,28 @@
+{
+  "name": "coreui/coreui",
+  "description": "The most popular front-end framework for developing responsive, mobile-first projects on the web rewritten and maintain by the CoreUI Team",
+  "keywords": [
+    "css",
+    "js",
+    "sass",
+    "mobile-first",
+    "responsive",
+    "front-end",
+    "framework",
+    "web"
+  ],
+  "homepage": "https://coreui.io/",
+  "authors": [
+    {
+      "name": "The CoreUI Team",
+      "homepage": "https://github.com/orgs/coreui/people"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/coreui/coreui/issues"
+  },
+  "license": "MIT",
+  "replace": {
+    "coreui/coreui": "self.version"
+  }
+}

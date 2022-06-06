@@ -1,0 +1,83 @@
+languageCode:           "en"
+title:                  "CoreUI"
+baseURL:                "https://coreui.io/docs/"
+canonifyURLs:           true
+
+security:
+  enableInlineShortcodes: true
+  funcs:
+    getenv:
+      - ^HUGO_
+      - NETLIFY
+
+markup:
+  goldmark:
+    renderer:
+      unsafe:           true
+  highlight:
+    noClasses:          false
+  tableOfContents:
+    startLevel:         2
+    endLevel:           6
+
+buildDrafts:            true
+buildFuture:            true
+
+enableRobotsTXT:        true
+metaDataFormat:         "yaml"
+disableKinds:           ["404", "taxonomy", "term", "RSS"]
+
+publishDir:             "_gh_pages"
+
+module:
+  mounts:
+    - source:           dist
+      target:           static/dist
+    - source:           docs/assets
+      target:           assets
+    - source:           docs/content
+      target:           content
+    - source:           docs/data
+      target:           data
+    - source:           docs/layouts
+      target:           layouts
+    - source:           docs/static
+      target:           static
+    - source:           docs/static/assets/img/favicons/apple-touch-icon.png
+      target:           static/apple-touch-icon.png
+    - source:           docs/static/assets/img/favicons/favicon.ico
+      target:           static/favicon.ico
+
+params:
+  description:          "Open Source Ui Components library built on top of Bootstrap 5."
+  authors:              "Lukasz Holeczek, Andrzej Kopanski"
+  social_image_path:    /assets/brand/coreui-social.jpg
+  social_logo_path:     /assets/brand/coreui-social-logo.png
+
+  current_version:      "4.1.5"
+  current_ruby_version: "4.1.5"
+  docs_version:         "4.1"
+  rfs_version:          "9.0.3"
+  github_org:           "https://github.com/coreui"
+  repo:                 "https://github.com/coreui/coreui"
+  twitter:              "core_ui"
+  community:            "https://github.com/coreui/coreui/discussions"
+  blog:                 "https://coreui.io/blog/"
+  icons:                "https://icons.coreui.io/"
+
+  download:
+    source:             "https://github.com/coreui/coreui/archive/v4.1.5.zip"
+    dist:               "https://github.com/coreui/coreui/releases/download/v4.1.5/coreui-4.1.5-dist.zip"
+
+  cdn:
+  # See https://www.srihash.org for info on how to generate the hashes
+    css:             "https://cdn.jsdelivr.net/npm/@coreui/coreui@4.1.5/dist/css/coreui.min.css"
+    css_hash:        "sha384-l5S/Jk1FOPPZjgDF4NpkX493t4V0XjAZiYjY95f5Hk7/Fup8oR1dbRPnJ9GeEuIk"
+    css_rtl:         "https://cdn.jsdelivr.net/npm/coreui@4.1.5/dist/css/coreui.rtl.min.css"
+    css_rtl_hash:    "sha384-OfGDnVQfC8aA3UoUCHQvJBLuEFNu/M2MlRA4N00yIvHc/gHmUrXV9dnXnJWbaZFg"
+    js:              "https://cdn.jsdelivr.net/npm/@coreui/coreui@4.1.5/dist/js/coreui.min.js"
+    js_hash:         "sha384-2gVM0DDBfR0owb9E+GH/vfAjvy1C9tRM6OWabVe9S6hvwSrCOxgcHpUna/7pZ9R/"
+    js_bundle:       "https://cdn.jsdelivr.net/npm/@coreui/coreui@4.1.5/dist/js/coreui.bundle.min.js"
+    js_bundle_hash:  "sha384-KFCNsGNFTa3JsdaH+I6nQbbFABhQaORQH0QBHY/cPdiOzR5pQ9yE67pLkVEmK6bn"
+    popper:           "https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    popper_hash:      "sha384-q9CRHqZndzlxGLOj+xrdLDJa9ittGte1NksRmgJKeCV9DrM7Kz868XYqsKWPpAmn"

@@ -7,11 +7,11 @@ name: MobSF
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]  
+    branches: [ main ]  
   schedule:
-    - cron: '20 11 * * 5'
+    - cron: '31 9 * * 0'
 
 permissions:
   contents: read

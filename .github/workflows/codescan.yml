@@ -10,12 +10,12 @@ name: CodeScan
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ master ]
+    branches: [ main ]
   schedule:
-    - cron: '22 16 * * 2'
+    - cron: '42 21 * * 3'
 
 permissions:
   contents: read

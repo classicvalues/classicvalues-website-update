@@ -7,11 +7,11 @@ name: tfsec
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]  
+    branches: [ main ]  
   schedule:
-    - cron: '39 23 * * 0'
+    - cron: '25 11 * * 3'
 
 jobs:
   tfsec:

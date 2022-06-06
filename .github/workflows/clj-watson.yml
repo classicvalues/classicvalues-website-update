@@ -12,12 +12,12 @@ name: clj-watson
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ master ]
+    branches: [ main ]
   schedule:
-    - cron: '19 10 * * 0'
+    - cron: '44 16 * * 5'
 
 permissions:
   contents: read

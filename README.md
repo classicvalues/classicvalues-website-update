@@ -24,8 +24,7 @@ Classic Games on Mobile Devices.
 
 </p>
 
-
-###########################################################################################################
+#######################################################################################
 # Classic Values Domain Website
 
 [![docs badge](https://img.shields.io/badge/docs-reference-blue.svg?style=flat&logo=app)](https://github.com/classicvalues/coreui-website-update/tree/master/docs) 

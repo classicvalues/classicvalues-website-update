@@ -21,11 +21,10 @@ Classic Games on Mobile Devices.
 </p>
 
 <p align="center">
-
+#######################################################################################
 </p>
 
 
-###########################################################################################################
 # Classic Values Domain Website
 
 [![docs badge](https://img.shields.io/badge/docs-reference-blue.svg?style=flat&logo=app)](https://github.com/classicvalues/coreui-website-update/tree/master/docs) 
@@ -59,17 +58,18 @@ The table below lists all our releases, including our `main` branch which is und
 
 
 <!-- Version 1 integration with links! Though objective theory and interjection for follow-through application versionings. --> 
-| **Version** | **Release Date** | **Source** | **Documentation** | **Download** | **Python Package** | **Unity Package** | |:-------:|:------:|:-------------:|:-------:|:------------:|:------------:|:------------:| 
+| **Version** | **Release Date** | **Source** | **Documentation** | **Download** | **Python Package** | **Unity Package** | 
+|:-------:|:------:|:-------------:|:-------:|:------------:|:------------:|:------------:| 
 | **main (unstable)** | -- | [source](https://github.com/Unity-Technologies/ml-agents/tree/main) | [docs](https://github.com/Unity-Technologies/ml-agents/tree/main/docs/Readme.md) | [download](https://github.com/Unity-Technologies/ml-agents/archive/main.zip) | -- | -- | 
 | **Release 19** | **January 14, 2022** | **[source](https://github.com/Unity-Technologies/ml-agents/tree/release_19)** | **[docs](https://github.com/Unity-Technologies/ml-agents/tree/release_19_docs/docs/Readme.md)** | **[download](https://github.com/Unity-Technologies/ml-agents/archive/release_19.zip)** | **[0.28.0](https://pypi.org/project/mlagents/0.28.0/)** | **[2.2.1](https://docs.unity3d.com/Packages/com.unity.ml-agents@2.2/manual/index.html)** | 
 | **Verified Package 1.0.8** | **May 26, 2021** | **[source](https://github.com/Unity-Technologies/ml-agents/tree/com.unity.ml-agents_1.0.8)** | **[docs](https://github.com/Unity-Technologies/ml-agents/blob/release_2_verified_docs/docs/Readme.md)** | **[download](https://github.com/Unity-Technologies/ml-agents/archive/com.unity.ml-agents_1.0.8.zip)** | **[0.16.1](https://pypi.org/project/mlagents/0.16.1/)** | **[1.0.8](https://docs.unity3d.com/Packages/com.unity.ml-agents@1.0/manual/index.html)** |
 
 <!-- "More from ClassicValues" Apps, Websites, and other links, inluding Github Repos and other corporations like SoftwareSafety and NuevoEye  -->
-### More from Unity 
+### More from Classic Values 
 
-- [Unity Robotics](https://github.com/Unity-Technologies/Unity-Robotics-Hub) 
-- [Unity Computer Vision](https://unity.com/computer-vision) 
-- [Unity Game Simulation](https://unity.com/products/game-simulation) 
+- [Classic Values: Classic Pinball](https://github.com/Unity-Technologies/Unity-Robotics-Hub) 
+- [Classic Values: *](https://unity.com/computer-vision) 
+- [Classic Values: Pachinko](https://unity.com/products/game-simulation) 
 
 
 <!-- classicvaluesllc@gmail.com and other emails for the project. Links to FAQ, Community Board, sugggestions, security issue boards, and other link  -->

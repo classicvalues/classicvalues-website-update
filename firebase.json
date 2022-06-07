@@ -6,6 +6,13 @@
     ]
   },
   "hosting": {
+    "public": "public",  
+      "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+    ]
+},
     "rewrites": [ {
       "source": "**",
       "destination": "/docs/content/_index.md"
@@ -16,8 +23,7 @@
       
       "source": "!/@(js|css)/**",
       "destination": "/docs/content/_index.md"
-    } ]
-  },
+    } ],
   "storage": {
     "rules": "storage.rules"
   },

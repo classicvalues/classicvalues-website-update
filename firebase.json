@@ -6,24 +6,19 @@
     ]
   },
   "hosting": {
-    "public": "public",  
-      "ignore": [
-    "firebase.json",
-    "**/.*",
-    "**/node_modules/**"
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/docs//_index.ms"
+      }
     ]
-},
-    "rewrites": [ {
-      "source": "**",
-      "destination": "/docs/content/_index.md"
-    }, {
-      "source": "/foo{,/**}",
-      "destination": "/docs/content/_index.md"
-    }, {
-      
-      "source": "!/@(js|css)/**",
-      "destination": "/docs/content/_index.md"
-    } ],
+  },
   "storage": {
     "rules": "storage.rules"
   },
@@ -45,6 +40,19 @@
     },
     "ui": {
       "enabled": true
+    },
+    "database": {
+      "port": 9000
+    },
+    "pubsub": {
+      "port": 8085
     }
+  },
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
   }
 }

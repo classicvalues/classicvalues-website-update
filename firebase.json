@@ -6,18 +6,10 @@
     ]
   },
   "hosting": {
-    "public": "docs",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/content/_index.html"
-      }
-    ]
+    "rewrites": [ {
+      "source": "/public/index.html",
+      "destination": "/docs/content/_index.html"
+    } ]
   },
   "storage": {
     "rules": "storage.rules"

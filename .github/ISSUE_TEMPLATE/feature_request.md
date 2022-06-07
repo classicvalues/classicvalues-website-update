@@ -1,16 +1,16 @@
 ---
 name: Feature request
 about: Suggest an idea for a new feature in CoreUI.
-title: ''
-labels: ''
-assignees: ''
+title: FEATURE_REQUEST
+labels: documentation, enhancement, ideas
+assignees: classicvalues
 
 ---
 
 Before opening:
 
-- [Search for duplicate or closed issues](https://github.com/coreui/coreui/issues?utf8=%E2%9C%93&q=is%3Aissue)
-- Read the [contributing guidelines](https://github.com/coreui/coreui/blob/main/.github/CONTRIBUTING.md)
+- [Search for duplicate or closed issues](https://github.com/classicvalues/classicvalues-website-update/issues?q=is%3Aissue+is%3Aopen+)
+- Read the [contributing guidelines](https://github.com/classicvalues/classicvalues-website-update/blob/master/.github/CONTRIBUTING.md)
 
 Feature requests must include:
 

@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Tell us about a bug you may have identified in CoreUI.
+about: Tell us about a bug you may have identified in Classic Values UI.
 title: ''
 labels: ''
 assignees: ''

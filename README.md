@@ -1,142 +1,79 @@
-<p align="center">
-  <a href="https://classicvalues.dev">
-    <img src="https://avatars.githubusercontent.com/u/71681815?s=400&u=d2fd084b77b464587cdf224deb1fb944f190d853&v=4" alt="Classic Values logo" width="250">
-  </a>
-</p>
+# Classic Values Domain Website 
+[![docs badge](https://img.shields.io/badge/docs-reference-blue.svg?style=flat&logo=app)](https://github.com/classicvalues/coreui-website-update/tree/master/docs) 
 
-<h3 align="center">Classic Values UI</h3>
+[![license badge](https://img.shields.io/badge/license-MIT-blue.svg?style=flat&logo=app)](LICENSE.md) 
 
-<p align="center">
-Software Gaming Development Company!
-Classic Games on Mobile Devices.
-    <br>
-    <a href="https://classicvalues.dev/apps/"><strong>Explore our Applications »</strong></a>
-    <br>
-    <br>
-        <a href="https://github.com/classicvalues/classicvalues-website-update/issues/new?assignees=&labels=&template=bug_report.md&title=">Report bug</a>
-            ·
-        <a href="https://github.com/classicvalues/classicvalues-website-update/issues/new?assignees=&labels=feature&template=feature_request.md&title=">Request feature</a>
-            ·
-        <a href="https://classicvalues.dev/./#^%/blog">Blog</a>
-</p>
+([latest release](https://github.com/classicvalues/ClassicValuesUI-README-templates/releases/tag/v1.0.0)) 
+([all releases](https://github.com/classicvalues/ClassicValuesUI-README-templates/tags)) 
 
-## Table of contents
+**Open Source UI Components Library built on top of Bootstrap 5.** (CoreUI) CoreUI is the fastest way to build a modern dashboard for any platforms, browser, or device. A complete UI Kit that allows you to quickly build eye-catching, high-quality, high-performance responsive applications.
 
-- [Quick start](#quick-start)
-- [What's included](#whats-included)
-- [Bugs and feature requests](#bugs-and-feature-requests)
-- [Documentation](#documentation)
-- [Contributing](#contributing)
-- [Versioning](#versioning)
-- [Creators](#creators)
-- [Thanks](#thanks)
-- [Copyright and license](#copyright-and-license)
+<!-- Needs work! --> 
+## Features 
+- 18+ [example Unity environments](docs/Learning-Environment-Examples.md) 
+- Support for multiple environment configurations and training scenarios 
+- Flexible Unity SDK that can be integrated into your game or custom Unity scene 
+- Support for training single-agent, 
 
-## Quick start
+## Releases & Documentation 
 
-Several quick start options are available:
+<!-- Version 1 integration with links! Though objective theory and interjection for follow-through application versionings. --> 
+**Our latest, stable release is `Release 19`. Click [here](https://github.com/Unity-Technologies/ml-agents/tree/release_19_docs/docs/Readme.md) to get started with the latest release of ML-Agents.** 
 
-- [Download the latest release](https://github.com/classicvalues/classicvalues-website-update/archive/refs/tags/v1.0.1.zip)
-- Clone the repo: `git clone https://github.com/classicvalues/classicvalues-website-update.git`
-- Clone with GitHub CLI: `gh repo clone classicvalues/classicvalues-website-update`
+<!-- Version 1 integration with links! Though objective theory and interjection for follow-through application versionings. --> 
+The table below lists all our releases, including our `main` branch which is under active development and may be unstable. A few helpful guidelines: 
+- The [Versioning page](docs/Versioning.md) overviews how we manage our GitHub releases and the versioning process for each of the ML-Agents components. 
+- The [Releases page](https://github.com/Unity-Technologies/ml-agents/releases) contains details of the changes between releases. 
+- The [Migration page](docs/Migrating.md) contains details on how to upgrade from earlier releases of the ML-Agents Toolkit. 
+- The **Documentation** links in the table below include installation and usage instructions specific to each release. Remember to always use the documentation that corresponds to the release version you're using. 
+- The `com.unity.ml-agents` package is [verified](https://docs.unity3d.com/2020.1/Documentation/Manual/pack-safe.html) for Unity 2020.1 and later. Verified packages releases are numbered 1.0.x. 
 
-Read the [Getting started page](https://coreui.io/docs/getting-started/introduction/) for information on the framework contents, templates and examples, and more.
 
-## What's included
+<!-- Version 1 integration with links! Though objective theory and interjection for follow-through application versionings. --> 
+| **Version** | **Release Date** | **Source** | **Documentation** | **Download** | **Python Package** | **Unity Package** | |:-------:|:------:|:-------------:|:-------:|:------------:|:------------:|:------------:| 
+| **main (unstable)** | -- | [source](https://github.com/Unity-Technologies/ml-agents/tree/main) | [docs](https://github.com/Unity-Technologies/ml-agents/tree/main/docs/Readme.md) | [download](https://github.com/Unity-Technologies/ml-agents/archive/main.zip) | -- | -- | 
+| **Release 19** | **January 14, 2022** | **[source](https://github.com/Unity-Technologies/ml-agents/tree/release_19)** | **[docs](https://github.com/Unity-Technologies/ml-agents/tree/release_19_docs/docs/Readme.md)** | **[download](https://github.com/Unity-Technologies/ml-agents/archive/release_19.zip)** | **[0.28.0](https://pypi.org/project/mlagents/0.28.0/)** | **[2.2.1](https://docs.unity3d.com/Packages/com.unity.ml-agents@2.2/manual/index.html)** | 
+| **Verified Package 1.0.8** | **May 26, 2021** | **[source](https://github.com/Unity-Technologies/ml-agents/tree/com.unity.ml-agents_1.0.8)** | **[docs](https://github.com/Unity-Technologies/ml-agents/blob/release_2_verified_docs/docs/Readme.md)** | **[download](https://github.com/Unity-Technologies/ml-agents/archive/com.unity.ml-agents_1.0.8.zip)** | **[0.16.1](https://pypi.org/project/mlagents/0.16.1/)** | **[1.0.8](https://docs.unity3d.com/Packages/com.unity.ml-agents@1.0/manual/index.html)** |
 
-Within the download you'll find the following directories and files, logically grouped common assets and along with, both, compiled and mini variations. You will see something along the lines of this:
+<!-- "More from ClassicValues" Apps, Websites, and other links, inluding Github Repos and other corporations like SoftwareSafety and NuevoEye  -->
+### More from Unity 
 
-```text
-coreui/
-├── css/
-│   ├── coreui-grid.css
-│   ├── coreui-grid.css.map
-│   ├── coreui-grid.min.css
-│   ├── coreui-grid.min.css.map
-│   ├── coreui-grid.rtl.css
-│   ├── coreui-grid.rtl.css.map
-│   ├── coreui-grid.rtl.min.css
-│   ├── coreui-grid.rtl.min.css.map
-│   ├── coreui-reboot.css
-│   ├── coreui-reboot.css.map
-│   ├── coreui-reboot.min.css
-│   ├── coreui-reboot.min.css.map
-│   ├── coreui-reboot.rtl.css
-│   ├── coreui-reboot.rtl.css.map
-│   ├── coreui-reboot.rtl.min.css
-│   ├── coreui-reboot.rtl.min.css.map
-│   ├── coreui-utilities.css
-│   ├── coreui-utilities.css.map
-│   ├── coreui-utilities.min.css
-│   ├── coreui-utilities.min.css.map
-│   ├── coreui-utilities.rtl.css
-│   ├── coreui-utilities.rtl.css.map
-│   ├── coreui-utilities.rtl.min.css
-│   ├── coreui-utilities.rtl.min.css.map
-│   ├── coreui.css
-│   ├── coreui.css.map
-│   ├── coreui.min.css
-│   ├── coreui.min.css.map
-│   ├── coreui.rtl.css
-│   ├── coreui.rtl.css.map
-│   ├── coreui.rtl.min.css
-│   └── coreui.rtl.min.css.map
-└── js/
-    ├── coreui.bundle.js
-    ├── coreui.bundle.js.map
-    ├── coreui.bundle.min.js
-    ├── coreui.bundle.min.js.map
-    ├── coreui.esm.js
-    ├── coreui.esm.js.map
-    ├── coreui.esm.min.js
-    ├── coreui.esm.min.js.map
-    ├── coreui.js
-    ├── coreui.js.map
-    ├── coreui.min.js
-    └── coreui.min.js.map
-```
+- [Unity Robotics](https://github.com/Unity-Technologies/Unity-Robotics-Hub) 
+- [Unity Computer Vision](https://unity.com/computer-vision) 
+- [Unity Game Simulation](https://unity.com/products/game-simulation) 
 
-We provide compiled CSS and JS (`coreui.*`), as well as compiled and minified CSS and JS (`coreui.min.*`). [source maps](https://developers.google.com/web/tools/chrome-devtools/javascript/source-maps) (`coreui.*.map`) are available for use with certain browsers' developer tools. Bundled JS files (`coreui.bundle.js` and minified `coreui.bundle.min.js`) include [Popper](https://popper.js.org/). These can all be accessed by pressing the **(".")** period button on the keyboard from your perfered file location. This will open a web-based VSCode web editor from [GitHub.dev](https://github.dev/classicvalues/classicvalues-website-update/)
 
-## Bugs, feature requests, and Q&A
+<!-- classicvaluesllc@gmail.com and other emails for the project. Links to FAQ, Community Board, sugggestions, security issue boards, and other link  -->
+## Community and Feedback 
 
-Have a bug or a feature request? Please first read the [issue guidelines](https://github.com/classicvalues/classicvalues-website-update/blob/master/.github/CONTRIBUTING.md#using-the-issue-tracker) and search for existing and closed issues. If your problem or idea is not addressed yet, [please open a new issue](https://github.com/classicvalues/classicvalues-website-update/issues/new).
+The ML-Agents Toolkit is an open-source project and we encourage and welcome contributions. If you wish to contribute, be sure to review our [contribution guidelines](com.unity.ml-agents/CONTRIBUTING.md) and [code of conduct](CODE_OF_CONDUCT.md). 
 
-## Documentation
+For problems with the installation and setup of the ML-Agents Toolkit, or discussions about how to best setup or train your agents, please create a new thread on the [Unity ML-Agents forum](https://forum.unity.com/forums/ml-agents.453/) and make sure to include as much detail as possible. If you run into any other problems using the ML-Agents Toolkit or have a specific feature request, please [submit a GitHub issue](https://github.com/Unity-Technologies/ml-agents/issues). 
 
-The documentation for Classic Values UI is hosted at our website [CoreUI](https://classicvalues.dev/./#^%/software/ui/#^%/)
+Please tell us which samples you would like to see shipped with the ML-Agents Unity package by replying to [this forum thread](https://forum.unity.com/threads/feedback-wanted-shipping-sample-s-with-the-ml-agents-package.1073468/). 
 
-### Running documentation locally
+Your opinion matters a great deal to us. Only by hearing your thoughts on the Unity ML-Agents Toolkit can we continue to improve and grow. Please take a few minutes to [let us know about it](https://unitysoftware.co1.qualtrics.com/jfe/form/SV_55pQKCZ578t0kbc). 
 
-1. Run `npm install` to install the Node.js dependencies, including Hugo (the site builder).
-2. Run `npm start` to create live-server on `http://localhost:9001/` in your browser, hosted on your local server port 9001.
-3. Run `npm run test` (or a specific npm script) to rebuild distributed CSS and JavaScript files, as well as our docs assets.
-4. From the root `/classicvalues-website-update` directory, run `npm run docs-serve` in the command line.
-5. Open `http://localhost:9001/` in your browser, and voilà.
+For any other questions or feedback, connect directly with the ML-Agents team at ml-agents@unity3d.com.
 
-Learn more about using Hugo by reading its [documentation](https://gohugo.io/documentation/).
+<!-- App Engine and Blog Integrations,  -->
+## Blog Posts
+We have also published a series of blog posts that are relevant for CoreUI site publishing as well as template development and CoreUI/Google App Engine Integrations:
 
-## Contributing
+- (June 6, 2022)
+    [Introduction]
+- (June 6, 2022)
+    [Bootstrap?]
+- (June 6, 2022)
+    [Boost/Beast]
+- (June 6, 2022)
+    [App.Engine.Google.Cloud.Platform]
+- (June 6, 2022)
+    [VCPkg]
 
-Please read through our [contributing guidelines](https://github.com/classicvalues/classicvalues-website-update/blob/master/.github/CONTRIBUTING.md). Included are directions for opening issues, coding standards, and notes on development.
-
-Editor preferences are available in the [editor config](https://github.com/classicvalues/classicvalues-website-update/blob/master/.editorconfig) for easy use in common text editors. Read more and download plugins at <https://editorconfig.org/>.
-
-Be sure to use GitHub Dev on [GitHub.dev](https://github.dev/classicvalues/classicvalues-website-update) which create a web editor from the current repository on a web based VSCode editor, right at yout fingertips.
-
-## Versioning
-
-For transparency into our release cycle and in striving to maintain backward compatibility, CoreUI is maintained under [the Semantic Versioning guidelines](http://semver.org/).
-
-See [the Releases section of our project](https://github.com/classicvalues/classicvalues-website-update/releases) for changelogs for each release version.
-
-## Creators
-
-**Classic Values**
-
-- <https://twitter.com/_classicvalues>
-- <https://github.com/classicvalues>
-- <https://www.linkedin.com/in/santiago-de-jesus-villalobos-gonz%C3%A1lez/>
+<!-- Needs work! --> 
+## Privacy
+In order to improve the developer experience for Unity ML-Agents Toolkit, we have added in-editor analytics. Please refer to "Information that is passively collected by Unity" in the [ClassicValues Privacy Policy](<!-- !%^% Link here !%^% -->). 
 
 <!-- Needs work! Extend Thank you to Shields.io, Boost & Beast Teams, as well as CoreUI themselves, Lukasz, Mark, and "Fat" as well as Juliani, A., Berges, V., Teng, E., Cohen, A., Harper, J., Elion, C., Goy, C., Gao, Y., Henry, H., Mattar, M., Lange, D., et. al. (2020). Unity: A General Platform for Intelligent Agents. _arXiv preprint [arXiv:1809.02627](https://arxiv.org/abs/1809.02627)._ https://github.com/Unity-Technologies/ml-agents.--> 
 ## Thanks 
@@ -144,3 +81,4 @@ CoreUI is designed as the extension of [Bootstrap](https://getbootstrap.com). Sp
  
 ## Copyright and License
 Copyright 2021 creativeLabs Łukasz Holeczek. Code released under the [MIT License](https://github.com/coreui/coreui/blob/main/LICENSE). Docs released under [Creative Commons](https://creativecommons.org/licenses/by/3.0/).
+

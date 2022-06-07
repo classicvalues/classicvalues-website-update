@@ -20,8 +20,7 @@ Classic Games on Mobile Devices.
         <a href="https://classicvalues.dev/./#^%/blog">Blog</a>
 </p>
 
-##################################################################################################################################################################
-
+###########################################################################################################
 # Classic Values Domain Website
 
 [![docs badge](https://img.shields.io/badge/docs-reference-blue.svg?style=flat&logo=app)](https://github.com/classicvalues/coreui-website-update/tree/master/docs) 

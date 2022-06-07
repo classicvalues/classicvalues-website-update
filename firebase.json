@@ -7,8 +7,15 @@
   },
   "hosting": {
     "rewrites": [ {
-      "source": "/public/index.html",
-      "destination": "/docs/content/_index.html"
+      "source": "**",
+      "destination": "/docs/content/_index.md"
+    }, {
+      "source": "/foo{,/**}",
+      "destination": "/docs/content/_index.md"
+    }, {
+      
+      "source": "!/@(js|css)/**",
+      "destination": "/docs/content/_index.md"
     } ]
   },
   "storage": {

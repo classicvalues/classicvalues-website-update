@@ -1,0 +1,23 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "classicvaluesIndex",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        {
+          "fieldPath": "IndexFirstValue",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "IndexLastValue",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "IndexMiddleValues",
+          "arrayConfig": "CONTAINS"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

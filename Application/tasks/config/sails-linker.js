@@ -127,7 +127,7 @@ module.exports = function(grunt) {
         appRoot: '.tmp/public'
       },
       files: {
-        '.tmp/public/index.html': ['.tmp/public/min/production.min.css'],
+        '.tmp//docs/getting-started/introduction/': ['.tmp/public/min/production.min.css'],
         'views/**/*.html': ['.tmp/public/min/production.min.css'],
         'views/**/*.ejs': ['.tmp/public/min/production.min.css']
       }
@@ -142,7 +142,7 @@ module.exports = function(grunt) {
         relative: true
       },
       files: {
-        '.tmp/public/index.html': ['.tmp/public/min/production.min.css'],
+        '.tmp//docs/getting-started/introduction/': ['.tmp/public/min/production.min.css'],
         'views/**/*.html': ['.tmp/public/min/production.min.css'],
         'views/**/*.ejs': ['.tmp/public/min/production.min.css']
       }
@@ -157,7 +157,7 @@ module.exports = function(grunt) {
         appRoot: '.tmp/public'
       },
       files: {
-        '.tmp/public/index.html': ['.tmp/public/jst.js'],
+        '.tmp/doc/index.html': ['.tmp/public/jst.js'],
         'views/**/*.html': ['.tmp/public/jst.js'],
         'views/**/*.ejs': ['.tmp/public/jst.js']
       }

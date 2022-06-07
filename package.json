@@ -169,6 +169,8 @@
     "bin-wrapper": "^4.1.0",
     "build": "^0.1.4",
     "find-versions": "^5.0.0",
+    "firebase-admin": "^7.0.0",
+    "firebase-functions": "^2.3.1",
     "semver-regex": "^4.0.4",
     "touch": "^3.1.0",
     "uglify-js": "^3.16.0"

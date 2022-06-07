@@ -3,7 +3,11 @@
   <head>
     {{ partial "head" . }}
   </head>
-  {{ block "body_override" . }}<body class="d-flex">{{ end }}
+  {{ block "body_override" . }}<body class="d-flex">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M33WBPW"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->{{ end }}
     {{/*  {{ partial "skippy" . }}  */}}
     {{ partial "sidebar" . }}
     <div class="wrapper flex-grow-1">

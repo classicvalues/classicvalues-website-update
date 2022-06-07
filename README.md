@@ -104,28 +104,31 @@ Have a bug or a feature request? Please first read the [issue guidelines](https:
 
 ## Documentation
 
-The documentation for the CoreUI & CoreUI PRO is hosted at our website [CoreUI](https://coreui.io/)
+The documentation for Classic Values UI is hosted at our website [CoreUI](https://classicvalues.dev/./#^%/software/ui/#^%/)
 
 ### Running documentation locally
 
 1. Run `npm install` to install the Node.js dependencies, including Hugo (the site builder).
-2. Run `npm run test` (or a specific npm script) to rebuild distributed CSS and JavaScript files, as well as our docs assets.
-3. From the root `/coreui` directory, run `npm run docs-serve` in the command line.
-4. Open `http://localhost:9001/` in your browser, and voilà.
+2. Run `npm start` to create live-server on `http://localhost:9001/` in your browser, hosted on your local server port 9001.
+3. Run `npm run test` (or a specific npm script) to rebuild distributed CSS and JavaScript files, as well as our docs assets.
+4. From the root `/classicvalues-website-update` directory, run `npm run docs-serve` in the command line.
+5. Open `http://localhost:9001/` in your browser, and voilà.
 
 Learn more about using Hugo by reading its [documentation](https://gohugo.io/documentation/).
 
 ## Contributing
 
-Please read through our [contributing guidelines](https://github.com/coreui/coreui/blob/main/.github/CONTRIBUTING.md). Included are directions for opening issues, coding standards, and notes on development.
+Please read through our [contributing guidelines](https://github.com/classicvalues/classicvalues-website-update/blob/master/.github/CONTRIBUTING.md). Included are directions for opening issues, coding standards, and notes on development.
 
-Editor preferences are available in the [editor config](https://github.com/coreui/coreui/blob/main/.editorconfig) for easy use in common text editors. Read more and download plugins at <https://editorconfig.org/>.
+Editor preferences are available in the [editor config](https://github.com/classicvalues/classicvalues-website-update/blob/master/.editorconfig) for easy use in common text editors. Read more and download plugins at <https://editorconfig.org/>.
+
+Be sure to use GitHub Dev on [GitHub.dev](https://github.dev/classicvalues/classicvalues-website-update) which create a web editor from the current repository on a web based VSCode editor, right at yout fingertips.
 
 ## Versioning
 
 For transparency into our release cycle and in striving to maintain backward compatibility, CoreUI is maintained under [the Semantic Versioning guidelines](http://semver.org/).
 
-See [the Releases section of our project](https://github.com/coreui/coreui/releases) for changelogs for each release version.
+See [the Releases section of our project](https://github.com/classicvalues/classicvalues-website-update/releases) for changelogs for each release version.
 
 ## Creators
 
@@ -133,3 +136,4 @@ See [the Releases section of our project](https://github.com/coreui/coreui/relea
 
 - <https://twitter.com/_classicvalues>
 - <https://github.com/classicvalues>
+- <https://www.linkedin.com/in/santiago-de-jesus-villalobos-gonz%C3%A1lez/>

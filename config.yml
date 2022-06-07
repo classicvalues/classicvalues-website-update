@@ -1,6 +1,6 @@
 languageCode:           "en"
-title:                  "CoreUI"
-baseURL:                "https://coreui.io/docs/"
+title:                  "Classic Values"
+baseURL:                "https://classicvalues.dev/"
 canonifyURLs:           true
 
 security:

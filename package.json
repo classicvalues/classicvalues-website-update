@@ -169,6 +169,7 @@
     "build": "^0.1.4",
     "find-versions": "^5.0.0",
     "semver-regex": "^4.0.4",
-    "touch": "^3.1.0"
+    "touch": "^3.1.0",
+    "uglify-js": "^3.16.0"
   }
 }

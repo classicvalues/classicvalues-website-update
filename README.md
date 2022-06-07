@@ -8,22 +8,21 @@
 
 <p align="center">
 Software Gaming Development Company!
-Classic Games on Mobile Devices. 
-    <br> 
-    <a href="https://classicvalues.dev/apps/"><strong>Explore our Applications »</strong></a> 
+Classic Games on Mobile Devices.
+    <br>
+    <a href="https://classicvalues.dev/apps/"><strong>Explore our Applications »</strong></a>
     <br>
     <br>
-        <a href="https://github.com/coreui/coreui/issues/new?template=bug_report.md">Report bug</a>
+        <a href="https://github.com/classicvalues/classicvalues-website-update/issues/new?assignees=&labels=&template=bug_report.md&title=">Report bug</a>
             ·
-        <a href="https://github.com/coreui/coreui/issues/new?template=feature_request.md">Request feature</a>
+        <a href="https://github.com/classicvalues/classicvalues-website-update/issues/new?assignees=&labels=feature&template=feature_request.md&title=">Request feature</a>
             ·
-        <a href="https://blog.coreui.io/">Blog</a>
+        <a href="https://classicvalues.dev/./#^%/blog">Blog</a>
 </p>
 
 ## Table of contents
 
 - [Quick start](#quick-start)
-- [Status](#status)
 - [What's included](#whats-included)
 - [Bugs and feature requests](#bugs-and-feature-requests)
 - [Documentation](#documentation)
@@ -33,35 +32,19 @@ Classic Games on Mobile Devices.
 - [Thanks](#thanks)
 - [Copyright and license](#copyright-and-license)
 
-
 ## Quick start
 
 Several quick start options are available:
 
-- [Download the latest release](https://github.com/coreui/coreui/archive/v4.1.5.zip)
-- Clone the repo: `git clone https://github.com/coreui/coreui.git`
-- Install with [npm](https://www.npmjs.com/): `npm install @coreui/coreui`
-- Install with [yarn](https://yarnpkg.com/): `yarn add @coreui/coreui`
-- Install with [Composer](https://getcomposer.org/): `composer require coreui/coreui:4.0.5`
+- [Download the latest release](https://github.com/classicvalues/classicvalues-website-update/archive/refs/tags/v1.0.1.zip)
+- Clone the repo: `git clone https://github.com/classicvalues/classicvalues-website-update.git`
+- Clone with GitHub CLI: `gh repo clone classicvalues/classicvalues-website-update`
 
 Read the [Getting started page](https://coreui.io/docs/getting-started/introduction/) for information on the framework contents, templates and examples, and more.
 
-## Status
-
-[![Build Status](https://github.com/coreui/coreui/workflows/JS%20Tests/badge.svg?branch=main)](https://github.com/coreui/coreui/actions?query=workflow%3AJS+Tests+branch%3Amain)
-[![npm version](https://img.shields.io/npm/v/@coreui/coreui)](https://www.npmjs.com/package/@coreui/coreui)
-[![Packagist Prerelease](https://img.shields.io/packagist/vpre/coreui/coreui)](https://packagist.org/packages/coreui/coreui)
-[![peerDependencies Status](https://img.shields.io/david/peer/coreui/coreui)](https://david-dm.org/coreui/coreui?type=peer)
-[![devDependency Status](https://img.shields.io/david/dev/coreui/coreui)](https://david-dm.org/coreui/coreui?type=dev)
-[![Coverage Status](https://img.shields.io/coveralls/github/coreui/coreui/main)](https://coveralls.io/github/coreui/coreui?branch=main)
-[![CSS gzip size](https://img.badgesize.io/coreui/coreui/main/dist/css/coreui.min.css?compression=gzip&label=CSS%20gzip%20size)](https://github.com/coreui/coreui/blob/main/dist/css/coreui.min.css)
-[![CSS Brotli size](https://img.badgesize.io/coreui/coreui/main/dist/css/coreui.min.css?compression=brotli&label=CSS%20Brotli%20size)](https://github.com/coreui/coreui/blob/main/dist/css/coreui.min.css)
-[![JS gzip size](https://img.badgesize.io/coreui/coreui/main/dist/js/coreui.min.js?compression=gzip&label=JS%20gzip%20size)](https://github.com/coreui/coreui/blob/main/dist/js/coreui.min.js)
-[![JS Brotli size](https://img.badgesize.io/coreui/coreui/main/dist/js/coreui.min.js?compression=brotli&label=JS%20Brotli%20size)](https://github.com/coreui/coreui/blob/main/dist/js/coreui.min.js)
-
 ## What's included
 
-Within the download you'll find the following directories and files, logically grouping common assets and providing both compiled and minified variations. You'll see something like this:
+Within the download you'll find the following directories and files, logically grouped common assets and along with, both, compiled and mini variations. You will see something along the lines of this:
 
 ```text
 coreui/
@@ -113,12 +96,11 @@ coreui/
     └── coreui.min.js.map
 ```
 
-We provide compiled CSS and JS (`coreui.*`), as well as compiled and minified CSS and JS (`coreui.min.*`). [source maps](https://developers.google.com/web/tools/chrome-devtools/javascript/source-maps) (`coreui.*.map`) are available for use with certain browsers' developer tools. Bundled JS files (`coreui.bundle.js` and minified `coreui.bundle.min.js`) include [Popper](https://popper.js.org/).
-
+We provide compiled CSS and JS (`coreui.*`), as well as compiled and minified CSS and JS (`coreui.min.*`). [source maps](https://developers.google.com/web/tools/chrome-devtools/javascript/source-maps) (`coreui.*.map`) are available for use with certain browsers' developer tools. Bundled JS files (`coreui.bundle.js` and minified `coreui.bundle.min.js`) include [Popper](https://popper.js.org/). These can all be accessed by pressing the **(".")** period button on the keyboard from your perfered file location. This will open a web-based VSCode web editor from [GitHub.dev](https://github.dev/classicvalues/classicvalues-website-update/)
 
 ## Bugs, feature requests, and Q&A
 
-Have a bug or a feature request? Please first read the [issue guidelines](https://github.com/coreui/coreui/blob/main/.github/CONTRIBUTING.md#using-the-issue-tracker) and search for existing and closed issues. If your problem or idea is not addressed yet, [please open a new issue](https://github.com/coreui/coreui/issues/new).
+Have a bug or a feature request? Please first read the [issue guidelines](https://github.com/classicvalues/classicvalues-website-update/blob/master/.github/CONTRIBUTING.md#using-the-issue-tracker) and search for existing and closed issues. If your problem or idea is not addressed yet, [please open a new issue](https://github.com/classicvalues/classicvalues-website-update/issues/new).
 
 ## Documentation
 
@@ -149,8 +131,5 @@ See [the Releases section of our project](https://github.com/coreui/coreui/relea
 
 **Classic Values**
 
-* <https://twitter.com/_classicvalues>
-* <https://github.com/classicvalues>
-
-
-
+- <https://twitter.com/_classicvalues>
+- <https://github.com/classicvalues>

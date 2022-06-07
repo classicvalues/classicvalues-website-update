@@ -27,8 +27,8 @@ Classic Games on Mobile Devices.
 - [Bugs and feature requests](#bugs-and-feature-requests)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
-- [Creators](#creators)
 - [Versioning](#versioning)
+- [Creators](#creators)
 - [Thanks](#thanks)
 - [Copyright and license](#copyright-and-license)
 
@@ -137,3 +137,10 @@ See [the Releases section of our project](https://github.com/classicvalues/class
 - <https://twitter.com/_classicvalues>
 - <https://github.com/classicvalues>
 - <https://www.linkedin.com/in/santiago-de-jesus-villalobos-gonz%C3%A1lez/>
+
+<!-- Needs work! Extend Thank you to Shields.io, Boost & Beast Teams, as well as CoreUI themselves, Lukasz, Mark, and "Fat" as well as Juliani, A., Berges, V., Teng, E., Cohen, A., Harper, J., Elion, C., Goy, C., Gao, Y., Henry, H., Mattar, M., Lange, D., et. al. (2020). Unity: A General Platform for Intelligent Agents. _arXiv preprint [arXiv:1809.02627](https://arxiv.org/abs/1809.02627)._ https://github.com/Unity-Technologies/ml-agents.--> 
+## Thanks 
+CoreUI is designed as the extension of [Bootstrap](https://getbootstrap.com). Special thanks for [Bootstrap team](https://getbootstrap.com/docs/5.0/about/team/) and [Bootstrap's contributors](https://github.com/twbs/bootstrap/graphs/contributors). 
+ 
+## Copyright and License
+Copyright 2021 creativeLabs Łukasz Holeczek. Code released under the [MIT License](https://github.com/coreui/coreui/blob/main/LICENSE). Docs released under [Creative Commons](https://creativecommons.org/licenses/by/3.0/).

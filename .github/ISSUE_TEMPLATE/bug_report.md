@@ -1,17 +1,17 @@
 ---
 name: Bug report
-about: Tell us about a bug you may have identified in CoreUI.
-title: ''
-labels: ''
-assignees: ''
+about: Tell us about any bugs you may have identified in Classic Values UI.
+title: BUG SOURCE
+labels: bug, configuration error, documentation, security fix, security vulnerability
+assignees: classicvalues
 
 ---
 
 Before opening:
 
-- [Search for duplicate or closed issues](https://github.com/coreui/coreui/issues?utf8=%E2%9C%93&q=is%3Aissue)
+- [Search for duplicate or closed issues](https://github.com/classicvalues/classicvalues-website-update/issues?q=is%3Aissue+is%3Aopen+)
 - [Validate](https://html5.validator.nu/) any HTML to avoid common problems
-- Read the [contributing guidelines](https://github.com/coreui/coreui/blob/main/.github/CONTRIBUTING.md)
+- Read the [contributing guidelines](https://github.com/classicvalues/classicvalues-website-update/blob/master/.github/CONTRIBUTING.md)
 
 Bug reports must include:
 

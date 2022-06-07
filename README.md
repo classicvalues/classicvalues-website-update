@@ -1,4 +1,28 @@
-# Classic Values Domain Website 
+<p align="center">
+  <a href="https://classicvalues.dev">
+    <img src="https://avatars.githubusercontent.com/u/71681815?s=400&u=d2fd084b77b464587cdf224deb1fb944f190d853&v=4" alt="Classic Values logo" width="250">
+  </a>
+</p>
+
+<h3 align="center">Classic Values Website</h3>
+
+<p align="center">
+Software Gaming Development Company!
+Classic Games on Mobile Devices.
+    <br>
+    <a href="https://classicvalues.dev/apps/"><strong>Explore our Applications »</strong></a>
+    <br>
+    <br>
+        <a href="https://github.com/classicvalues/classicvalues-website-update/issues/new?assignees=&labels=&template=bug_report.md&title=">Report bug</a>
+            ·
+        <a href="https://github.com/classicvalues/classicvalues-website-update/issues/new?assignees=&labels=feature&template=feature_request.md&title=">Request feature</a>
+            ·
+        <a href="https://classicvalues.dev/./#^%/blog">Blog</a>
+</p>
+
+<p align="center">
+# Classic Values Domain Website
+  </p>
 [![docs badge](https://img.shields.io/badge/docs-reference-blue.svg?style=flat&logo=app)](https://github.com/classicvalues/coreui-website-update/tree/master/docs) 
 
 [![license badge](https://img.shields.io/badge/license-MIT-blue.svg?style=flat&logo=app)](LICENSE.md) 

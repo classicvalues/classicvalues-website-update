@@ -28,6 +28,7 @@ Classic Games on Mobile Devices.
 - [Documentation](#documentation)
 - [Contributing](#contributing)
 - [Creators](#creators)
+- [Versioning](#versioning)
 - [Thanks](#thanks)
 - [Copyright and license](#copyright-and-license)
 

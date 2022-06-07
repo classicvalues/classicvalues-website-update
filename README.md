@@ -20,6 +20,11 @@ Classic Games on Mobile Devices.
         <a href="https://classicvalues.dev/./#^%/blog">Blog</a>
 </p>
 
+<p align="center">
+  
+</p>
+
+
 ###########################################################################################################
 # Classic Values Domain Website
 

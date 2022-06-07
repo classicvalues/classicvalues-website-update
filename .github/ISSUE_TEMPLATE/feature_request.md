@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea for a new feature in CoreUI.
+about: Suggest an idea for a new feature in Classic Values UI.
 title: FEATURE_REQUEST
 labels: documentation, enhancement, ideas
 assignees: classicvalues

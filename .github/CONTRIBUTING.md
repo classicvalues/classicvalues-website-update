@@ -1,4 +1,4 @@
-# Contributing to CoreUI
+# Contributing to Classic Values UI
 
 Looking to contribute something to CoreUI? **Here's how you can help.**
 

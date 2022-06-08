@@ -1,0 +1,428 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "test/beast/core/Debug/tests-beast-core-_detail_clamp.exe"
+		},
+		{
+			"path" : "test/beast/core/Debug/tests-beast-core-_detail_clamp.pdb"
+		}
+	],
+	"backtrace" : 2,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"build_individual_tests",
+			"link_directories",
+			"target_link_libraries",
+			"add_compile_options",
+			"add_definitions",
+			"include_directories"
+		],
+		"files" : 
+		[
+			"test/beast/CMakeLists.txt",
+			"test/beast/core/CMakeLists.txt",
+			"CMakeLists.txt",
+			"test/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 79,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 23,
+				"parent" : 1
+			},
+			{
+				"file" : 2
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 196,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 25,
+				"parent" : 1
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 25,
+				"parent" : 1
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 25,
+				"parent" : 1
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 25,
+				"parent" : 1
+			},
+			{
+				"command" : 4,
+				"file" : 2,
+				"line" : 105,
+				"parent" : 3
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 177,
+				"parent" : 3
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 180,
+				"parent" : 3
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 181,
+				"parent" : 3
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 182,
+				"parent" : 3
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 183,
+				"parent" : 3
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 179,
+				"parent" : 3
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 235,
+				"parent" : 3
+			},
+			{
+				"file" : 0
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 34,
+				"parent" : 17
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 236,
+				"parent" : 3
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 37,
+				"parent" : 17
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 184,
+				"parent" : 3
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 97,
+				"parent" : 3
+			},
+			{
+				"command" : 6,
+				"file" : 2,
+				"line" : 146,
+				"parent" : 3
+			},
+			{
+				"command" : 6,
+				"file" : 2,
+				"line" : 187,
+				"parent" : 3
+			},
+			{
+				"command" : 6,
+				"file" : 2,
+				"line" : 272,
+				"parent" : 3
+			},
+			{
+				"file" : 3
+			},
+			{
+				"command" : 6,
+				"file" : 3,
+				"line" : 10,
+				"parent" : 26
+			},
+			{
+				"command" : 6,
+				"file" : 3,
+				"line" : 11,
+				"parent" : 26
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /MTd"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "/bigobj"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "/permissive-"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "/W4"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "/MP"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 10,
+					"define" : "BOOST_ALL_STATIC_LINK=1"
+				},
+				{
+					"backtrace" : 11,
+					"define" : "BOOST_ASIO_DISABLE_BOOST_ARRAY=1"
+				},
+				{
+					"backtrace" : 12,
+					"define" : "BOOST_ASIO_DISABLE_BOOST_BIND=1"
+				},
+				{
+					"backtrace" : 13,
+					"define" : "BOOST_ASIO_DISABLE_BOOST_DATE_TIME=1"
+				},
+				{
+					"backtrace" : 14,
+					"define" : "BOOST_ASIO_DISABLE_BOOST_REGEX=1"
+				},
+				{
+					"backtrace" : 15,
+					"define" : "BOOST_ASIO_NO_DEPRECATED=1"
+				},
+				{
+					"backtrace" : 16,
+					"define" : "BOOST_ASIO_SEPARATE_COMPILATION=1"
+				},
+				{
+					"backtrace" : 18,
+					"define" : "BOOST_BEAST_ALLOW_DEPRECATED"
+				},
+				{
+					"backtrace" : 19,
+					"define" : "BOOST_BEAST_SEPARATE_COMPILATION=1"
+				},
+				{
+					"backtrace" : 20,
+					"define" : "BOOST_BEAST_TESTS"
+				},
+				{
+					"backtrace" : 21,
+					"define" : "BOOST_COROUTINES_NO_DEPRECATION_WARNING=1"
+				},
+				{
+					"backtrace" : 22,
+					"define" : "_CRT_SECURE_NO_WARNINGS=1"
+				},
+				{
+					"backtrace" : 22,
+					"define" : "_SCL_SECURE_NO_WARNINGS=1"
+				},
+				{
+					"backtrace" : 22,
+					"define" : "_SILENCE_CXX17_ADAPTOR_TYPEDEFS_DEPRECATION_WARNING"
+				},
+				{
+					"backtrace" : 22,
+					"define" : "_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING"
+				},
+				{
+					"backtrace" : 22,
+					"define" : "_WIN32_WINNT=0x0601"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 23,
+					"path" : "C:/Users/santi/Documents/beast/include"
+				},
+				{
+					"backtrace" : 24,
+					"path" : "C:/Users/santi"
+				},
+				{
+					"backtrace" : 25,
+					"path" : "C:/Users/santi/Documents/beast/."
+				},
+				{
+					"backtrace" : 27,
+					"path" : "C:/Users/santi/Documents/beast/test/./extern"
+				},
+				{
+					"backtrace" : 28,
+					"path" : "C:/Users/santi/Documents/beast/test/./extras/include"
+				}
+			],
+			"language" : "CXX",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 6,
+			"id" : "lib-asio-ssl::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 5,
+			"id" : "lib-asio::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 8,
+			"id" : "lib-test::@36f028580bb02cc8272a"
+		},
+		{
+			"backtrace" : 7,
+			"id" : "lib-beast::@6890427a1f51a3e7e1df"
+		},
+		{
+			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
+		}
+	],
+	"id" : "tests-beast-core-_detail_clamp::@c7f68efc15994723d06b",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /MTd",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "/machine:X86 /SAFESEH:NO /debug /INCREMENTAL /subsystem:console",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-LIBPATH:C:\\Users\\santi\\stage\\lib",
+				"role" : "libraryPath"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "bcrypt.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 5,
+				"fragment" : "..\\..\\..\\Debug\\lib-asio.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 6,
+				"fragment" : "..\\..\\..\\Debug\\lib-asio-ssl.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 7,
+				"fragment" : "..\\..\\..\\Debug\\lib-beast.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 8,
+				"fragment" : "..\\..\\Debug\\lib-test.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 5,
+				"fragment" : "..\\..\\..\\Debug\\lib-asio.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "bcrypt.lib",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "tests-beast-core-_detail_clamp",
+	"nameOnDisk" : "tests-beast-core-_detail_clamp.exe",
+	"paths" : 
+	{
+		"build" : "test/beast/core",
+		"source" : "test/beast/core"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "test/beast/core/_detail_clamp.cpp",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "EXECUTABLE"
+}

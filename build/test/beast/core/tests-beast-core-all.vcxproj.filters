@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\santi\Documents\beast\build\CMakeFiles\59807fd280dfde8b6e193afb1a4ad317\tests-beast-core-all.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\santi\Documents\beast\test\beast\core\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\santi\Documents\beast\build\test\beast\core\CMakeFiles\tests-beast-core-all" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{12D90DF6-E673-3106-84D7-056ABCF6F467}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

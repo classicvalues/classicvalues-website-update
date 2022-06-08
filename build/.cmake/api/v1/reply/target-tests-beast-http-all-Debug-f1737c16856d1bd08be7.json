@@ -1,0 +1,176 @@
+{
+	"backtrace" : 2,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_custom_target",
+			"build_individual_tests"
+		],
+		"files" : 
+		[
+			"test/beast/CMakeLists.txt",
+			"test/beast/http/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 58,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 31,
+				"parent" : 1
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-http-string_body::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-http-field::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-http-rfc7230::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-http-dynamic_body::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-http-fields::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-http-chunk_encode::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-http-parser::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-http-vector_body::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-http-status::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-http-empty_body::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-http-buffer_body::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-http-message::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-http-basic_file_body::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-http-serializer::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-http-span_body::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-http-read::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-http-file_body::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-http-basic_dynamic_body::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-http-basic_parser::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-http-error::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-http-field_compiles::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-http-type_traits::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-http-verb::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-http-write::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
+		}
+	],
+	"id" : "tests-beast-http-all::@bfa7cddec3e57a68c1cb",
+	"name" : "tests-beast-http-all",
+	"paths" : 
+	{
+		"build" : "test/beast/http",
+		"source" : "test/beast/http"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				1
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 2,
+			"isGenerated" : true,
+			"path" : "build/test/beast/http/CMakeFiles/tests-beast-http-all",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/CMakeFiles/e29cdfa3609ff89ba1495d3eb3de7109/tests-beast-http-all.rule",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "UTILITY"
+}

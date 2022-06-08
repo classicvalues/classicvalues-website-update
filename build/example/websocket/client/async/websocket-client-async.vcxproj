@@ -1,0 +1,632 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x86</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|win32">
+      <Configuration>Debug</Configuration>
+      <Platform>win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|win32">
+      <Configuration>Release</Configuration>
+      <Platform>win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{9D84A976-7957-38CF-9AFD-7BB4D8F9A673}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
+    <Platform>win32</Platform>
+    <ProjectName>websocket-client-async</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">C:\Users\santi\Documents\beast\build\example\websocket\client\async\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">websocket-client-async.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">websocket-client-async</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|win32'">C:\Users\santi\Documents\beast\build\example\websocket\client\async\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|win32'">websocket-client-async.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|win32'">websocket-client-async</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">C:\Users\santi\Documents\beast\build\example\websocket\client\async\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">websocket-client-async.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">websocket-client-async</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">C:\Users\santi\Documents\beast\build\example\websocket\client\async\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">websocket-client-async.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">websocket-client-async</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\santi\Documents\beast\include;C:\Users\santi;C:\Users\santi\Documents\beast\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <ConformanceMode>true</ConformanceMode>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;_WIN32_WINNT=0x0601;_SCL_SECURE_NO_WARNINGS=1;_CRT_SECURE_NO_WARNINGS=1;_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING;_SILENCE_CXX17_ADAPTOR_TYPEDEFS_DEPRECATION_WARNING;BOOST_ALL_STATIC_LINK=1;BOOST_ASIO_NO_DEPRECATED=1;BOOST_ASIO_DISABLE_BOOST_ARRAY=1;BOOST_ASIO_DISABLE_BOOST_BIND=1;BOOST_ASIO_DISABLE_BOOST_DATE_TIME=1;BOOST_ASIO_DISABLE_BOOST_REGEX=1;BOOST_COROUTINES_NO_DEPRECATION_WARNING=1;BOOST_ASIO_SEPARATE_COMPILATION=1;BOOST_BEAST_SEPARATE_COMPILATION=1;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;_WIN32_WINNT=0x0601;_SCL_SECURE_NO_WARNINGS=1;_CRT_SECURE_NO_WARNINGS=1;_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING;_SILENCE_CXX17_ADAPTOR_TYPEDEFS_DEPRECATION_WARNING;BOOST_ALL_STATIC_LINK=1;BOOST_ASIO_NO_DEPRECATED=1;BOOST_ASIO_DISABLE_BOOST_ARRAY=1;BOOST_ASIO_DISABLE_BOOST_BIND=1;BOOST_ASIO_DISABLE_BOOST_DATE_TIME=1;BOOST_ASIO_DISABLE_BOOST_REGEX=1;BOOST_COROUTINES_NO_DEPRECATION_WARNING=1;BOOST_ASIO_SEPARATE_COMPILATION=1;BOOST_BEAST_SEPARATE_COMPILATION=1;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\santi\Documents\beast\include;C:\Users\santi;C:\Users\santi\Documents\beast\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\santi\Documents\beast\include;C:\Users\santi;C:\Users\santi\Documents\beast\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>bcrypt.lib;..\..\..\..\Debug\lib-asio.lib;..\..\..\..\Debug\lib-beast.lib;..\..\..\..\Debug\lib-asio.lib;bcrypt.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/santi/stage/lib;C:/Users/santi/stage/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <ImportLibrary>C:/Users/santi/Documents/beast/build/example/websocket/client/async/Debug/websocket-client-async.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/santi/Documents/beast/build/example/websocket/client/async/Debug/websocket-client-async.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\santi\Documents\beast\include;C:\Users\santi;C:\Users\santi\Documents\beast\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ConformanceMode>true</ConformanceMode>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_WIN32_WINNT=0x0601;_SCL_SECURE_NO_WARNINGS=1;_CRT_SECURE_NO_WARNINGS=1;_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING;_SILENCE_CXX17_ADAPTOR_TYPEDEFS_DEPRECATION_WARNING;BOOST_ALL_STATIC_LINK=1;BOOST_ASIO_NO_DEPRECATED=1;BOOST_ASIO_DISABLE_BOOST_ARRAY=1;BOOST_ASIO_DISABLE_BOOST_BIND=1;BOOST_ASIO_DISABLE_BOOST_DATE_TIME=1;BOOST_ASIO_DISABLE_BOOST_REGEX=1;BOOST_COROUTINES_NO_DEPRECATION_WARNING=1;BOOST_ASIO_SEPARATE_COMPILATION=1;BOOST_BEAST_SEPARATE_COMPILATION=1;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_WIN32_WINNT=0x0601;_SCL_SECURE_NO_WARNINGS=1;_CRT_SECURE_NO_WARNINGS=1;_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING;_SILENCE_CXX17_ADAPTOR_TYPEDEFS_DEPRECATION_WARNING;BOOST_ALL_STATIC_LINK=1;BOOST_ASIO_NO_DEPRECATED=1;BOOST_ASIO_DISABLE_BOOST_ARRAY=1;BOOST_ASIO_DISABLE_BOOST_BIND=1;BOOST_ASIO_DISABLE_BOOST_DATE_TIME=1;BOOST_ASIO_DISABLE_BOOST_REGEX=1;BOOST_COROUTINES_NO_DEPRECATION_WARNING=1;BOOST_ASIO_SEPARATE_COMPILATION=1;BOOST_BEAST_SEPARATE_COMPILATION=1;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\santi\Documents\beast\include;C:\Users\santi;C:\Users\santi\Documents\beast\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\santi\Documents\beast\include;C:\Users\santi;C:\Users\santi\Documents\beast\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>bcrypt.lib;..\..\..\..\Release\lib-asio.lib;..\..\..\..\Release\lib-beast.lib;..\..\..\..\Release\lib-asio.lib;bcrypt.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/santi/stage/lib;C:/Users/santi/stage/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <ImportLibrary>C:/Users/santi/Documents/beast/build/example/websocket/client/async/Release/websocket-client-async.lib</ImportLibrary>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <ProgramDataBaseFile>C:/Users/santi/Documents/beast/build/example/websocket/client/async/Release/websocket-client-async.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\santi\Documents\beast\include;C:\Users\santi;C:\Users\santi\Documents\beast\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ConformanceMode>true</ConformanceMode>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_WIN32_WINNT=0x0601;_SCL_SECURE_NO_WARNINGS=1;_CRT_SECURE_NO_WARNINGS=1;_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING;_SILENCE_CXX17_ADAPTOR_TYPEDEFS_DEPRECATION_WARNING;BOOST_ALL_STATIC_LINK=1;BOOST_ASIO_NO_DEPRECATED=1;BOOST_ASIO_DISABLE_BOOST_ARRAY=1;BOOST_ASIO_DISABLE_BOOST_BIND=1;BOOST_ASIO_DISABLE_BOOST_DATE_TIME=1;BOOST_ASIO_DISABLE_BOOST_REGEX=1;BOOST_COROUTINES_NO_DEPRECATION_WARNING=1;BOOST_ASIO_SEPARATE_COMPILATION=1;BOOST_BEAST_SEPARATE_COMPILATION=1;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_WIN32_WINNT=0x0601;_SCL_SECURE_NO_WARNINGS=1;_CRT_SECURE_NO_WARNINGS=1;_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING;_SILENCE_CXX17_ADAPTOR_TYPEDEFS_DEPRECATION_WARNING;BOOST_ALL_STATIC_LINK=1;BOOST_ASIO_NO_DEPRECATED=1;BOOST_ASIO_DISABLE_BOOST_ARRAY=1;BOOST_ASIO_DISABLE_BOOST_BIND=1;BOOST_ASIO_DISABLE_BOOST_DATE_TIME=1;BOOST_ASIO_DISABLE_BOOST_REGEX=1;BOOST_COROUTINES_NO_DEPRECATION_WARNING=1;BOOST_ASIO_SEPARATE_COMPILATION=1;BOOST_BEAST_SEPARATE_COMPILATION=1;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\santi\Documents\beast\include;C:\Users\santi;C:\Users\santi\Documents\beast\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\santi\Documents\beast\include;C:\Users\santi;C:\Users\santi\Documents\beast\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>bcrypt.lib;..\..\..\..\MinSizeRel\lib-asio.lib;..\..\..\..\MinSizeRel\lib-beast.lib;..\..\..\..\MinSizeRel\lib-asio.lib;bcrypt.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/santi/stage/lib;C:/Users/santi/stage/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <ImportLibrary>C:/Users/santi/Documents/beast/build/example/websocket/client/async/MinSizeRel/websocket-client-async.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/santi/Documents/beast/build/example/websocket/client/async/MinSizeRel/websocket-client-async.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\santi\Documents\beast\include;C:\Users\santi;C:\Users\santi\Documents\beast\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ConformanceMode>true</ConformanceMode>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_WIN32_WINNT=0x0601;_SCL_SECURE_NO_WARNINGS=1;_CRT_SECURE_NO_WARNINGS=1;_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING;_SILENCE_CXX17_ADAPTOR_TYPEDEFS_DEPRECATION_WARNING;BOOST_ALL_STATIC_LINK=1;BOOST_ASIO_NO_DEPRECATED=1;BOOST_ASIO_DISABLE_BOOST_ARRAY=1;BOOST_ASIO_DISABLE_BOOST_BIND=1;BOOST_ASIO_DISABLE_BOOST_DATE_TIME=1;BOOST_ASIO_DISABLE_BOOST_REGEX=1;BOOST_COROUTINES_NO_DEPRECATION_WARNING=1;BOOST_ASIO_SEPARATE_COMPILATION=1;BOOST_BEAST_SEPARATE_COMPILATION=1;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_WIN32_WINNT=0x0601;_SCL_SECURE_NO_WARNINGS=1;_CRT_SECURE_NO_WARNINGS=1;_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING;_SILENCE_CXX17_ADAPTOR_TYPEDEFS_DEPRECATION_WARNING;BOOST_ALL_STATIC_LINK=1;BOOST_ASIO_NO_DEPRECATED=1;BOOST_ASIO_DISABLE_BOOST_ARRAY=1;BOOST_ASIO_DISABLE_BOOST_BIND=1;BOOST_ASIO_DISABLE_BOOST_DATE_TIME=1;BOOST_ASIO_DISABLE_BOOST_REGEX=1;BOOST_COROUTINES_NO_DEPRECATION_WARNING=1;BOOST_ASIO_SEPARATE_COMPILATION=1;BOOST_BEAST_SEPARATE_COMPILATION=1;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\santi\Documents\beast\include;C:\Users\santi;C:\Users\santi\Documents\beast\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\santi\Documents\beast\include;C:\Users\santi;C:\Users\santi\Documents\beast\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>bcrypt.lib;..\..\..\..\RelWithDebInfo\lib-asio.lib;..\..\..\..\RelWithDebInfo\lib-beast.lib;..\..\..\..\RelWithDebInfo\lib-asio.lib;bcrypt.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/santi/stage/lib;C:/Users/santi/stage/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <ImportLibrary>C:/Users/santi/Documents/beast/build/example/websocket/client/async/RelWithDebInfo/websocket-client-async.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/santi/Documents/beast/build/example/websocket/client/async/RelWithDebInfo/websocket-client-async.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\santi\Documents\beast\example\websocket\client\async\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">Building Custom Rule C:/Users/santi/Documents/beast/example/websocket/client/async/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/santi/Documents/beast -BC:/Users/santi/Documents/beast/build --check-stamp-file C:/Users/santi/Documents/beast/build/example/websocket/client/async/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">C:\Users\santi\Documents\beast\build\example\websocket\client\async\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|win32'">Building Custom Rule C:/Users/santi/Documents/beast/example/websocket/client/async/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/santi/Documents/beast -BC:/Users/santi/Documents/beast/build --check-stamp-file C:/Users/santi/Documents/beast/build/example/websocket/client/async/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|win32'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|win32'">C:\Users\santi\Documents\beast\build\example\websocket\client\async\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">Building Custom Rule C:/Users/santi/Documents/beast/example/websocket/client/async/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/santi/Documents/beast -BC:/Users/santi/Documents/beast/build --check-stamp-file C:/Users/santi/Documents/beast/build/example/websocket/client/async/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">C:\Users\santi\Documents\beast\build\example\websocket\client\async\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">Building Custom Rule C:/Users/santi/Documents/beast/example/websocket/client/async/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/santi/Documents/beast -BC:/Users/santi/Documents/beast/build --check-stamp-file C:/Users/santi/Documents/beast/build/example/websocket/client/async/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">C:\Users\santi\Documents\beast\build\example\websocket\client\async\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\http\icy_stream.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\http\impl\icy_stream.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\test\detail\stream_state.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\test\detail\stream_state.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\test\error.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\test\fail_count.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\test\handler.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\test\impl\error.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\test\impl\error.ipp">
+    </None>
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\test\impl\fail_count.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\test\impl\stream.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\test\impl\stream.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\test\stream.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\test\tcp.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\unit_test\amount.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\unit_test\detail\const_container.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\unit_test\dstream.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\unit_test\global_suites.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\unit_test\main.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\unit_test\match.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\unit_test\recorder.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\unit_test\reporter.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\unit_test\results.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\unit_test\runner.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\unit_test\suite.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\unit_test\suite_info.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\_experimental\unit_test\suite_list.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\async_base.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\basic_stream.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\bind_handler.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\buffer_traits.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\buffered_read_stream.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\buffers_adaptor.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\buffers_cat.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\buffers_prefix.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\buffers_range.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\buffers_suffix.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\buffers_to_string.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\allocator.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\async_base.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\base64.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\base64.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\bind_continuation.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\bind_default_executor.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\bind_handler.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\buffer.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\buffer_traits.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\buffers_pair.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\buffers_range_adaptor.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\buffers_ref.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\chacha.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\char_buffer.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\clamp.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\config.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\cpu_info.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\flat_stream.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\get_io_context.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\impl\read.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\impl\temporary_buffer.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\is_invocable.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\ostream.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\pcg.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\read.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\remap_post_to_defer.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\service_base.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\sha1.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\sha1.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\static_const.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\static_ostream.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\static_string.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\stream_base.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\stream_traits.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\string.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\temporary_buffer.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\tuple.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\type_traits.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\variant.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\varint.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\win32_unicode_path.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detail\work_guard.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\detect_ssl.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\error.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\file.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\file_base.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\file_posix.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\file_stdio.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\file_win32.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\flat_buffer.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\flat_static_buffer.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\flat_stream.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\impl\async_base.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\impl\basic_stream.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\impl\buffered_read_stream.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\impl\buffers_adaptor.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\impl\buffers_cat.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\impl\buffers_prefix.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\impl\buffers_suffix.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\impl\error.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\core\impl\error.ipp">
+    </None>
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\core\impl\file_posix.ipp">
+    </None>
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\core\impl\file_stdio.ipp">
+    </None>
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\core\impl\file_win32.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\impl\flat_buffer.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\impl\flat_static_buffer.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\core\impl\flat_static_buffer.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\impl\flat_stream.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\impl\multi_buffer.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\impl\read_size.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\impl\saved_handler.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\core\impl\saved_handler.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\impl\static_buffer.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\core\impl\static_buffer.ipp">
+    </None>
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\core\impl\string.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\impl\string_param.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\make_printable.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\multi_buffer.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\ostream.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\rate_policy.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\read_size.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\role.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\saved_handler.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\span.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\static_buffer.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\static_string.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\stream_traits.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\string.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\string_param.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\string_type.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\core\tcp_stream.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\basic_dynamic_body.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\basic_file_body.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\basic_parser.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\buffer_body.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\chunk_encode.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\detail\basic_parsed_list.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\detail\basic_parser.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\http\detail\basic_parser.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\detail\chunk_encode.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\detail\rfc7230.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\http\detail\rfc7230.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\detail\type_traits.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\dynamic_body.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\empty_body.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\error.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\field.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\fields.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\file_body.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\impl\basic_parser.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\http\impl\basic_parser.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\impl\chunk_encode.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\impl\error.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\http\impl\error.ipp">
+    </None>
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\http\impl\field.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\impl\fields.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\http\impl\fields.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\impl\file_body_win32.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\impl\message.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\impl\parser.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\impl\read.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\impl\rfc7230.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\http\impl\rfc7230.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\impl\serializer.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\http\impl\status.ipp">
+    </None>
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\http\impl\verb.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\impl\write.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\message.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\parser.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\read.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\rfc7230.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\serializer.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\span_body.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\status.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\string_body.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\type_traits.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\vector_body.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\verb.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\http\write.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\src.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\ssl.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\ssl\ssl_stream.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\version.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\detail\decorator.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\detail\frame.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\detail\hybi13.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\detail\hybi13.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\detail\impl_base.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\detail\mask.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\detail\mask.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\detail\pmd_extension.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\detail\pmd_extension.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\detail\prng.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\detail\prng.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\detail\service.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\detail\service.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\detail\soft_mutex.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\detail\type_traits.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\detail\utf8_checker.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\detail\utf8_checker.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\error.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\impl\accept.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\impl\close.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\impl\error.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\impl\error.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\impl\handshake.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\impl\ping.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\impl\read.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\impl\rfc6455.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\impl\ssl.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\impl\stream.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\impl\stream_impl.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\impl\teardown.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\impl\write.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\option.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\rfc6455.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\ssl.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\stream.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\stream_base.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\stream_fwd.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\websocket\teardown.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\zlib.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\zlib\deflate_stream.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\zlib\detail\bitstream.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\zlib\detail\deflate_stream.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\zlib\detail\deflate_stream.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\zlib\detail\inflate_stream.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\zlib\detail\inflate_stream.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\zlib\detail\ranges.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\zlib\detail\window.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\zlib\error.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\zlib\impl\error.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\include\boost\beast\zlib\impl\error.ipp">
+    </None>
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\zlib\inflate_stream.hpp" />
+    <ClInclude Include="C:\Users\santi\Documents\beast\include\boost\beast\zlib\zlib.hpp" />
+    <None Include="C:\Users\santi\Documents\beast\example\websocket\client\async\Jamfile">
+    </None>
+    <ClCompile Include="C:\Users\santi\Documents\beast\example\websocket\client\async\websocket_client_async.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\ZERO_CHECK.vcxproj">
+      <Project>{B30FBFE7-8A87-3429-ADFE-C4E440EEB3D5}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\lib-asio.vcxproj">
+      <Project>{42A7C854-7C0B-3065-870A-161402CBC18F}</Project>
+      <Name>lib-asio</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\lib-beast.vcxproj">
+      <Project>{91C78872-F4E6-3066-813C-879846240601}</Project>
+      <Name>lib-beast</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

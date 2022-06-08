@@ -1,0 +1,519 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x86</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|win32">
+      <Configuration>Debug</Configuration>
+      <Platform>win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|win32">
+      <Configuration>Release</Configuration>
+      <Platform>win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B585A2C1-0F59-35C3-88C0-273D8E8F17CD}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
+    <Platform>win32</Platform>
+    <ProjectName>tests-beast-http-all</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\santi\Documents\beast\include;C:\Users\santi;C:\Users\santi\Documents\beast\.;C:\Users\santi\Documents\beast\test\.\extern;C:\Users\santi\Documents\beast\test\.\extras\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\santi\Documents\beast\include;C:\Users\santi;C:\Users\santi\Documents\beast\.;C:\Users\santi\Documents\beast\test\.\extern;C:\Users\santi\Documents\beast\test\.\extras\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\santi\Documents\beast\include;C:\Users\santi;C:\Users\santi\Documents\beast\.;C:\Users\santi\Documents\beast\test\.\extern;C:\Users\santi\Documents\beast\test\.\extras\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\santi\Documents\beast\include;C:\Users\santi;C:\Users\santi\Documents\beast\.;C:\Users\santi\Documents\beast\test\.\extern;C:\Users\santi\Documents\beast\test\.\extras\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\santi\Documents\beast\build\CMakeFiles\e29cdfa3609ff89ba1495d3eb3de7109\tests-beast-http-all.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|win32'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">setlocal
+Debug\tests-beast-http-basic_dynamic_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+Debug\tests-beast-http-basic_file_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+Debug\tests-beast-http-basic_parser.exe
+if %errorlevel% neq 0 goto :cmEnd
+Debug\tests-beast-http-buffer_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+Debug\tests-beast-http-chunk_encode.exe
+if %errorlevel% neq 0 goto :cmEnd
+Debug\tests-beast-http-dynamic_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+Debug\tests-beast-http-empty_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+Debug\tests-beast-http-error.exe
+if %errorlevel% neq 0 goto :cmEnd
+Debug\tests-beast-http-field.exe
+if %errorlevel% neq 0 goto :cmEnd
+Debug\tests-beast-http-field_compiles.exe
+if %errorlevel% neq 0 goto :cmEnd
+Debug\tests-beast-http-fields.exe
+if %errorlevel% neq 0 goto :cmEnd
+Debug\tests-beast-http-file_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+Debug\tests-beast-http-message.exe
+if %errorlevel% neq 0 goto :cmEnd
+Debug\tests-beast-http-parser.exe
+if %errorlevel% neq 0 goto :cmEnd
+Debug\tests-beast-http-read.exe
+if %errorlevel% neq 0 goto :cmEnd
+Debug\tests-beast-http-rfc7230.exe
+if %errorlevel% neq 0 goto :cmEnd
+Debug\tests-beast-http-serializer.exe
+if %errorlevel% neq 0 goto :cmEnd
+Debug\tests-beast-http-span_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+Debug\tests-beast-http-status.exe
+if %errorlevel% neq 0 goto :cmEnd
+Debug\tests-beast-http-string_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+Debug\tests-beast-http-type_traits.exe
+if %errorlevel% neq 0 goto :cmEnd
+Debug\tests-beast-http-vector_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+Debug\tests-beast-http-verb.exe
+if %errorlevel% neq 0 goto :cmEnd
+Debug\tests-beast-http-write.exe
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">C:\Users\santi\Documents\beast\build\test\beast\http\CMakeFiles\tests-beast-http-all</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">false</VerifyInputsAndOutputsExist>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|win32'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|win32'">setlocal
+Release\tests-beast-http-basic_dynamic_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+Release\tests-beast-http-basic_file_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+Release\tests-beast-http-basic_parser.exe
+if %errorlevel% neq 0 goto :cmEnd
+Release\tests-beast-http-buffer_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+Release\tests-beast-http-chunk_encode.exe
+if %errorlevel% neq 0 goto :cmEnd
+Release\tests-beast-http-dynamic_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+Release\tests-beast-http-empty_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+Release\tests-beast-http-error.exe
+if %errorlevel% neq 0 goto :cmEnd
+Release\tests-beast-http-field.exe
+if %errorlevel% neq 0 goto :cmEnd
+Release\tests-beast-http-field_compiles.exe
+if %errorlevel% neq 0 goto :cmEnd
+Release\tests-beast-http-fields.exe
+if %errorlevel% neq 0 goto :cmEnd
+Release\tests-beast-http-file_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+Release\tests-beast-http-message.exe
+if %errorlevel% neq 0 goto :cmEnd
+Release\tests-beast-http-parser.exe
+if %errorlevel% neq 0 goto :cmEnd
+Release\tests-beast-http-read.exe
+if %errorlevel% neq 0 goto :cmEnd
+Release\tests-beast-http-rfc7230.exe
+if %errorlevel% neq 0 goto :cmEnd
+Release\tests-beast-http-serializer.exe
+if %errorlevel% neq 0 goto :cmEnd
+Release\tests-beast-http-span_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+Release\tests-beast-http-status.exe
+if %errorlevel% neq 0 goto :cmEnd
+Release\tests-beast-http-string_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+Release\tests-beast-http-type_traits.exe
+if %errorlevel% neq 0 goto :cmEnd
+Release\tests-beast-http-vector_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+Release\tests-beast-http-verb.exe
+if %errorlevel% neq 0 goto :cmEnd
+Release\tests-beast-http-write.exe
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|win32'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|win32'">C:\Users\santi\Documents\beast\build\test\beast\http\CMakeFiles\tests-beast-http-all</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|win32'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Release|win32'">false</VerifyInputsAndOutputsExist>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">setlocal
+MinSizeRel\tests-beast-http-basic_dynamic_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+MinSizeRel\tests-beast-http-basic_file_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+MinSizeRel\tests-beast-http-basic_parser.exe
+if %errorlevel% neq 0 goto :cmEnd
+MinSizeRel\tests-beast-http-buffer_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+MinSizeRel\tests-beast-http-chunk_encode.exe
+if %errorlevel% neq 0 goto :cmEnd
+MinSizeRel\tests-beast-http-dynamic_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+MinSizeRel\tests-beast-http-empty_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+MinSizeRel\tests-beast-http-error.exe
+if %errorlevel% neq 0 goto :cmEnd
+MinSizeRel\tests-beast-http-field.exe
+if %errorlevel% neq 0 goto :cmEnd
+MinSizeRel\tests-beast-http-field_compiles.exe
+if %errorlevel% neq 0 goto :cmEnd
+MinSizeRel\tests-beast-http-fields.exe
+if %errorlevel% neq 0 goto :cmEnd
+MinSizeRel\tests-beast-http-file_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+MinSizeRel\tests-beast-http-message.exe
+if %errorlevel% neq 0 goto :cmEnd
+MinSizeRel\tests-beast-http-parser.exe
+if %errorlevel% neq 0 goto :cmEnd
+MinSizeRel\tests-beast-http-read.exe
+if %errorlevel% neq 0 goto :cmEnd
+MinSizeRel\tests-beast-http-rfc7230.exe
+if %errorlevel% neq 0 goto :cmEnd
+MinSizeRel\tests-beast-http-serializer.exe
+if %errorlevel% neq 0 goto :cmEnd
+MinSizeRel\tests-beast-http-span_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+MinSizeRel\tests-beast-http-status.exe
+if %errorlevel% neq 0 goto :cmEnd
+MinSizeRel\tests-beast-http-string_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+MinSizeRel\tests-beast-http-type_traits.exe
+if %errorlevel% neq 0 goto :cmEnd
+MinSizeRel\tests-beast-http-vector_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+MinSizeRel\tests-beast-http-verb.exe
+if %errorlevel% neq 0 goto :cmEnd
+MinSizeRel\tests-beast-http-write.exe
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">C:\Users\santi\Documents\beast\build\test\beast\http\CMakeFiles\tests-beast-http-all</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">false</VerifyInputsAndOutputsExist>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'"></Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">setlocal
+RelWithDebInfo\tests-beast-http-basic_dynamic_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+RelWithDebInfo\tests-beast-http-basic_file_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+RelWithDebInfo\tests-beast-http-basic_parser.exe
+if %errorlevel% neq 0 goto :cmEnd
+RelWithDebInfo\tests-beast-http-buffer_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+RelWithDebInfo\tests-beast-http-chunk_encode.exe
+if %errorlevel% neq 0 goto :cmEnd
+RelWithDebInfo\tests-beast-http-dynamic_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+RelWithDebInfo\tests-beast-http-empty_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+RelWithDebInfo\tests-beast-http-error.exe
+if %errorlevel% neq 0 goto :cmEnd
+RelWithDebInfo\tests-beast-http-field.exe
+if %errorlevel% neq 0 goto :cmEnd
+RelWithDebInfo\tests-beast-http-field_compiles.exe
+if %errorlevel% neq 0 goto :cmEnd
+RelWithDebInfo\tests-beast-http-fields.exe
+if %errorlevel% neq 0 goto :cmEnd
+RelWithDebInfo\tests-beast-http-file_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+RelWithDebInfo\tests-beast-http-message.exe
+if %errorlevel% neq 0 goto :cmEnd
+RelWithDebInfo\tests-beast-http-parser.exe
+if %errorlevel% neq 0 goto :cmEnd
+RelWithDebInfo\tests-beast-http-read.exe
+if %errorlevel% neq 0 goto :cmEnd
+RelWithDebInfo\tests-beast-http-rfc7230.exe
+if %errorlevel% neq 0 goto :cmEnd
+RelWithDebInfo\tests-beast-http-serializer.exe
+if %errorlevel% neq 0 goto :cmEnd
+RelWithDebInfo\tests-beast-http-span_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+RelWithDebInfo\tests-beast-http-status.exe
+if %errorlevel% neq 0 goto :cmEnd
+RelWithDebInfo\tests-beast-http-string_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+RelWithDebInfo\tests-beast-http-type_traits.exe
+if %errorlevel% neq 0 goto :cmEnd
+RelWithDebInfo\tests-beast-http-vector_body.exe
+if %errorlevel% neq 0 goto :cmEnd
+RelWithDebInfo\tests-beast-http-verb.exe
+if %errorlevel% neq 0 goto :cmEnd
+RelWithDebInfo\tests-beast-http-write.exe
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">C:\Users\santi\Documents\beast\build\test\beast\http\CMakeFiles\tests-beast-http-all</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">false</LinkObjects>
+      <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">false</VerifyInputsAndOutputsExist>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\santi\Documents\beast\test\beast\http\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">Building Custom Rule C:/Users/santi/Documents/beast/test/beast/http/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/santi/Documents/beast -BC:/Users/santi/Documents/beast/build --check-stamp-file C:/Users/santi/Documents/beast/build/test/beast/http/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">C:\Users\santi\Documents\beast\build\test\beast\http\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|win32'">Building Custom Rule C:/Users/santi/Documents/beast/test/beast/http/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/santi/Documents/beast -BC:/Users/santi/Documents/beast/build --check-stamp-file C:/Users/santi/Documents/beast/build/test/beast/http/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|win32'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|win32'">C:\Users\santi\Documents\beast\build\test\beast\http\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">Building Custom Rule C:/Users/santi/Documents/beast/test/beast/http/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/santi/Documents/beast -BC:/Users/santi/Documents/beast/build --check-stamp-file C:/Users/santi/Documents/beast/build/test/beast/http/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">C:\Users\santi\Documents\beast\build\test\beast\http\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">Building Custom Rule C:/Users/santi/Documents/beast/test/beast/http/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/santi/Documents/beast -BC:/Users/santi/Documents/beast/build --check-stamp-file C:/Users/santi/Documents/beast/build/test/beast/http/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">C:\Users\santi\Documents\beast\build\test\beast\http\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\santi\Documents\beast\build\test\beast\http\CMakeFiles\tests-beast-http-all">
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\ZERO_CHECK.vcxproj">
+      <Project>{B30FBFE7-8A87-3429-ADFE-C4E440EEB3D5}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\test\beast\http\tests-beast-http-basic_dynamic_body.vcxproj">
+      <Project>{76BEA64C-8AA7-39DA-BA0C-71DB4F78B4F4}</Project>
+      <Name>tests-beast-http-basic_dynamic_body</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\test\beast\http\tests-beast-http-basic_file_body.vcxproj">
+      <Project>{20436807-FF33-3923-BF12-9DB71B0DE413}</Project>
+      <Name>tests-beast-http-basic_file_body</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\test\beast\http\tests-beast-http-basic_parser.vcxproj">
+      <Project>{50DB2582-B842-3776-A847-3D5B8E8C3F7A}</Project>
+      <Name>tests-beast-http-basic_parser</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\test\beast\http\tests-beast-http-buffer_body.vcxproj">
+      <Project>{2D029F9C-0468-3A39-A2C1-5E8710513C4A}</Project>
+      <Name>tests-beast-http-buffer_body</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\test\beast\http\tests-beast-http-chunk_encode.vcxproj">
+      <Project>{A7337388-ADCE-363E-850B-53FE048A6177}</Project>
+      <Name>tests-beast-http-chunk_encode</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\test\beast\http\tests-beast-http-dynamic_body.vcxproj">
+      <Project>{47D64458-9516-3934-9ACF-DF889C51663D}</Project>
+      <Name>tests-beast-http-dynamic_body</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\test\beast\http\tests-beast-http-empty_body.vcxproj">
+      <Project>{CDCAEE5A-84A3-3C6D-A8A7-EED89461148B}</Project>
+      <Name>tests-beast-http-empty_body</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\test\beast\http\tests-beast-http-error.vcxproj">
+      <Project>{633F185C-A131-3E69-881A-35D2D575ED59}</Project>
+      <Name>tests-beast-http-error</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\test\beast\http\tests-beast-http-field.vcxproj">
+      <Project>{8A1DA599-618C-3078-A041-D838BBE01D18}</Project>
+      <Name>tests-beast-http-field</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\test\beast\http\tests-beast-http-field_compiles.vcxproj">
+      <Project>{BAB4E7AB-F1FD-3E1E-B082-262A031CFA48}</Project>
+      <Name>tests-beast-http-field_compiles</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\test\beast\http\tests-beast-http-fields.vcxproj">
+      <Project>{E4DD6671-47AA-33BB-952E-5178CDA1CD05}</Project>
+      <Name>tests-beast-http-fields</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\test\beast\http\tests-beast-http-file_body.vcxproj">
+      <Project>{E4E2693B-38FE-30D6-8AF6-42C6D466A3AA}</Project>
+      <Name>tests-beast-http-file_body</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\test\beast\http\tests-beast-http-message.vcxproj">
+      <Project>{B7BD677A-10B9-33CC-B4B6-682A3397D975}</Project>
+      <Name>tests-beast-http-message</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\test\beast\http\tests-beast-http-parser.vcxproj">
+      <Project>{7B1D41D8-1EF0-33CC-A80A-43FEF232C29B}</Project>
+      <Name>tests-beast-http-parser</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\test\beast\http\tests-beast-http-read.vcxproj">
+      <Project>{4421E863-44C5-330A-AFEC-BF4225BAD830}</Project>
+      <Name>tests-beast-http-read</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\test\beast\http\tests-beast-http-rfc7230.vcxproj">
+      <Project>{85222914-D224-3E26-8CEF-D52B04CB598A}</Project>
+      <Name>tests-beast-http-rfc7230</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\test\beast\http\tests-beast-http-serializer.vcxproj">
+      <Project>{0E7E22AE-8808-3C4A-BA16-86C18FE71A8E}</Project>
+      <Name>tests-beast-http-serializer</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\test\beast\http\tests-beast-http-span_body.vcxproj">
+      <Project>{46509BBC-B2A2-3910-9C01-EC7E9CBF35F1}</Project>
+      <Name>tests-beast-http-span_body</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\test\beast\http\tests-beast-http-status.vcxproj">
+      <Project>{7855A3FB-7ADD-3927-AEB3-7812FECB6F45}</Project>
+      <Name>tests-beast-http-status</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\test\beast\http\tests-beast-http-string_body.vcxproj">
+      <Project>{2CAE0AF4-CB4C-3BD6-8404-921FD9B9E4EE}</Project>
+      <Name>tests-beast-http-string_body</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\test\beast\http\tests-beast-http-type_traits.vcxproj">
+      <Project>{AD7020BC-FBE8-3857-93D3-5B67B7F896A0}</Project>
+      <Name>tests-beast-http-type_traits</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\test\beast\http\tests-beast-http-vector_body.vcxproj">
+      <Project>{527D346E-DE7D-327C-A204-F2A481EC0BC4}</Project>
+      <Name>tests-beast-http-vector_body</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\test\beast\http\tests-beast-http-verb.vcxproj">
+      <Project>{40C5737B-78D7-3866-B8E2-CE5147B7A1A3}</Project>
+      <Name>tests-beast-http-verb</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\santi\Documents\beast\build\test\beast\http\tests-beast-http-write.vcxproj">
+      <Project>{8F8DFB3C-8AE9-38A9-8B66-F9918F0DAA06}</Project>
+      <Name>tests-beast-http-write</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

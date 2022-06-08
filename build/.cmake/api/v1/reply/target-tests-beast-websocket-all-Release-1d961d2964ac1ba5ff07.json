@@ -1,0 +1,172 @@
+{
+	"backtrace" : 2,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_custom_target",
+			"build_individual_tests"
+		],
+		"files" : 
+		[
+			"test/beast/CMakeLists.txt",
+			"test/beast/websocket/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 54,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 31,
+				"parent" : 1
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-websocket-option::@207eb827c2f3dff7890e"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-websocket-read2::@207eb827c2f3dff7890e"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-websocket-stream::@207eb827c2f3dff7890e"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-websocket-accept::@207eb827c2f3dff7890e"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-websocket-close::@207eb827c2f3dff7890e"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-websocket-handshake::@207eb827c2f3dff7890e"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-websocket-read1::@207eb827c2f3dff7890e"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-websocket-rfc6455::@207eb827c2f3dff7890e"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-websocket-read3::@207eb827c2f3dff7890e"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-websocket-_detail_prng::@207eb827c2f3dff7890e"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-websocket-stream_base::@207eb827c2f3dff7890e"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-websocket-ssl::@207eb827c2f3dff7890e"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-websocket-_detail_impl_base::@207eb827c2f3dff7890e"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-websocket-stream_explicit::@207eb827c2f3dff7890e"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-websocket-error::@207eb827c2f3dff7890e"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-websocket-_detail_decorator::@207eb827c2f3dff7890e"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-websocket-frame::@207eb827c2f3dff7890e"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-websocket-ping::@207eb827c2f3dff7890e"
+		},
+		{
+			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-websocket-stream_fwd::@207eb827c2f3dff7890e"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-websocket-timer::@207eb827c2f3dff7890e"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-websocket-utf8_checker::@207eb827c2f3dff7890e"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-websocket-teardown::@207eb827c2f3dff7890e"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-websocket-write::@207eb827c2f3dff7890e"
+		}
+	],
+	"id" : "tests-beast-websocket-all::@207eb827c2f3dff7890e",
+	"name" : "tests-beast-websocket-all",
+	"paths" : 
+	{
+		"build" : "test/beast/websocket",
+		"source" : "test/beast/websocket"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				1
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 2,
+			"isGenerated" : true,
+			"path" : "build/test/beast/websocket/CMakeFiles/tests-beast-websocket-all",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/CMakeFiles/6efd93a6597769b6164772546dab3280/tests-beast-websocket-all.rule",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "UTILITY"
+}

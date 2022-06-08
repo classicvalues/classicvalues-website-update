@@ -1,0 +1,157 @@
+{
+	"backtrace" : 0,
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : 
+		[
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"id" : "lib-asio-ssl::@6890427a1f51a3e7e1df"
+		},
+		{
+			"id" : "lib-asio::@6890427a1f51a3e7e1df"
+		},
+		{
+			"id" : "http-client-async::@b6d39f51956014226222"
+		},
+		{
+			"id" : "http-client-coro::@a85a6ce221316f1f29b5"
+		},
+		{
+			"id" : "http-crawl::@9ae5557f2ce6b2207c59"
+		},
+		{
+			"id" : "http-client-sync::@9cfce98b6967bacd1195"
+		},
+		{
+			"id" : "http-server-async::@837a6a4845e1e582ce89"
+		},
+		{
+			"id" : "http-server-fast::@27aac1d3c9de1d2aa686"
+		},
+		{
+			"id" : "websocket-chat-multi::@4e33d0309864701b4597"
+		},
+		{
+			"id" : "websocket-server-coro::@fb0a9ac14e2655831e1c"
+		},
+		{
+			"id" : "websocket-server-fast::@01c4bb0d60a9861cee63"
+		},
+		{
+			"id" : "websocket-server-stackless::@c5ccbdb2a36ba9964d89"
+		},
+		{
+			"id" : "websocket-server-sync::@1e1ac00353cd7c91ce98"
+		},
+		{
+			"id" : "lib-zlib::@36f028580bb02cc8272a"
+		},
+		{
+			"id" : "lib-test::@36f028580bb02cc8272a"
+		},
+		{
+			"id" : "tests-beast::@0e07be4e48d41d861767"
+		},
+		{
+			"id" : "echo-op::@dc9b3c75aea85d9cdba7"
+		},
+		{
+			"id" : "tests-beast-_experimental::@35c1790819dbe507710b"
+		},
+		{
+			"id" : "websocket-server-async::@ac6d2a0b943f12559070"
+		},
+		{
+			"id" : "websocket-client-coro::@6efb4896117a28fdcc71"
+		},
+		{
+			"id" : "websocket-client-sync::@08001aa5a4960cbd5c32"
+		},
+		{
+			"id" : "lib-beast::@6890427a1f51a3e7e1df"
+		},
+		{
+			"id" : "http-server-small::@5db518a4d81fede51ed2"
+		},
+		{
+			"id" : "http-server-stackless::@a067038720259e8dfaec"
+		},
+		{
+			"id" : "advanced-server::@2f94a823e2d6ecc584c1"
+		},
+		{
+			"id" : "http-server-sync::@fb02691da3bddc1e11f1"
+		},
+		{
+			"id" : "websocket-client-async::@aa3b264215944dd3edcc"
+		},
+		{
+			"id" : "http-server-coro::@90f9b3a97493ec436fa9"
+		},
+		{
+			"id" : "tests-beast-core::@c7f68efc15994723d06b"
+		},
+		{
+			"id" : "tests-beast-http::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"id" : "tests-beast-websocket::@207eb827c2f3dff7890e"
+		},
+		{
+			"id" : "tests-beast-ssl::@520c1bb3a89d0ac9f092"
+		},
+		{
+			"id" : "bench-wsload::@c4a8e561d6fba1945406"
+		},
+		{
+			"id" : "bench-parser::@aadfcec5a09dc5370553"
+		},
+		{
+			"id" : "tests-doc::@7cc34a2d2b25573f03c4"
+		},
+		{
+			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
+		},
+		{
+			"id" : "tests-example-common::@2b2558592ecad24bb793"
+		},
+		{
+			"id" : "bench-utf8-checker::@ebf9564203f92f283cbe"
+		},
+		{
+			"id" : "tests-beast-zlib::@fe9d358174f76e53dced"
+		},
+		{
+			"id" : "bench-buffers::@cc040e478d390fd88d08"
+		},
+		{
+			"id" : "bench-zlib::@051069e8447f45ec9c13"
+		}
+	],
+	"folder" : 
+	{
+		"name" : "CMakePredefinedTargets"
+	},
+	"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",
+	"isGeneratorProvided" : true,
+	"name" : "ALL_BUILD",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sources" : [],
+	"type" : "UTILITY"
+}

@@ -1,0 +1,90 @@
+{
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_custom_target"
+		],
+		"files" : 
+		[
+			"test/beast/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 72,
+				"parent" : 0
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"id" : "tests-beast-_experimental-all::@35c1790819dbe507710b"
+		},
+		{
+			"id" : "tests-beast-core-all::@c7f68efc15994723d06b"
+		},
+		{
+			"id" : "tests-beast-http-all::@bfa7cddec3e57a68c1cb"
+		},
+		{
+			"id" : "tests-beast-ssl-all::@520c1bb3a89d0ac9f092"
+		},
+		{
+			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
+		},
+		{
+			"id" : "tests-beast-zlib-all::@fe9d358174f76e53dced"
+		},
+		{
+			"id" : "tests-beast-websocket-all::@207eb827c2f3dff7890e"
+		}
+	],
+	"id" : "tests-beast-all::@0e07be4e48d41d861767",
+	"name" : "tests-beast-all",
+	"paths" : 
+	{
+		"build" : "test/beast",
+		"source" : "test/beast"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				1
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"isGenerated" : true,
+			"path" : "build/test/beast/CMakeFiles/tests-beast-all",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/CMakeFiles/71147e7ea4e00eea015e402d757edff2/tests-beast-all.rule",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "UTILITY"
+}

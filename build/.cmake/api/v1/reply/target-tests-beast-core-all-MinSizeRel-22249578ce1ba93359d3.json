@@ -1,0 +1,260 @@
+{
+	"backtrace" : 2,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_custom_target",
+			"build_individual_tests"
+		],
+		"files" : 
+		[
+			"test/beast/CMakeLists.txt",
+			"test/beast/core/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 79,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 31,
+				"parent" : 1
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-buffers_adaptor::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-buffers_prefix::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-_detail_sha1::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-_detail_is_invocable::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-_detail_base64::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-_detail_get_io_context::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-_detail_variant::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-_detail_bind_continuation::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-_detail_buffer::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-bind_handler::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-async_base::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-basic_stream::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-buffer_traits::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-_detail_read::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-_detail_clamp::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-_detail_tuple::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-_detail_varint::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-buffered_read_stream::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-buffers_cat::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-flat_stream::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-file_win32::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-multi_buffer::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-rate_policy::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-flat_static_buffer::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-file_base::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-buffers_range::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-file_stdio::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-span::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-saved_handler::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-static_buffer::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-stream_traits::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-error::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-ostream::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-read_size::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-static_string::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-string::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-role::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-buffers_to_string::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-detect_ssl::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-flat_buffer::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-buffers_suffix::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-file::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-file_posix::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-make_printable::@c7f68efc15994723d06b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "tests-beast-core-tcp_stream::@c7f68efc15994723d06b"
+		},
+		{
+			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
+		}
+	],
+	"id" : "tests-beast-core-all::@c7f68efc15994723d06b",
+	"name" : "tests-beast-core-all",
+	"paths" : 
+	{
+		"build" : "test/beast/core",
+		"source" : "test/beast/core"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				1
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 2,
+			"isGenerated" : true,
+			"path" : "build/test/beast/core/CMakeFiles/tests-beast-core-all",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/CMakeFiles/59807fd280dfde8b6e193afb1a4ad317/tests-beast-core-all.rule",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "UTILITY"
+}

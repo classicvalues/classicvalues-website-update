@@ -15,7 +15,7 @@
     "rewrites": [
       {
         "source": "**",
-        "destination": "/docs/content/_index.md"
+        "destination": "/index.html"
       }
     ]
   },

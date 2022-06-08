@@ -16,7 +16,7 @@
     "rewrites": [
       {
         "source": "**",
-        "destination": "/docs/content/index.html"
+        "destination": "index.html"
       }
     ],
   "storage": {

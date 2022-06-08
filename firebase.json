@@ -6,7 +6,7 @@
     ]
   },
   "hosting": {
-    "public": "classicvalues/classicvalues-website-update",
+    "public": "docs/content",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -16,7 +16,7 @@
     "rewrites": [
       {
         "source": "**",
-        "destination": "/docs/index.html"
+        "destination": "/docs/content/index.html"
       }
     ],
   "storage": {

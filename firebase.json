@@ -13,22 +13,10 @@
       "**/node_modules/**"
     ]
   },
-  "redirects": [
-    {
-        "source": "/docs/index.html",
-        "destination": "/index",
-        "type": 301
-    },
-    {
-        "source": "/public/index.html",
-        "destination": "/home",
-        "type": 301
-    }
-],
     "rewrites": [
       {
         "source": "**",
-        "destination": "/index.html"
+        "destination": "/docs/index.html"
       }
     ],
   "storage": {

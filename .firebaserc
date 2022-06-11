@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "classic-values-website"
-  }
+    "default": "classic-values-website",
+    "production": "classic-values-website"
+  },
+  "targets": {}
 }

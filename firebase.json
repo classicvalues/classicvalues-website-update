@@ -3,7 +3,7 @@
     "source": "functions"
   },
   "hosting": {
-    "public": "public",
+    "public": "docs",
     "cleanUrls": true,
     "trailingSlash": false,
     "ignore": [

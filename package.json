@@ -1,6 +1,6 @@
 {
   "name": "@classicvalues/classicvalues-website-update",
-  "description": "The most popular front-end framework for developing responsive, mobile-first projects on the web rewritten and maintained by the CoreUI Team",
+  "description": "Classic Mobile Games interfece and repository/directory, mobile-first project rewritten and maintained by the SoftwareSafety Team",
   "version": "1.0.1",
   "config": {
     "version_short": "1-alpha-1"
@@ -85,10 +85,10 @@
     "@popperjs/core": "^2.11.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.17.6",
-    "@babel/core": "^7.17.5",
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.18.2",
     "@babel/preset-env": "^7.18.2",
-    "@popperjs/core": "^2.11.2",
+    "@popperjs/core": "^2.11.5",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^22.0.0",
     "@rollup/plugin-node-resolve": "^13.1.3",

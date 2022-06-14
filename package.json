@@ -93,6 +93,7 @@
     "@rollup/plugin-commonjs": "^22.0.0",
     "@rollup/plugin-node-resolve": "^13.1.3",
     "@rollup/plugin-replace": "^4.0.0",
+    "@typescript-eslint/parser": "^5.28.0",
     "auto-changelog": "^2.4.0",
     "autoprefixer": "^10.4.2",
     "bundlewatch": "^0.3.3",
@@ -133,6 +134,7 @@
     "stylelint": "^14.8.5",
     "stylelint-config-twbs-bootstrap": "^4.0.0",
     "terser": "^5.14.0",
+    "typescript": "^4.7.3",
     "vnu-jar": "21.10.12"
   },
   "files": [

@@ -166,6 +166,8 @@
   "dependencies": {
     "@coreui/coreui": "^4.1.5",
     "@ionic-internal/sites-shared": "^1.1.1",
+    "@typescript-eslint/eslint-plugin": "^5.28.0",
+    "@typescript-eslint/eslint-plugin-tslint": "^5.28.0",
     "applicationinsights": "^2.3.3",
     "bin-version": "^6.0.0",
     "bin-wrapper": "^4.1.0",

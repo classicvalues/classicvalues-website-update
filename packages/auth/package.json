@@ -114,7 +114,7 @@
     "@firebase/app": "0.7.25",
     "@rollup/plugin-json": "4.1.0",
     "@rollup/plugin-strip": "2.1.0",
-    "chromedriver": "98.0.1",
+    "chromedriver": "102.0.0",
     "rollup": "2.72.1",
     "rollup-plugin-sourcemaps": "0.6.3",
     "rollup-plugin-typescript2": "0.31.2",

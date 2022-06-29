@@ -50,7 +50,7 @@
     "@firebase/component": "0.5.14",
     "@firebase/util": "1.6.0",
     "node-fetch": "3.2.6",
-    "selenium-webdriver": "4.1.2",
+    "selenium-webdriver": "4.3.0",
     "tslib": "^2.1.0"
   },
   "license": "Apache-2.0",

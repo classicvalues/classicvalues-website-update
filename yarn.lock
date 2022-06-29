@@ -1988,10 +1988,13 @@
     "@typescript-eslint/types" "5.28.0"
     eslint-visitor-keys "^3.3.0"
 
-"@yarnpkg/lockfile@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/@yarnpkg/lockfile/-/lockfile-1.1.0.tgz"
-  integrity sha512-GpSwvyXOcOOlV70vbnzjj4fW5xW/FdUF6nQEt1ENy7m4ZCczi1+/buVUPAqmGfqznsORNFzUMjctTIp8a9tuCQ==
+"@yarnpkg/parsers@^3.0.0-rc.6":
+  version "3.0.0-rc.9"
+  resolved "https://registry.npmjs.org/@yarnpkg/parsers/-/parsers-3.0.0-rc.9.tgz#2d284e4e0c79b1c4e410465e217fa303d98b7be3"
+  integrity sha512-JMBE+6OJoNN9AXBzZ72u22/t9M25K8KgUWZIjvk8CU/NsE/m946l8D7SqMhbi3ZaUfYa5QitqCqVWTTFtysGJQ==
+  dependencies:
+    js-yaml "^3.10.0"
+    tslib "^1.13.0"
 
 abbrev@1:
   version "1.1.1"
@@ -2117,6 +2120,13 @@ archive-type@^4.0.0:
   integrity sha512-zV4Ky0v1F8dBrdYElwTvQhweQ0P7Kwc1aluqJsYtOBP01jXcWCyW2IEfI1YiqsG+Iy7ZR+o5LF1N+PGECBxHWA==
   dependencies:
     file-type "^4.2.0"
+
+argparse@^1.0.7:
+  version "1.0.10"
+  resolved "https://registry.npmjs.org/argparse/-/argparse-1.0.10.tgz#bcd6791ea5ae09725e17e5ad988134cd40b3d911"
+  integrity sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==
+  dependencies:
+    sprintf-js "~1.0.2"
 
 argparse@^2.0.1:
   version "2.0.1"
@@ -3612,6 +3622,11 @@ espree@^9.3.2:
     acorn "^8.7.1"
     acorn-jsx "^5.3.2"
     eslint-visitor-keys "^3.3.0"
+
+esprima@^4.0.0:
+  version "4.0.1"
+  resolved "https://registry.npmjs.org/esprima/-/esprima-4.0.1.tgz#13b04cdb3e6c5d19df91ab6987a8695619b0aa71"
+  integrity sha512-eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A==
 
 esquery@^1.4.0:
   version "1.4.0"
@@ -5165,6 +5180,14 @@ js-yaml@0.3.x:
   resolved "https://registry.npmjs.org/js-yaml/-/js-yaml-0.3.7.tgz"
   integrity sha512-/7PsVDNP2tVe2Z1cF9kTEkjamIwz4aooDpRKmN1+g/9eePCgcxsv4QDvEbxO0EH+gdDD7MLyDoR6BASo3hH51g==
 
+js-yaml@^3.10.0:
+  version "3.14.1"
+  resolved "https://registry.npmjs.org/js-yaml/-/js-yaml-3.14.1.tgz#dae812fdb3825fa306609a8717383c50c36a0537"
+  integrity sha512-okMH7OXXJ7YrN9Ok3/SXrnu4iX9yOk+25nqX4imS2npuvTYDmo/QEZoqwZkYaIDk3jVvBOTOIEgEhaLOynBS9g==
+  dependencies:
+    argparse "^1.0.7"
+    esprima "^4.0.0"
+
 js-yaml@^4.1.0:
   version "4.1.0"
   resolved "https://registry.npmjs.org/js-yaml/-/js-yaml-4.1.0.tgz"
@@ -5549,23 +5572,22 @@ locate-path@^7.1.0:
   dependencies:
     p-locate "^6.0.0"
 
-lockfile-lint-api@^5.2.4:
-  version "5.2.4"
-  resolved "https://registry.npmjs.org/lockfile-lint-api/-/lockfile-lint-api-5.2.4.tgz"
-  integrity sha512-AvZiJ17CfTzv6ufEo9JHhv8STGRhQevBu3tpsunB/DE1ZV1asaR5xzDzV1PnfwCDYt/mCjg4dWQpr07v+/M0ow==
+lockfile-lint-api@^5.2.5:
+  version "5.2.5"
+  resolved "https://registry.npmjs.org/lockfile-lint-api/-/lockfile-lint-api-5.2.5.tgz#be892c824f6e9e135fcdeda86b2c0d426388a5e5"
+  integrity sha512-KmOemYnjfCNxrLcYim2YCc6j6yLQBTC7N+gJXHqRRywJDbSmltks/d+D47XKxEjdlhGmP7g5/9wdgITW3UQ9ZQ==
   dependencies:
-    "@yarnpkg/lockfile" "^1.1.0"
-    debug "^4.1.1"
+    "@yarnpkg/parsers" "^3.0.0-rc.6"
     object-hash "^2.0.1"
 
-lockfile-lint@4.7.4:
-  version "4.7.4"
-  resolved "https://registry.npmjs.org/lockfile-lint/-/lockfile-lint-4.7.4.tgz"
-  integrity sha512-5IS+KqWDK0V7H3NiOh7sgO1fJ0t8RiuLCE+YFNlHBu5nVs1KagGbJ1eipEgQm9DtgzqBIR90X33RSKPOTAVczg==
+lockfile-lint@4.7.5:
+  version "4.7.5"
+  resolved "https://registry.npmjs.org/lockfile-lint/-/lockfile-lint-4.7.5.tgz#b544f7e6055b77716ee9819293c6b8c28641ef2b"
+  integrity sha512-l6gEe+rCaM/A32VWwLVnxl0AV8w28k7t62VZV5nOj/TcYzWAs+R7hzkKagghX4lhURlKkLSbVWucCwUlUe+7uw==
   dependencies:
     cosmiconfig "^6.0.0"
     debug "^4.1.1"
-    lockfile-lint-api "^5.2.4"
+    lockfile-lint-api "^5.2.5"
     yargs "^16.0.0"
 
 lodash.camelcase@^4.3.0:
@@ -7400,6 +7422,11 @@ split@0.3:
   dependencies:
     through "2"
 
+sprintf-js@~1.0.2:
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
+  integrity sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==
+
 stack-chain@^1.3.7:
   version "1.3.7"
   resolved "https://registry.npmjs.org/stack-chain/-/stack-chain-1.3.7.tgz"
@@ -7895,7 +7922,7 @@ tsconfig-paths@^3.14.1:
     minimist "^1.2.6"
     strip-bom "^3.0.0"
 
-tslib@^1.8.1:
+tslib@^1.13.0, tslib@^1.8.1:
   version "1.14.1"
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==

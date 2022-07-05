@@ -62,6 +62,6 @@
     "@firebase/installations-types": "0.4.0",
     "@firebase/util": "1.6.0",
     "@firebase/component": "0.5.14",
-    "tslib": "^2.1.0"
+    "tslib": "^2.4.0"
   }
 }

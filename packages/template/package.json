@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@firebase/template-types": "0.1.0",
-    "tslib": "^2.1.0"
+    "tslib": "^2.4.0"
   },
   "license": "Apache-2.0",
   "devDependencies": {

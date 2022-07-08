@@ -16,7 +16,7 @@
     "test": "tsc -p . --noEmit"
   },
   "dependencies": {
-    "@changesets/types": "3.3.0",
+    "@changesets/types": "5.0.0",
     "@changesets/get-github-info": "0.5.1",
     "node-fetch": "3.2.6",
     "@types/node-fetch": "2.6.1"

@@ -43,7 +43,7 @@
     "@firebase/installations": "0.5.9",
     "@firebase/util": "1.6.0",
     "@firebase/component": "0.5.14",
-    "tslib": "^2.1.0"
+    "tslib": "^2.4.0"
   },
   "license": "Apache-2.0",
   "devDependencies": {

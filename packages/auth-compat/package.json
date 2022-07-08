@@ -51,7 +51,7 @@
     "@firebase/util": "1.6.0",
     "node-fetch": "3.2.6",
     "selenium-webdriver": "4.3.0",
-    "tslib": "^2.1.0"
+    "tslib": "^2.4.0"
   },
   "license": "Apache-2.0",
   "devDependencies": {

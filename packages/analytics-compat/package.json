@@ -57,7 +57,7 @@
     "@firebase/analytics": "0.7.9",
     "@firebase/analytics-types": "0.7.0",
     "@firebase/util": "1.6.0",
-    "tslib": "^2.1.0"
+    "tslib": "^2.4.0"
   },
   "nyc": {
     "extension": [

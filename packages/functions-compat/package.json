@@ -63,7 +63,7 @@
     "@firebase/functions": "0.8.1",
     "@firebase/functions-types": "0.5.0",
     "@firebase/util": "1.6.0",
-    "tslib": "^2.1.0"
+    "tslib": "^2.4.0"
   },
   "nyc": {
     "extension": [

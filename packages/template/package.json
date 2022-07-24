@@ -46,7 +46,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@firebase/app": "0.7.25",
-    "rollup": "2.75.7",
+    "rollup": "2.77.0",
     "rollup-plugin-typescript2": "0.32.1",
     "typescript": "4.7.4"
   },

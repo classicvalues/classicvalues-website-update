@@ -1996,8 +1996,8 @@
   integrity sha512-sOUTGn6h1SfQ+gbgqC364jLFBw2lnFqkgF3q0WovEHRLMrVD1sd5aufqi/aJObLekJO+Aq5z646U4Oxy6shXMA==
   dependencies:
     "@types/node" "*"
-
-"@typescript-eslint/eslint-plugin-tslint@^5.33.0":
+  
+ "@typescript-eslint/eslint-plugin-tslint@^5.33.0":
   version "5.33.0"
   resolved "https://registry.npmjs.org/@typescript-eslint/eslint-plugin-tslint/-/eslint-plugin-tslint-5.33.0.tgz#991ba93f98a8d67c41684e27d782724babb8ec16"
   integrity sha512-lK2EH9LykACtC1e2daBqN0c5h6Ymre8LS6OfyDT/V+BxxPUDjD3KEJUE3bg43IzOsCx3ohvnvjjq2v70yd/jxw==
@@ -2005,7 +2005,7 @@
     "@typescript-eslint/utils" "5.33.0"
     lodash "^4.17.21"
 
-"@typescript-eslint/eslint-plugin@^5.28.0":
+"@typescript-eslint/eslint-plugin@^5.33.0":
   version "5.33.0"
   resolved "https://registry.npmjs.org/@typescript-eslint/eslint-plugin/-/eslint-plugin-5.33.0.tgz#059798888720ec52ffa96c5f868e31a8f70fa3ec"
   integrity sha512-jHvZNSW2WZ31OPJ3enhLrEKvAZNyAFWZ6rx9tUwaessTc4sx9KmgMNhVcqVAl1ETnT5rU5fpXTLmY9YvC1DCNg==

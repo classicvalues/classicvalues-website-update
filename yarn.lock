@@ -1553,6 +1553,7 @@
     protobufjs "^7.0.0"
     yargs "^16.2.0"
 
+
 "@humanwhocodes/config-array@^0.10.4":
   version "0.10.4"
   resolved "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.10.4.tgz#01e7366e57d2ad104feea63e72248f22015c520c"
@@ -2001,7 +2002,7 @@
   integrity sha512-sOUTGn6h1SfQ+gbgqC364jLFBw2lnFqkgF3q0WovEHRLMrVD1sd5aufqi/aJObLekJO+Aq5z646U4Oxy6shXMA==
   dependencies:
     "@types/node" "*"
-    
+
  "@typescript-eslint/eslint-plugin-tslint@^5.33.0":
   version "5.33.0"
   resolved "https://registry.npmjs.org/@typescript-eslint/eslint-plugin-tslint/-/eslint-plugin-tslint-5.33.0.tgz#991ba93f98a8d67c41684e27d782724babb8ec16"
@@ -2009,6 +2010,7 @@
   dependencies:
     "@typescript-eslint/utils" "5.33.0"
     lodash "^4.17.21"
+
 
 "@typescript-eslint/eslint-plugin@^5.33.0":
   version "5.33.0"
@@ -2230,7 +2232,7 @@ anymatch@~3.1.2:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
 
-applicationinsights@^2.3.3:
+applicationinsights@^2.3.4:
   version "2.3.4"
   resolved "https://registry.npmjs.org/applicationinsights/-/applicationinsights-2.3.4.tgz#94fba0ca98956cb13e12574b975ad3cb7a2c5b5b"
   integrity sha512-B/u2MepyV8r70NtG9nQ+7/MFog0j0P0tdEAz9coZGwNcW/T816ewROrre5QWBNyjYnsUB3dUF5OscGd0F0l2fA==

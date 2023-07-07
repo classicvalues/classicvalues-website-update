@@ -131,7 +131,7 @@
     "rtlcss": "3.5.0",
     "sass": "1.54.3",
     "shelljs": "0.8.5",
-    "stylelint": "14.9.1",
+    "stylelint": "15.10.1",
     "stylelint-config-twbs-bootstrap": "5.0.0",
     "terser": "5.14.2",
     "typescript": "4.7.4",

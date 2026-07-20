@@ -11,12 +11,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           path: vcpkg
 
       - name: Checkout Website
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           repository: vcpkg/vcpkg.github.io
           ref: '8ee5cacc91b6e017b5e4236940d9f385c1563598'

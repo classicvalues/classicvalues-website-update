@@ -16,25 +16,25 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "firebase": "9.8.1"
+    "firebase": "9.23.0"
   },
   "devDependencies": {
-    "@babel/core": "7.17.10",
-    "@babel/preset-env": "7.17.10",
-    "@types/chai": "4.3.1",
+    "@babel/core": "7.29.7",
+    "@babel/preset-env": "7.29.7",
+    "@types/chai": "4.3.20",
     "@types/mocha": "9.1.1",
-    "babel-loader": "8.2.5",
-    "chai": "4.3.6",
-    "karma": "6.3.19",
-    "karma-chrome-launcher": "3.1.1",
+    "babel-loader": "8.4.1",
+    "chai": "4.5.0",
+    "karma": "6.4.4",
+    "karma-chrome-launcher": "3.2.0",
     "karma-mocha": "2.0.1",
-    "karma-spec-reporter": "0.0.34",
-    "karma-typescript": "5.5.3",
-    "karma-typescript-es6-transform": "5.5.3",
+    "karma-spec-reporter": "0.0.36",
+    "karma-typescript": "5.5.4",
+    "karma-typescript-es6-transform": "5.5.4",
     "mocha": "9.2.2",
     "typescript": "4.3.4",
-    "webpack": "5.76.0",
-    "webpack-cli": "4.9.2",
-    "webpack-dev-server": "4.9.0"
+    "webpack": "5.109.2",
+    "webpack-cli": "4.10.0",
+    "webpack-dev-server": "4.15.2"
   }
 }

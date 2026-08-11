@@ -38,18 +38,18 @@
     "@firebase/app-compat": "0.x"
   },
   "dependencies": {
-    "@firebase/storage": "0.9.6",
-    "@firebase/storage-types": "0.6.0",
-    "@firebase/util": "1.6.0",
-    "@firebase/component": "0.5.14",
+    "@firebase/storage": "0.14.4",
+    "@firebase/storage-types": "0.8.4",
+    "@firebase/util": "1.15.2",
+    "@firebase/component": "0.7.4",
     "tslib": "^2.4.0"
   },
   "devDependencies": {
-    "@firebase/app-compat": "0.1.26",
-    "@firebase/auth-compat": "0.2.15",
-    "rollup": "2.77.0",
+    "@firebase/app-compat": "0.5.16",
+    "@firebase/auth-compat": "0.6.9",
+    "rollup": "2.80.0",
     "@rollup/plugin-json": "4.1.0",
-    "rollup-plugin-typescript2": "0.32.1",
+    "rollup-plugin-typescript2": "0.37.0",
     "typescript": "4.7.4"
   },
   "files": [

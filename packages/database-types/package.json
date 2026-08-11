@@ -12,8 +12,8 @@
     "index.d.ts"
   ],
   "dependencies": {
-    "@firebase/app-types": "0.7.0",
-    "@firebase/util": "1.6.0"
+    "@firebase/app-types": "0.9.5",
+    "@firebase/util": "1.15.2"
   },
   "repository": {
     "directory": "packages/database-types",

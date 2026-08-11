@@ -16,10 +16,10 @@
     "test": "tsc -p . --noEmit"
   },
   "dependencies": {
-    "@changesets/types": "5.1.0",
-    "@changesets/get-github-info": "0.5.1",
-    "node-fetch": "3.2.6",
-    "@types/node-fetch": "2.6.1"
+    "@changesets/types": "5.2.1",
+    "@changesets/get-github-info": "0.8.0",
+    "node-fetch": "3.3.2",
+    "@types/node-fetch": "2.6.13"
   },
   "license": "Apache-2.0",
   "devDependencies": {

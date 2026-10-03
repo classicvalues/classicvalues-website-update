@@ -85,7 +85,7 @@
     "@firebase/webchannel-wrapper": "0.6.1",
     "@grpc/grpc-js": "^1.6.8",
     "@grpc/proto-loader": "^0.6.0",
-    "node-fetch": "3.2.6",
+    "node-fetch": "3.2.10",
     "tslib": "^2.4.0"
   },
   "peerDependencies": {

@@ -55,7 +55,7 @@ jobs:
           git diff > .github-pr.x-add-version.diff
           git reset HEAD~ --mixed
 
-      - uses: actions/github-script@v6
+      - uses: actions/github-script@v9
         with:
           script: |
             const { promises: fs } = require('fs')

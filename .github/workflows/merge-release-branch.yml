@@ -23,7 +23,7 @@ jobs:
         run: |
           echo "Merging release ${{ steps.get-version.outputs.RELEASE_VERSION }}"
       - name: Merge to master
-        uses: actions/github-script@v6
+        uses: actions/github-script@v9
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
